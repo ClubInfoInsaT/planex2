@@ -1,5 +1,10 @@
 package com.pijodev.insatpe2;
 
+/**
+ * 
+ * @author Proïd
+ *
+ */
 public class Schedule {
 	/** TODO
 	 * Contient les données d'un emploi du temps pour une semaine.

@@ -9,6 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * Représentation graphique d'un cours
+ * @author Proïd
+ *
+ */
 public class EntryView extends RelativeLayout {
 	
 	TextView mGroupIdentifier;

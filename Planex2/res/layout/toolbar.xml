@@ -12,7 +12,7 @@
     <ImageButton
         android:id="@+id/ib_prev"
         android:layout_width="wrap_content"
-				android:layout_height="37dp"
+		android:layout_height="wrap_content"
         android:background="#0000"
         android:layout_marginRight="5dp"
         android:contentDescription="@string/description"
@@ -21,19 +21,22 @@
     <HorizontalScrollView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
         android:layout_weight="1"
-       	android:layout_marginRight="5dp"
-        android:scrollbars="none">
+        android:scrollbars="none" >
         
 	    <LinearLayout
+	        android:id="@+id/ll_groups"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content">
+	        android:layout_height="wrap_content" >
 			
 	        <Button 
-	            android:id="@+id/b_newgroup"
+	            android:id="@+id/b_add_group"
 	            android:layout_width="wrap_content"
-				android:layout_height="37dp"
-	            android:text="Groupe wesh !"/>
+				android:layout_height="wrap_content"
+				android:background="@drawable/button_text"
+	            android:text=" + "
+	            android:textStyle="bold"/>
 	        
 	    </LinearLayout>
 	    
@@ -42,7 +45,7 @@
     <ImageButton
         android:id="@+id/ib_current"
         android:layout_width="wrap_content"
-				android:layout_height="37dp"
+		android:layout_height="wrap_content"
         android:background="#0000"
        	android:layout_marginRight="5dp"
        	android:contentDescription="@string/description"
@@ -51,7 +54,7 @@
     <ImageButton
         android:id="@+id/ib_next"
         android:layout_width="wrap_content"
-				android:layout_height="37dp"
+		android:layout_height="wrap_content"
         android:background="#0000"
        	android:contentDescription="@string/description"
         android:src="@drawable/next"/>

@@ -10,6 +10,11 @@ import android.widget.TextView;
 import com.awprog.view.IXYScrollView;
 import com.awprog.view.IXYScrollView.OnScrollChangedListener;
 
+/**
+ * 
+ * @author Proïd
+ *
+ */
 public class WeekView {
 	// Scroll view principale
 	private IXYScrollView mScrollView;

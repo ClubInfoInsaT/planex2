@@ -2,6 +2,11 @@ package com.pijodev.insatpe2;
 
 import android.os.AsyncTask;
 
+/**
+ * Gère la chargement asynchrone et thread-safe des données depuis l'Internet
+ * @author Proïd
+ *
+ */
 public class AsyncLoader extends AsyncTask<UserSession, Void, Schedule> /*TODO change that*/ {
 	private ScheduleActivity mActivity;
 	

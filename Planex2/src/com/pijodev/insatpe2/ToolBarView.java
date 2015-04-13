@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pijodev.insatpe2.GroupSelectorView.OnGroupSelectedListener;
 
@@ -48,7 +49,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 	/**** Gestion de la sélection de groupes ****/
 	
 	/** Initialise les vues associées à la sélection de groupes **/
-	private void initGroupViews(ScheduleActivity activity) {
+	private void initGroupViews(final ScheduleActivity activity) {
 		mGroupSelector = new TreeGroupSelectorView(activity);
 		mGroupSelector.setOnGroupSelectedListener(this);
 		
@@ -56,7 +57,10 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mGroupsLayout.getChildAt(0).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mGroupSelector.show(-1, -1);
+				if(mUserSession.getGroups().size() >= 10)
+					Toast.makeText(activity, "Trop, c'est trop !", Toast.LENGTH_SHORT).show();
+				else
+					mGroupSelector.show(-1, -1);
 			}
 		});
 	}

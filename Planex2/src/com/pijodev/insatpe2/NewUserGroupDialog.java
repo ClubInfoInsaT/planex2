@@ -1,5 +1,6 @@
 package com.pijodev.insatpe2;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -17,31 +18,32 @@ import android.widget.Toast;
  *
  */
 public class NewUserGroupDialog implements OnClickListener {
-	private AlertDialog mDialogNewUserGroup;
-	private EditText mNameNewUserGroup;
-	private EditText mIDNewUserGroup;
+	private AlertDialog mDialog;
+	private EditText mName;
+	private EditText mID;
 	private OnNewUserGroupCreatedListener mListener;
 	private Context mContext;
 	
 	public NewUserGroupDialog(Context context, OnNewUserGroupCreatedListener listener) {
 		mContext = context;
-		mDialogNewUserGroup = build(context);
+		mDialog = build(context);
 		mListener = listener;
 	}
 	
 	/** Affiche la fenêtre **/
 	public void show() {
-		mNameNewUserGroup.setText("");
-		mIDNewUserGroup.setText("");
-		mDialogNewUserGroup.show();
+		mName.setText("");
+		mID.setText("");
+		mDialog.show();
 	}
 	
 	/** Crée la fenêtre et son contenu **/
+	@SuppressLint("InflateParams") 
 	private AlertDialog build(Context context) {
 		Builder builder = new Builder(context);
 		ViewGroup view = (ViewGroup) LayoutInflater.from(context).inflate(R.layout.new_user_group, null);
-		mNameNewUserGroup = (EditText) view.getChildAt(0);
-		mIDNewUserGroup = (EditText) view.getChildAt(1);
+		mName = (EditText) view.getChildAt(0);
+		mID = (EditText) view.getChildAt(1);
 		builder.setView(view);
 		
 		builder.setTitle("Nouveau groupe");
@@ -85,13 +87,13 @@ public class NewUserGroupDialog implements OnClickListener {
 	/** Fonction appelée lorsqu'on clique sur le bouton 'Ajouter' **/
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
-		int id = getIDFromString(mIDNewUserGroup.getText().toString());
+		int id = getIDFromString(mID.getText().toString());
 		if(id == -1) {
 			Toast.makeText(mContext, "Numéro invalide", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		
-		String name = getNameFromString(mNameNewUserGroup.getText().toString());
+		String name = getNameFromString(mName.getText().toString());
 		if(name == null) {
 			Toast.makeText(mContext, "Nom invalide", Toast.LENGTH_SHORT).show();
 			return;

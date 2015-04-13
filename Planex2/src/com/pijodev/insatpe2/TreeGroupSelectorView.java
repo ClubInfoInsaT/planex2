@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pijodev.insatpe2.GroupList.Group;
+import com.pijodev.insatpe2.GroupListUpdater.OnGroupListUpdatedListener;
 import com.pijodev.insatpe2.NewUserGroupDialog.OnNewUserGroupCreatedListener;
 
 /**
@@ -36,9 +37,11 @@ import com.pijodev.insatpe2.NewUserGroupDialog.OnNewUserGroupCreatedListener;
  * @author Proïd
  *
  */
-public class TreeGroupSelectorView extends GroupSelectorView implements OnItemClickListener, OnNewUserGroupCreatedListener, OnItemLongClickListener {
+public class TreeGroupSelectorView extends GroupSelectorView
+		implements OnItemClickListener, OnNewUserGroupCreatedListener, OnItemLongClickListener, OnGroupListUpdatedListener {
 	private AlertDialog mDialog;
-	private LinearLayout mTitleView;
+	private LinearLayout mPathView;
+	private View mDeleteTarget;
 	private Adapter mListAdapter;
 	private LinkedList<GroupNameTree> mPath = new LinkedList<>();
 	private GroupNameTree mRoot;
@@ -55,17 +58,15 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 		ViewGroup view = (ViewGroup) LayoutInflater.from(mContext).inflate(R.layout.group_tree_selector, null);
 		
 		// Titre
-		mTitleView = (LinearLayout) view.findViewById(R.id.ll_group_path);
-
+		mPathView = (LinearLayout) view.findViewById(R.id.ll_group_path);
+		
 		// Bouton téléchargement 
 		View update = view.findViewById(R.id.b_group_list_update);
+		final GroupListUpdater listUpdaterDialog = new GroupListUpdater(mContext, this);
 		update.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				ProgressDialog pd = new ProgressDialog(mContext);
-				pd.setTitle("Mise à jour de la liste");
-				pd.setIndeterminate(true);
-				pd.show();
+				listUpdaterDialog.show();
 			}
 		});
 		// Bouton nouveau groupe
@@ -77,8 +78,8 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 			}
 		});
 		// Bouton supprimer la cible
-		View del = view.findViewById(R.id.ib_group_delete);
-		del.setOnClickListener(new View.OnClickListener() {
+		mDeleteTarget = view.findViewById(R.id.ib_group_delete);
+		mDeleteTarget.setOnClickListener(new View.OnClickListener() {
 			@Override public void onClick(View v) {
 				if(mGroupSelectedListener != null)
 					mGroupSelectedListener.onGroupSelected(-1, mTarget);
@@ -149,6 +150,15 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 		mRoot.getPath(id, mPath);
 		applyPath();
 	}
+
+	/** Fonction appelée lorsque la mise à jour de la liste a été téléchargé **/
+	@Override
+	public void onGroupListUpdated() {
+		mRoot = GroupNameTree.buildTree();
+		mPath.clear();
+		mPath.addLast(mRoot);
+		applyPath();
+	}
 	
 	/** Si l'ID est différent de -1, positionne le chemin afin d'avoir accès à l'ID un clic
 	 * Affiche la fenêtre. **/
@@ -156,10 +166,17 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 		mTarget = target;
 		
 		if(defaultId != -1) {
+			// le bouton 'supprimer la cible' est disponible
+			mDeleteTarget.setEnabled(true);
+			// On se positionne correctement
 			mPath.clear();
 			if(!mRoot.getPath(defaultId, mPath))
 				mPath.addLast(mRoot);
 			applyPath();
+		}
+		else {
+			// On cherche à ajouter un nouveau groupe, le bouton 'supprimer la cible' n'est pas utile
+			mDeleteTarget.setEnabled(false);
 		}
 		
 		mDialog.show();
@@ -188,9 +205,9 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 	/** Se positionne dans l'arbre en fonction du chemin. Met également à jour le titre **/
 	private void applyPath() {
 		// Reconstitution du titre
-		mTitleView.removeAllViews();
+		mPathView.removeAllViews();
 		for(GroupNameTree grp : mPath) {
-			mTitleView.addView(createTitlePart(grp));
+			mPathView.addView(createTitlePart(grp));
 		}
 		
 		// Mise à jour le contenu de la liste 
@@ -492,5 +509,6 @@ public class TreeGroupSelectorView extends GroupSelectorView implements OnItemCl
 			return lastCommonSpace;
 		}
 	}
+
 
 }

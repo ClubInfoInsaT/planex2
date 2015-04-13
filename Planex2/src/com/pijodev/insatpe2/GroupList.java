@@ -209,9 +209,20 @@ public class GroupList {
 		}
 	}
 	
-	/** Charge la liste officielle des groupes depuis planning express **/
-	public static void update() {
-		// TODO
+	/** Met à jour la liste de groupe par défaut **/
+	public static void update(ArrayList<Group> defaultGroups) {
+		// On vide la liste
+		mListGroups.clear();
+		
+		// On réinsère les groupes utilisateur
+		for(int i = 0; i < mUserGroups.size(); i++)
+			mListGroups.add(mUserGroups.valueAt(i));
+		
+		// On met à jour les groupes par défaut
+		mDefaultGroups.clear();
+		mListGroups.addAll(defaultGroups);
+		for(Group g : defaultGroups)
+			mDefaultGroups.put(g.id, g);
 	}
 	
 	/** Ajoute une groupe à la liste utilisateur **/

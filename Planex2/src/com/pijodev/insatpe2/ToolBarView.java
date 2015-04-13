@@ -48,7 +48,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 	/**** Gestion de la sélection de groupes ****/
 	
 	/** Initialise les vues associées à la sélection de groupes **/
-	public void initGroupViews(ScheduleActivity activity) {
+	private void initGroupViews(ScheduleActivity activity) {
 		mGroupSelector = new TreeGroupSelectorView(activity);
 		mGroupSelector.setOnGroupSelectedListener(this);
 		
@@ -56,7 +56,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mGroupsLayout.getChildAt(0).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mGroupSelector.show(-1);
+				mGroupSelector.show(-1, -1);
 			}
 		});
 	}
@@ -135,7 +135,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 		b.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mGroupSelector.show(v.getId());
+				mGroupSelector.show(v.getId(), mUserSession.getGroups().get(v.getId()));
 			}
 		});
 		
@@ -146,7 +146,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 	/**** Boutons de changement de semaine ****/
 	
 	/** Initialise les boutons associés au changement de semaine **/
-	public void initWeekButtons(ScheduleActivity activity) {
+	private void initWeekButtons(ScheduleActivity activity) {
 		mPrevButton = (ImageButton) mLayout.findViewById(R.id.ib_prev);
 		mNextButton = (ImageButton) mLayout.findViewById(R.id.ib_next);
 		mCurrentButton = (ImageButton) mLayout.findViewById(R.id.ib_current);
@@ -172,15 +172,15 @@ public class ToolBarView implements OnGroupSelectedListener {
 	}
 	
 	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	public void setPrevButtonEnabled(boolean enabled) {
+	private void setPrevButtonEnabled(boolean enabled) {
 		mPrevButton.setEnabled(enabled);
 	}
 	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	public void setNextButtonEnabled(boolean enabled) {
+	private void setNextButtonEnabled(boolean enabled) {
 		mNextButton.setEnabled(enabled);
 	}
 	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	public void setCurrentButtonEnabled(boolean enabled) {
+	private void setCurrentButtonEnabled(boolean enabled) {
 		mCurrentButton.setEnabled(enabled);
 	}
 

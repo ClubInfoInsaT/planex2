@@ -42,7 +42,7 @@ public class Cache {
 	
 	/** Charge le cache depuis le fichier de sauvegarde **/
 	private static void load(Context context) {
-		mCache = new SparseArray<>();
+		mCache = new SparseArray<WeekEntries>();
 		
 		try {
 			FileInputStream fis = context.openFileInput(cacheFileName);
@@ -72,6 +72,8 @@ public class Cache {
 	
 	/** Enregistre le cache **/
 	public static void save(Context context) {
+		if(mCache == null)
+			return;
 		try {
 			FileOutputStream fos = context.openFileOutput(cacheFileName, 0);
 			DataOutputStream dos = new DataOutputStream(fos);
@@ -92,7 +94,10 @@ public class Cache {
 	
 	/** Efface tout le cache **/
 	public void clear() {
-		mCache.clear();
+		if(mCache != null)
+			mCache.clear();
+		else
+			mCache = new SparseArray<WeekEntries>();
 	}
 	
 	/** Donne le l'ID du cache correspondant à une semaine et un groupe **/

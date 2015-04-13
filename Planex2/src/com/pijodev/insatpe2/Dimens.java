@@ -13,6 +13,7 @@ public class Dimens {
 	private static Context mContext;
 	// Dimensions principales 
 	public static int columnWidth, columnHeight;
+	public static int columnRightMargin;
 	public static int hourHeight;
 	public static int entryTextSize;
 	
@@ -21,6 +22,7 @@ public class Dimens {
 		columnWidth = getPixel(R.dimen.column_width);
 		hourHeight = getPixel(R.dimen.hours_height);
 		columnHeight = hourHeight * 15;
+		columnRightMargin = getPixel(R.dimen.separator_width);
 		entryTextSize = getPixel(R.dimen.entry_text_size);
 	}
 	

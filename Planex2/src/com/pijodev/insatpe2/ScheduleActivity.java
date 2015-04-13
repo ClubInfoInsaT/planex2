@@ -29,7 +29,6 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		initialize();
 
 		mSession = new UserSession(this);
-		// TODO better please!
 		mSession.setOnParamsChangedListener(this);
 		
 		loadViews();
@@ -50,6 +49,19 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		GroupList.save(this);
 	}
 	
+	
+	private boolean mIsScrollInitialized = false;
+	/** Contient les initialisations à faire seulement une fois que les vues sont visibles **/
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		// On centre la vue sur le jour actuel, seulement au lancement de l'appli
+		if(hasFocus && !mIsScrollInitialized) {
+			mScheduleView.centerOnDay(DateUtils.getDayOfWeek());
+			mIsScrollInitialized = true;
+		}
+	}
+	
 	/** Initialise les classes statiques **/
 	private void initialize() {
 		Dimens.initialize(this);
@@ -60,6 +72,7 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	/** Initialise les vues composants l'interface **/
 	private void loadViews() {
 		mToolBarView = new ToolBarView(this);
+		
 		mScheduleView = new WeekView(this);
 	}
 

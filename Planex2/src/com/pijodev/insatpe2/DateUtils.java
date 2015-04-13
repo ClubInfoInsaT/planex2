@@ -15,14 +15,14 @@ public class DateUtils {
 
 		// si on on est samedi, on se place au lundi suivant
 		if(calendar.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY)
-			calendar.add(GregorianCalendar.DAY_OF_MONTH, 2);
+			calendar.roll(GregorianCalendar.DAY_OF_MONTH, 2);
 		// si on on est dimanche, on se place au lundi suivant
 		else if(calendar.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SUNDAY)
-			calendar.add(GregorianCalendar.DAY_OF_MONTH, 1);
+			calendar.roll(GregorianCalendar.DAY_OF_MONTH, 1);
 		// Sinon, on remonte jusqu'au premier jour de la semaine
 		else
 			while(calendar.get(GregorianCalendar.DAY_OF_WEEK) != GregorianCalendar.MONDAY)
-				calendar.add(GregorianCalendar.DAY_OF_MONTH, -1);
+				calendar.roll(GregorianCalendar.DAY_OF_MONTH, -1);
 		
 		return calendar;
 	}
@@ -35,16 +35,30 @@ public class DateUtils {
 	public static GregorianCalendar getDayOfWeek(int relativeWeek, int day) {
 		GregorianCalendar calendar = getMondayOfCurrentWeek();
 		
-		calendar.add(GregorianCalendar.DAY_OF_MONTH, 7*relativeWeek + day);
+		calendar.roll(GregorianCalendar.DAY_OF_MONTH, 7*relativeWeek + day);
 		
 		return calendar;
 	}
 	/** Retourne la date du lundi d'une semaine relative à la semaine courante **/
-	public static GregorianCalendar getDayOfWeek(int relativeWeek) {
+	public static GregorianCalendar getMondayOfWeek(int relativeWeek) {
 		GregorianCalendar calendar = getMondayOfCurrentWeek();
 		
-		calendar.add(GregorianCalendar.DAY_OF_MONTH, 7*relativeWeek);
+		calendar.roll(GregorianCalendar.DAY_OF_MONTH, 7*relativeWeek);
 		
 		return calendar;
+	}
+	/** Retourne le jour de la semaine de la date actuelle **/
+	public static int getDayOfWeek() {
+		GregorianCalendar calendar = new GregorianCalendar();
+		calendar.setFirstDayOfWeek(GregorianCalendar.MONDAY);
+		
+		// si on on est samedi, on se place au lundi suivant
+		if(calendar.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SATURDAY)
+			calendar.roll(GregorianCalendar.DAY_OF_MONTH, 2);
+		// si on on est dimanche, on se place au lundi suivant
+		else if(calendar.get(GregorianCalendar.DAY_OF_WEEK) == GregorianCalendar.SUNDAY)
+			calendar.roll(GregorianCalendar.DAY_OF_MONTH, 1);
+		
+		return calendar.get(GregorianCalendar.DAY_OF_WEEK) - GregorianCalendar.MONDAY; 
 	}
 }

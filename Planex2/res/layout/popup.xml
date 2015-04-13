@@ -57,7 +57,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="right"
-        android:textSize="10sp"
+        android:textSize="10dp"
         android:text="Touchez pour fermer"
         android:textColor="#a000"/>
 

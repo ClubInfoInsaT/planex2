@@ -35,8 +35,7 @@
 	            android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:background="@drawable/button_text"
-	            android:text=" + "
-	            android:textStyle="bold"/>
+	            android:text=" \u271A "/>
 	        
 	    </LinearLayout>
 	    

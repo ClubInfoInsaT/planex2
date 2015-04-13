@@ -50,14 +50,19 @@ public class UserSession {
 		// Groupes visionnés
 		mGroups.clear();
 		int count = prefs.getInt("group-count", 0);
-		for(int i = 0; i < count; i++)
-			mGroups.add(prefs.getInt("group"+i, -1));
+		for(int i = 0; i < count; i++) {
+			int id = prefs.getInt("group"+i, -1);
+			if(GroupList.isExisting(id))
+				mGroups.add(id);
+		}
+		
 		// Historique
 		mHistory.clear();
 		int size = prefs.getInt("hist-size", 0);
 		for(int i = 0; i < size; i++) {
-			if(prefs.getInt("hist"+i, -1) != -1)
-				mHistory.add(prefs.getInt("hist"+i, -1));
+			int id = prefs.getInt("hist"+i, -1); 
+			if(GroupList.isExisting(id))
+				mHistory.add(id);
 		}
 	}
 	

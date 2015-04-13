@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.util.SparseArray;
+import android.widget.EditText;
 
 /**
  * Contient la liste des groupes (nom, id) enregistrés
@@ -52,6 +55,38 @@ public class GroupList {
 			return g;
 		
 		return null;
+	}
+	/** Retourne vrai si le groupe associé à cette ID existe dans les listes */
+	public static boolean isExisting(int id) {
+		return getGroup(id) != null;
+	}
+	
+	/** Indique si le groupe a été ajouté dans la liste par l'utilisateur */
+	public static boolean isUserGroup(int id) {
+		return mUserGroups.get(id) != null;
+	}
+	/** Ajoute un groupe dans la liste utilisateur 
+	 * @throws Exception ID/nom de groupe déjà existant **/
+	public static void addUserGroup(String name, int id) throws Exception {
+		if(getGroup(id) != null)
+			throw new Exception("Cet identifiant de groupe existe déjà !");
+		for(Group g : mListGroups)
+			if(g.name.equals(name))
+				throw new Exception("Ce nom de groupe existe déjà !");
+		Group grp = new Group(name, id);
+		mUserGroups.put(id, grp);
+		mListGroups.add(grp);
+	}
+	/** Supprime un groupe de la liste utilisateur.
+	 * Retourne vrai si la suppression a été effectuée avec succès **/
+	public static boolean removeUserGroup(int id) {
+		if(isUserGroup(id)) {
+			mListGroups.remove(mUserGroups.get(id));
+			mUserGroups.remove(id);
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	/** Retourne la liste complète des groupes **/
@@ -186,18 +221,6 @@ public class GroupList {
 		}
 	}
 	
-	/** TODO compléter et utiliser ceci
-	 * Retourne la liste des groupes dont le nom du groupe contient la chaîne de caractère donnée ** /
-	public LinkedList<Group> filter(String keyword) {
-		LinkedList<Group> list = new LinkedList<>();
-		keyword = keyword.toLowerCase(Locale.getDefault()).replace(" ", "");
-		for(Group g : mListGroups) {
-			if(g.name.toLowerCase(Locale.getDefault()).replace(" ", "").contains(keyword))
-				list.add(g);
-		}
-		
-		return list;
-	}*/
 	
 	static class Group {
 		public String name;

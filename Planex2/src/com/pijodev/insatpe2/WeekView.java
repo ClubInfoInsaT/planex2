@@ -48,9 +48,17 @@ public class WeekView {
 		setDates();
 	}
 	
-	/** **/
+	/** Centre la vue sur le jour donné **/
+	public void centerOnDay(int day) {
+		int colWidth = mColumnDay[0].getWidth();
+		int screenWidth = mScrollView.getWidth();
+		int position = day * colWidth + (day-1) * Dimens.columnRightMargin - (screenWidth - colWidth) / 2;
+		int scroll = Math.min(Math.max(0, position),  colWidth*5+Dimens.columnRightMargin*4-screenWidth);
+		mScrollView.scrollTo(scroll, 0);
+	}
+	
+	/** Permet à la barre des jours de s'aligner automatiquement avec le scrollView **/
 	private void enableDayBarAutoScroll() {
-		/** Permet à la barre des jours de s'aligner automatiquement avec le scrollView **/
 		mScrollView.setOnScrollChangedListener(new OnScrollChangedListener() {
 			@Override
 			public void onScrollChanged(int x, int y, int oldX, int oldY) {
@@ -82,6 +90,7 @@ public class WeekView {
 	
 	/** Met à jour l'intitulé des colonnes avec la bonne date **/
 	private void setDates() {
+		// TODO
 		String day[] = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi"};
 		for(int i = 0; i < 5; i++) {
 			mTitleDay[i].setText(day[i] + "\t01.01.1970");

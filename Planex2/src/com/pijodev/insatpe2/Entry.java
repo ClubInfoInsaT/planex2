@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import android.sax.StartElementListener;
+
 /**
  * Contient les attributs qui caractérisent un cours
  * 
@@ -150,6 +152,34 @@ public class Entry {
 	}
 	public void setColor(int color) {
 		this.mColor = color;
+	}
+
+	/** Compare deux cours pour vérifier s'ils sont strictement identiques **/
+	@Override
+	public boolean equals(Object o) {
+		Entry e = (Entry) o;
+		return (mClassName.equals(e.mClassName)
+				&& mRoomName.equals(e.mRoomName)
+				&& mProfessorName.equals(e.mProfessorName)
+				&& mStartTime == e.mStartTime
+				&& mEndTime == e.mEndTime
+				&& mColor == e.mColor);
+	}
+	/** Compare deux cours **/
+	public int compareTo(Entry o) {
+		Entry e = (Entry) o;
+		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
+		if(a != 0) return a;
+		a = ((Integer)mEndTime).compareTo(e.mEndTime);
+		if(a != 0) return a;
+		a = mClassName.compareTo(e.mClassName);
+		if(a != 0) return a;
+		a = mRoomName.compareTo(e.mRoomName);
+		if(a != 0) return a;
+		a = mProfessorName.compareTo(e.mProfessorName);
+		if(a != 0) return a;
+		a = ((Integer)mColor).compareTo(e.mColor);
+		return a;
 	}
 	
 	/** Modifie la date du jour, utilisée dans la fenêtre pop-up **/

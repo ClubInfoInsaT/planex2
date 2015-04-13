@@ -16,21 +16,17 @@ public class AsyncLoader extends AsyncTask<UserSession, Void, Schedule> /*TODO c
 	
 	@Override
 	protected Schedule doInBackground(UserSession... params) {
-		// TODO Auto-generated method stub
+		// TODO téléchargement des données
+		// TODO parsing et mise en cache
+		// TODO En cas d'erreur, chargement du cache
+		// TODO création d'un Schedule
 		return null;
 	}
 	
 	@Override
 	protected void onPostExecute(Schedule result) {
-		// TODO Auto-generated method stub
-		// Save in the cache
-		// display on GUI
-	}
-	
-	@Override
-	protected void onPreExecute() {
-		// TODO Auto-generated method stub
-		// ?
+		// TODO Save in the cache
+		// TODO display on GUI
 	}
 	
 	/// TODO this function is not called on API < 11
@@ -43,7 +39,6 @@ public class AsyncLoader extends AsyncTask<UserSession, Void, Schedule> /*TODO c
 	
 	@Override
 	protected void onCancelled() {
-		// TODO Auto-generated method stub
 		onCancelled(null);
 	}
 }

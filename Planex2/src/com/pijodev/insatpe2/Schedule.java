@@ -1,5 +1,7 @@
 package com.pijodev.insatpe2;
 
+import java.util.ArrayList;
+
 /**
  * 
  * @author Proïd
@@ -19,4 +21,7 @@ public class Schedule {
 	 * TODO : mise en forme des données pour savoir quels cours d'un groupe
 	 * se chevauchent avec ceux d'un autre -> positionnement sur la vue
 	 **/
+	public Schedule(ArrayList<Integer> groups, int week) {
+		
+	}
 }

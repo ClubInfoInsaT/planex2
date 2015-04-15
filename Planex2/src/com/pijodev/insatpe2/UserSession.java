@@ -111,6 +111,11 @@ public class UserSession {
 			mParamsListener.onParamsChanged(this, true, false);
 	}
 
+	/** Créer une requête avec les paramètres actuels de la session **/
+	public ScheduleRequest createRequest() {
+		return new ScheduleRequest(mGroups, mRelWeek);
+	}
+	
 	/** Change le numéro des groupes à visionner **/
 	public void setGroups(ArrayList<Integer> groups) {
 		mGroups.clear();

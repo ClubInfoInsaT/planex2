@@ -4,7 +4,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.GregorianCalendar;
+
+import android.util.Log;
 
 /**
  * Contient une liste de cours (Entry) pour chaque
@@ -21,14 +24,14 @@ public class WeekEntries {
 	/** Identifiant du groupe **/
 	private final int mGroupId;
 	/** Date de mise en cache **/
-	private final GregorianCalendar cacheDate;
+	private final GregorianCalendar mCacheDate;
 	
 	public WeekEntries(int week, int groupId) {
 		mWeek = week;
 		mGroupId = groupId;
 		for(int i = 0; i < 5; i++)
 			mEntries[i] = new ArrayList<Entry>();
-		cacheDate = new GregorianCalendar();
+		mCacheDate = DateUtils.today();
 	}
 	
 	/** Charge les données depuis un flux entrant 
@@ -42,7 +45,7 @@ public class WeekEntries {
 		int day = dis.readInt();
 		int hour = dis.readInt();
 		int minute = dis.readInt();
-		cacheDate = new GregorianCalendar(year, month, day, hour, minute);
+		mCacheDate = DateUtils.get(year, month, day, hour, minute);
 		
 		// Cours des 5 jours
 		for(int i = 0; i < 5; i++) {
@@ -60,12 +63,12 @@ public class WeekEntries {
 		dos.writeInt(mWeek);
 		dos.writeInt(mGroupId);
 		// Date
-		dos.writeInt(cacheDate.get(GregorianCalendar.YEAR));
-		dos.writeInt(cacheDate.get(GregorianCalendar.MONTH));
-		dos.writeInt(cacheDate.get(GregorianCalendar.DAY_OF_MONTH));
-		dos.writeInt(cacheDate.get(GregorianCalendar.HOUR));
-		dos.writeInt(cacheDate.get(GregorianCalendar.MINUTE));
-		
+		dos.writeInt(mCacheDate.get(GregorianCalendar.YEAR));
+		dos.writeInt(mCacheDate.get(GregorianCalendar.MONTH));
+		dos.writeInt(mCacheDate.get(GregorianCalendar.DAY_OF_MONTH));
+		dos.writeInt(mCacheDate.get(GregorianCalendar.HOUR_OF_DAY));
+		dos.writeInt(mCacheDate.get(GregorianCalendar.MINUTE));
+
 		// Cours des 5 jours
 		for(int i = 0; i < 5; i++) {
 			dos.writeInt(mEntries[i].size());
@@ -86,5 +89,33 @@ public class WeekEntries {
 	
 	public int getWeek() {
 		return mWeek;
+	}
+	
+	/** Retourne la date de mise en cache **/
+	public GregorianCalendar getCacheDate() {
+		return mCacheDate;
+	}
+	/** Retourne le nombre de secondes écoulées depuis la dernière mise à jour du cache **/
+	public long getCacheTime() {
+		long diff = DateUtils.today().getTimeInMillis() - mCacheDate.getTimeInMillis();
+		return diff / 1000;
+	}
+
+	/** Compare deux weekentries **/
+	public boolean equals(Object o) {
+		if(o == null)
+			return false;
+		WeekEntries w = (WeekEntries) o;
+		for(int i = 0; i < 5; i++) {
+			if(mEntries[i].size() != w.mEntries[i].size())
+				return false;
+			
+			// on trie pour mieux comparer, mais c'est pas top de retrier à chaque fois pour les performances
+			Collections.sort(mEntries[i]);
+			Collections.sort(w.mEntries[i]);
+			if(!mEntries[i].equals(w.mEntries[i]))
+				return false;
+		}
+		return true;
 	}
 }

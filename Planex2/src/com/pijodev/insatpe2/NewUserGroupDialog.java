@@ -56,7 +56,9 @@ public class NewUserGroupDialog implements OnClickListener {
 	public interface OnNewUserGroupCreatedListener {
 		/** Cette fonction est appelée après l'ajout avec succès
 		 * d'un nouveau groupe utilisateur dans GroupList **/
-		void onNewUserGroupCreated(int id);
+		void onNewUserGroupCreated(String name, int id);
+		/** Cette fonction est appelée après l'échec de la création d'un groupe utilisateur. **/
+		void onNewUserGroupFailed(String name, Integer id);
 	}
 
 	/** Transforme un String en entier, retourne -1 si non valide **/
@@ -88,14 +90,19 @@ public class NewUserGroupDialog implements OnClickListener {
 	@Override
 	public void onClick(DialogInterface dialog, int which) {
 		int id = getIDFromString(mID.getText().toString());
+		String name = getNameFromString(mName.getText().toString());
+		
 		if(id == -1) {
 			Toast.makeText(mContext, "Numéro invalide", Toast.LENGTH_SHORT).show();
+			if(mListener != null)
+				mListener.onNewUserGroupFailed(name, null);
 			return;
 		}
 		
-		String name = getNameFromString(mName.getText().toString());
 		if(name == null) {
 			Toast.makeText(mContext, "Nom invalide", Toast.LENGTH_SHORT).show();
+			if(mListener != null)
+				mListener.onNewUserGroupFailed(null, id);
 			return;
 		}
 		
@@ -107,6 +114,6 @@ public class NewUserGroupDialog implements OnClickListener {
 		}
 		
 		if(mListener != null)
-			mListener.onNewUserGroupCreated(id);
+			mListener.onNewUserGroupCreated(name, id);
 	}
 }

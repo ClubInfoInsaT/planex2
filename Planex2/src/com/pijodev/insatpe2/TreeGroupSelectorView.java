@@ -144,13 +144,24 @@ public class TreeGroupSelectorView extends GroupSelectorView
 	
 	/** Fonction appelée lorsqu'un nouveau groupe utilisateur a été ajouté à GroupList **/
 	@Override
-	public void onNewUserGroupCreated(int id) {
+	public void onNewUserGroupCreated(String name, int id) {
 		mPath.clear();
 		mRoot = GroupNameTree.buildTree();
 		mRoot.getPath(id, mPath);
 		applyPath();
 	}
-
+	/** Fonction appelée lorsque la création d'un groupe a échoué **/
+	@Override
+	public void onNewUserGroupFailed(String name, Integer id) {
+		// Si l'id est valide, l'erreur vient du fait que l'id demandé existe déjà
+		if(id != null) {
+			// On se place alors à l'endroit de l'id (~fonction recherche)
+			mPath.clear();
+			mRoot.getPath(id, mPath);
+			applyPath();
+		}
+	}
+	
 	/** Fonction appelée lorsque la mise à jour de la liste a été téléchargé **/
 	@Override
 	public void onGroupListUpdated() {

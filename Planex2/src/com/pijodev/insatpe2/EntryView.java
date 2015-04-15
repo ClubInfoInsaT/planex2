@@ -1,13 +1,18 @@
 package com.pijodev.insatpe2;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils.TruncateAt;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.pijodev.insatpe2.Schedule.ScheduleEntry;
 
 /**
  * Représentation graphique d'un cours
@@ -19,14 +24,14 @@ public class EntryView extends RelativeLayout {
 	TextView mGroupIdentifier;
 	
 	/** Construit la vue représentant de l'élément entry **/
-	public EntryView(Context context, final Entry entry, int subdivideCount, int position) {
+	public EntryView(Context context, final ScheduleEntry sentry) {
 		super(context);
 		
 		// Positionnement
-		setLayoutParams(getLayoutParams(entry, subdivideCount, position));
+		setLayoutParams(getLayoutParams(sentry));
 		
 		// Couleur d'arrière plan
-		setBackgroundColor(entry.getColor());
+		setBackgroundColor(sentry.entry.getColor() == 0xffffffff ? 0xfff8f8f8 : sentry.entry.getColor());
 		
 		// Contenu
 		LinearLayout ll = new LinearLayout(context);
@@ -40,10 +45,10 @@ public class EntryView extends RelativeLayout {
     	
     	// Nom du cours
 	    TextView tv_class = new TextView(context);
-		tv_class.setText(entry.getClassName());
+		tv_class.setText(sentry.entry.getSummary());
 		tv_class.setLayoutParams(params);
 		tv_class.setTextColor(0xFF000000);
-		tv_class.setTextSize(Dimens.entryTextSize);
+		tv_class.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize);
 		tv_class.setGravity(Gravity.CENTER);
 		tv_class.setTypeface(null, Typeface.BOLD);
 		tv_class.setSingleLine(true);
@@ -51,12 +56,12 @@ public class EntryView extends RelativeLayout {
 		ll.addView(tv_class);
 	   
 		// Salle
-		if(entry.hasRoomName()) {
+		if(sentry.entry.hasRoom()) {
 			TextView tv_room = new TextView(context);
-			tv_room.setText(entry.getRoomName());
+			tv_room.setText(sentry.entry.getRoom());
 			tv_room.setLayoutParams(params);
 			tv_room.setTextColor(0xff000000);
-			tv_room.setTextSize(Dimens.entryTextSize);
+			tv_room.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize);
 			tv_room.setGravity(Gravity.CENTER);
 			tv_room.setSingleLine(true);
 			tv_room.setEllipsize(TruncateAt.END);
@@ -65,50 +70,53 @@ public class EntryView extends RelativeLayout {
 		
 		// Heure
 		TextView tv_hour = new TextView(context);
-		tv_hour.setText(entry.getStringTime());
+		tv_hour.setText(sentry.entry.getStringTime());
 		tv_hour.setLayoutParams(params);
 		tv_hour.setTextColor(0xff000000);
-		tv_hour.setTextSize(Dimens.entryTextSize);
+		tv_hour.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize);
 		tv_hour.setGravity(Gravity.CENTER);
 		tv_hour.setSingleLine(true);
 		tv_hour.setEllipsize(TruncateAt.END);
 		ll.addView(tv_hour);
 		
-		// Logo : numero correpondant aux groupes secondaires
-		mGroupIdentifier = new TextView(context);
-		mGroupIdentifier.setVisibility(View.GONE);
-		mGroupIdentifier.setTextColor(0xffffff);
-		mGroupIdentifier.setTextSize(Dimens.entryTextSize*3/4);
-		mGroupIdentifier.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-		mGroupIdentifier.setBackgroundColor(0xff666666);
-		// positionné dans l'angle inférieur droit de la vue
-		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		lp.alignWithParent = true;
-		lp.rightMargin = 1;
-		lp.bottomMargin = 1;
-		mGroupIdentifier.setLayoutParams(lp);
-		addView(mGroupIdentifier);
+		// Logo : numéro correpondant aux groupes secondaires
+		String gidTxt = sentry.groupRefToString();
+		if(gidTxt != null) {
+			mGroupIdentifier = new TextView(context);
+			mGroupIdentifier.setBackgroundColor(0xAA444444);
+			mGroupIdentifier.setTextColor(0xAAffffff);
+			mGroupIdentifier.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
+			mGroupIdentifier.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+			mGroupIdentifier.setText(gidTxt);
+			mGroupIdentifier.setPadding(1, 0, 1, 0);
+			// positionné dans l'angle inférieur droit de la vue
+			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+			mGroupIdentifier.setLayoutParams(lp);
+			addView(mGroupIdentifier);
+		}
 		
 		
 		// On affiche le pop-up lorsqu'on clique sur la vue
 		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DetailPopUpView.show(entry);
+				DetailPopUpView.show(sentry.entry);
 			}
 		});
 	}
 	
 	/** Layout params pour positionner l'entry correctement dans la colonne **/
-	private LayoutParams getLayoutParams(Entry entry, int subdivideCount, int position) {
+	private LayoutParams getLayoutParams(ScheduleEntry sentry) {
 		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		
-		// Position et dimension en largeur 
-		params.leftMargin = position * Dimens.columnWidth / subdivideCount;
-		params.rightMargin = (position+1) * Dimens.columnWidth / subdivideCount;
+
+		// Position et dimension en largeur
+		params.leftMargin = (int) (sentry.getMeasuredPosition() * Dimens.columnWidth);
+		params.rightMargin = (int) ((1-(sentry.getMeasuredPosition()+sentry.getMeasuredWidth())) * Dimens.columnWidth);
 		// hauteur
-		params.topMargin = entry.getStartTime() * Dimens.hourHeight / 60;
-    	params.height = (entry.getEndTime()-entry.getStartTime()) * Dimens.hourHeight / 60;
+		params.topMargin = (int) (sentry.entry.getStartTime() * Dimens.hourHeight / 60);
+    	params.height = (int) ((sentry.entry.getEndTime()-sentry.entry.getStartTime()) * Dimens.hourHeight / 60);
     	
 		return params;
 	}

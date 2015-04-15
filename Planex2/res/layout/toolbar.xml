@@ -20,7 +20,7 @@
     
     <HorizontalScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
         android:scrollbars="none" >
@@ -28,12 +28,12 @@
 	    <LinearLayout
 	        android:id="@+id/ll_groups"
 	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" >
+	        android:layout_height="match_parent" >
 			
 	        <Button 
 	            android:id="@+id/b_add_group"
 	            android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:background="@drawable/button_text"
 	            android:text=" \u271A "/>
 	        

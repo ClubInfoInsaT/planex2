@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -57,7 +58,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mGroupsLayout.getChildAt(0).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(mUserSession.getGroups().size() >= 10)
+				if(mUserSession.getGroups().size() >= 9)
 					Toast.makeText(activity, "Trop, c'est trop !", Toast.LENGTH_SHORT).show();
 				else
 					mGroupSelector.show(-1, -1);
@@ -134,6 +135,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 		b.setText(GroupList.getGroupName(groupId));
 		b.setBackgroundResource(R.drawable.button_text);
 		b.setId(viewId);
+		b.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
 		
 		// Au clic, on affiche le fenêtre de sélection de groupe
 		b.setOnClickListener(new OnClickListener() {

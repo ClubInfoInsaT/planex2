@@ -1,13 +1,17 @@
 package com.pijodev.insatpe2;
 
+import java.util.ArrayList;
+
 import android.os.AsyncTask;
+import android.util.Log;
+import android.util.SparseArray;
 
 /**
  * Gère la chargement asynchrone et thread-safe des données depuis l'Internet
  * @author Proïd
  *
  */
-public class AsyncLoader extends AsyncTask<UserSession, Void, Schedule> /*TODO change that*/ {
+public class AsyncLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TODO change that*/ {
 	private ScheduleActivity mActivity;
 	
 	public AsyncLoader(ScheduleActivity activity) {
@@ -15,30 +19,50 @@ public class AsyncLoader extends AsyncTask<UserSession, Void, Schedule> /*TODO c
 	}
 	
 	@Override
-	protected Schedule doInBackground(UserSession... params) {
-		// TODO téléchargement des données
-		// TODO parsing et mise en cache
-		// TODO En cas d'erreur, chargement du cache
-		// TODO création d'un Schedule
-		return null;
+	protected Schedule doInBackground(ScheduleRequest... params) {
+		ScheduleRetriever sr = new ScheduleRetriever();
+		ArrayList<Integer> groups = params[0].getGroups();
+		int week = params[0].getRelWeek()+DateUtils.getCurrentWeek();
+		String data = null;
+		
+		// Téléchargement des données si nécessaire
+		if(!params[0].useOnlyCache())
+			data = sr.download(groups, week);
+		
+		if(isCancelled())
+			return null;
+		
+		boolean diff = false;
+		if(data != null) {
+			// Parsing du fichier obtenu
+			SparseArray<WeekEntries> we = sr.parse(data, groups, week);
+			
+			if(we != null) {
+				// Comparaison avec les données du cache et mise en cache
+				diff = false;
+				for(int i = 0; i < we.size(); i++) {
+					if(!diff && !we.valueAt(i).equals(Cache.getWeekEntries(week, we.keyAt(i), mActivity)))
+						diff = true;
+					Cache.putWeekEntries(we.valueAt(i), week, we.keyAt(i), mActivity);
+				}
+			}
+		}
+		
+		// si il n'y a pas de différences avec le cache et qu'on ne veut afficher que les mises à jours, on annule 
+		if(!diff && params[0].showOnlyUpdate()) {
+			this.cancel(false);
+			return null;
+		}
+		
+		// Création de l'emploi du temps de la semaine
+		Schedule schedule = new Schedule(params[0], mActivity);
+		 
+		return schedule;
 	}
 	
+	/** Fonction appelée dans le thread de la GUI lorsque le chargement est terminé **/
 	@Override
 	protected void onPostExecute(Schedule result) {
-		// TODO Save in the cache
-		// TODO display on GUI
-	}
-	
-	/// TODO this function is not called on API < 11
-	@Override
-	protected void onCancelled(Schedule result) {
-		// TODO Auto-generated method stub
-		// save in cache if not null
-		// do nothing on GUI
-	}
-	
-	@Override
-	protected void onCancelled() {
-		onCancelled(null);
+		mActivity.updateSchedule(result);
 	}
 }

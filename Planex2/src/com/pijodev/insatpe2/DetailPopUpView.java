@@ -53,17 +53,17 @@ public class DetailPopUpView {
 	
 	/** Affiche une boîte de dialogue contenant les informations de l'élément donné **/
 	static public void show(Entry entry) {
-		mTextClassName.setText(entry.getClassName());
+		mTextClassName.setText(entry.getSummary());
 		
 		mTextDate.setText("Date : " + entry.getStringDate());
 		
 		mTextHour.setText("Durée : " + entry.getStringDuration());
 		
-		mTextRoomName.setVisibility(entry.hasRoomName() ? View.VISIBLE : View.GONE);
-		mTextRoomName.setText("Salle : " + entry.getRoomName());
+		mTextRoomName.setVisibility(entry.hasRoom() ? View.VISIBLE : View.GONE);
+		mTextRoomName.setText("Salle : " + entry.getRoom());
 		
-		mTextProfessor.setVisibility(entry.hasProfessorName() ? View.VISIBLE : View.GONE);
-		mTextProfessor.setText("Enseignant : " + entry.getProfessorName());
+		mTextProfessor.setVisibility(entry.hasProfessor() ? View.VISIBLE : View.GONE);
+		mTextProfessor.setText("Enseignant : " + entry.getProfessor());
 		
 		mLayout.setBackgroundColor(entry.getColor());
 		

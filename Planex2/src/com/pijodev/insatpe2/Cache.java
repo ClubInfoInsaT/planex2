@@ -27,21 +27,21 @@ public class Cache {
 	
 	
 	/** Retourne les données du cache pour un ID (groupe+semaine)**/
-	public static WeekEntries getWeekEntries(int week, int group, Context context) {
+	synchronized public static WeekEntries getWeekEntries(int week, int group, Context context) {
 		if(mCache == null)
 			load(context);
 		return mCache.get(getCacheId(week, group));
 	}
 	
 	/** Insère des données dans le cache. Remplace les données précédentes. **/
-	public static void putWeekEntries(WeekEntries data, int week, int group, Context context) {
+	synchronized public static void putWeekEntries(WeekEntries data, int week, int group, Context context) {
 		if(mCache == null)
 			load(context);
 		mCache.put(getCacheId(week, group), data);
 	}
 	
 	/** Charge le cache depuis le fichier de sauvegarde **/
-	private static void load(Context context) {
+	synchronized private static void load(Context context) {
 		mCache = new SparseArray<WeekEntries>();
 		
 		try {
@@ -71,7 +71,7 @@ public class Cache {
 	}
 	
 	/** Enregistre le cache **/
-	public static void save(Context context) {
+	synchronized public static void save(Context context) {
 		if(mCache == null)
 			return;
 		try {
@@ -93,7 +93,7 @@ public class Cache {
 	}
 	
 	/** Efface tout le cache **/
-	public void clear() {
+	synchronized public void clear() {
 		if(mCache != null)
 			mCache.clear();
 		else

@@ -6,20 +6,18 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import android.sax.StartElementListener;
-
 /**
  * Contient les attributs qui caractérisent un cours
  * 
  * @author Proïd
  */
-public class Entry {
+public class Entry implements Comparable<Entry> {
 	/** Nom du cours **/
-	private String mClassName = "";
+	private String mSummary = "";
 	/** Nom de la salle **/
-	private String mRoomName = "";
+	private String mRoom = "";
 	/** Nom du prof **/
-	private String mProfessorName = "";
+	private String mProfessor = "";
 	/** Horaire de début du cours en minutes depuis 8 heure du matin **/
 	private int mStartTime;
 	/** Horaire de fin du cours en minutes depuis 8 heure du matin **/
@@ -45,15 +43,15 @@ public class Entry {
 		// ClassName
 		length = dis.readInt();
 		dis.read(buffer, 0, length);
-		mClassName = new String(buffer, 0, length);
+		mSummary = new String(buffer, 0, length);
 		// RoomName
 		length = dis.readInt();
 		dis.read(buffer, 0, length);
-		mRoomName = new String(buffer, 0, length);
+		mRoom = new String(buffer, 0, length);
 		// ProfessorName
 		length = dis.readInt();
 		dis.read(buffer, 0, length);
-		mProfessorName = new String(buffer, 0, length);
+		mProfessor = new String(buffer, 0, length);
 		// Horaires
 		mStartTime = dis.readInt();
 		mEndTime = dis.readInt();
@@ -71,13 +69,16 @@ public class Entry {
 		byte[] buffer;
 		
 		// ClassName
-		buffer = mClassName.getBytes();
+		buffer = mSummary.getBytes();
+		dos.writeInt(buffer.length);
 		dos.write(buffer);
 		// RoomName
-		buffer = mRoomName.getBytes();
+		buffer = mRoom.getBytes();
+		dos.writeInt(buffer.length);
 		dos.write(buffer);
 		// ProfessorName
-		buffer = mProfessorName.getBytes();
+		buffer = mProfessor.getBytes();
+		dos.writeInt(buffer.length);
 		dos.write(buffer);
 		// Horaires
 		dos.writeInt(mStartTime);
@@ -91,31 +92,31 @@ public class Entry {
 		dos.writeInt(mYear);
 	}
 	
- 	public String getClassName() {
-		return mClassName;
+ 	public String getSummary() {
+		return mSummary;
 	}
-	public void setClassName(String className) {
-		this.mClassName = className;
+	public void setSummary(String className) {
+		this.mSummary = className;
 	}
 	
-	public boolean hasRoomName() {
-		return mRoomName.length() > 0;
+	public boolean hasRoom() {
+		return mRoom.length() > 0;
 	}
-	public String getRoomName() {
-		return mRoomName;
+	public String getRoom() {
+		return mRoom;
 	}
-	public void setRoomName(String roomName) {
-		this.mRoomName = roomName;
+	public void setRoom(String roomName) {
+		this.mRoom = roomName;
 	}
 
-	public boolean hasProfessorName() {
-		return mProfessorName.length() > 0;
+	public boolean hasProfessor() {
+		return mProfessor.length() > 0;
 	}
-	public String getProfessorName() {
-		return mProfessorName;
+	public String getProfessor() {
+		return mProfessor;
 	}
-	public void setProfessorName(String professorName) {
-		this.mProfessorName = professorName;
+	public void setProfessor(String professorName) {
+		this.mProfessor = professorName;
 	}
 
 	public int getStartTime() {
@@ -135,16 +136,16 @@ public class Entry {
 		int hour = (mEndTime - mStartTime) / 60;
 		int min = (mEndTime - mStartTime) % 60;
 		
-		return String.format(Locale.getDefault(), "%dH%02d", hour, min) + " " + getStringTime();
+		return String.format(Locale.getDefault(), "%dH%02d", hour, min) + " (" + getStringTime() + ")";
 	}
 	/** Retourne les horaires du cours sous forme de String **/
 	public String getStringTime() {
-		int hourStart = mStartTime / 60 + 8;
-		int minStart = mStartTime % 60;
-		int hourEnd = mEndTime / 60 + 8;
-		int minEnd = mEndTime % 60;
+		int hourStart = (mStartTime + 8*60) / 60;
+		int minStart = (mStartTime + 8*60) % 60;
+		int hourEnd = (mEndTime + 8*60) / 60;
+		int minEnd = (mEndTime + 8*60) % 60;
 		
-		return String.format(Locale.getDefault(), "(%dH%02d - %dH%02d)", hourStart, minStart, hourEnd, minEnd);
+		return String.format(Locale.getDefault(), "%dH%02d - %dH%02d", hourStart, minStart, hourEnd, minEnd);
 	}
 	
 	public int getColor() {
@@ -158,28 +159,35 @@ public class Entry {
 	@Override
 	public boolean equals(Object o) {
 		Entry e = (Entry) o;
-		return (mClassName.equals(e.mClassName)
-				&& mRoomName.equals(e.mRoomName)
-				&& mProfessorName.equals(e.mProfessorName)
+		return (mSummary.equals(e.mSummary)
+				&& mRoom.equals(e.mRoom)
+				&& mProfessor.equals(e.mProfessor)
 				&& mStartTime == e.mStartTime
 				&& mEndTime == e.mEndTime
 				&& mColor == e.mColor);
 	}
-	/** Compare deux cours **/
+	/** Compare deux cours. Ordre de priorité : début, fin, nom, salle, prof, couleur **/
 	public int compareTo(Entry o) {
 		Entry e = (Entry) o;
 		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
 		if(a != 0) return a;
 		a = ((Integer)mEndTime).compareTo(e.mEndTime);
 		if(a != 0) return a;
-		a = mClassName.compareTo(e.mClassName);
+		a = mSummary.compareTo(e.mSummary);
 		if(a != 0) return a;
-		a = mRoomName.compareTo(e.mRoomName);
+		a = mRoom.compareTo(e.mRoom);
 		if(a != 0) return a;
-		a = mProfessorName.compareTo(e.mProfessorName);
+		a = mProfessor.compareTo(e.mProfessor);
 		if(a != 0) return a;
 		a = ((Integer)mColor).compareTo(e.mColor);
 		return a;
+	}
+	/** Compare deux cours en fonction de leurs horaires. Ordre de priorité : début, fin **/
+	public int compareTimeTo(Entry o) {
+		Entry e = (Entry) o;
+		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
+		if(a != 0) return a;
+		return ((Integer)mEndTime).compareTo(e.mEndTime);
 	}
 	
 	/** Modifie la date du jour, utilisée dans la fenêtre pop-up **/

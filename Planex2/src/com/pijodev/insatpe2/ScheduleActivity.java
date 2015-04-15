@@ -18,7 +18,6 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	
 	private AsyncLoader mLoader;
 	
-	private Schedule mActiveSchedule;
 	private UserSession mSession;
 	
 	@Override
@@ -32,6 +31,8 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		mSession.setOnParamsChangedListener(this);
 		
 		loadViews();
+		
+		initSchedule();
 	}
 	
 	@Override
@@ -85,6 +86,35 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	/** Fonction appelée lorsque les paramètres changent (semaine ou groupes) **/
 	@Override
 	public void onParamsChanged(UserSession session, boolean weekChanged, boolean groupsChanged) {
-		Log.i("###", "onParamsChanged(w:"+weekChanged+", g:"+groupsChanged+") "+session.getRelWeek()+" "+session.getGroups().toString());
+		if(mLoader != null)
+			mLoader.cancel(true);
+
+		ScheduleRequest request = mSession.createRequest();
+		mLoader = new AsyncLoader(this);
+		mLoader.execute(request);
+		mScheduleView.displayLoadingViews(request);
+	}
+	
+	/** Affiche l'emploi du temps **/
+	public void updateSchedule(Schedule schedule) {
+		mScheduleView.showSchedule(schedule, true);
+		schedule.showCacheWarning(this);
+	}
+	
+	/** Affiche l'emploi du temps de la semaine actuelle avec une requête du cache puis une requête internet **/
+	public void initSchedule() {
+		if(mSession.getGroups().size() == 0)
+			return;
+		
+		// Avec le cache (rapide)
+		ScheduleRequest request = mSession.createRequest();
+		request.pleaseUseOnlyCache();
+		mLoader = new AsyncLoader(this);
+		mLoader.execute(request);
+		// Avec internet, on met à jour l'affichage que si il y a des mises à jour
+		request = mSession.createRequest();
+		request.pleaseShowOnlyUpdate();
+		mLoader = new AsyncLoader(this);
+		mLoader.execute(request);
 	}
 }

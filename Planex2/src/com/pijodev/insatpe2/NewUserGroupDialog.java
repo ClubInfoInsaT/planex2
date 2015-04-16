@@ -93,7 +93,7 @@ public class NewUserGroupDialog implements OnClickListener {
 		String name = getNameFromString(mName.getText().toString());
 		
 		if(id == -1) {
-			Toast.makeText(mContext, "Numéro invalide", Toast.LENGTH_SHORT).show();
+			MyToast.show(mContext, "Numéro invalide", Toast.LENGTH_SHORT);
 			if(mListener != null)
 				mListener.onNewUserGroupFailed(name, null);
 			return;

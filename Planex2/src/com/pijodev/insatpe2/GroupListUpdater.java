@@ -102,7 +102,7 @@ public class GroupListUpdater {
 				}
 				// Echec de téléchagement
 				else {
-					Toast.makeText(mContext, "Echec ! :(", Toast.LENGTH_SHORT).show();
+					MyToast.show(mContext, "Echec ! :(", Toast.LENGTH_SHORT);
 				}
 				// On ferme la boîte de chargement
 				if(mDialog.isShowing())

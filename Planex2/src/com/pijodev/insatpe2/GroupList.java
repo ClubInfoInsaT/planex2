@@ -7,12 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.util.SparseArray;
-import android.widget.EditText;
 
 /**
  * Contient la liste des groupes (nom, id) enregistrés

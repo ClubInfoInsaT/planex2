@@ -3,7 +3,6 @@ package com.pijodev.insatpe2;
 import java.util.ArrayList;
 
 import android.os.AsyncTask;
-import android.util.Log;
 import android.util.SparseArray;
 
 /**
@@ -11,10 +10,10 @@ import android.util.SparseArray;
  * @author Proïd
  *
  */
-public class AsyncLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TODO change that*/ {
+public class AsyncScheduleLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TODO change that*/ {
 	private ScheduleActivity mActivity;
 	
-	public AsyncLoader(ScheduleActivity activity) {
+	public AsyncScheduleLoader(ScheduleActivity activity) {
 		mActivity = activity;
 	}
 	
@@ -41,6 +40,7 @@ public class AsyncLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TO
 				// Comparaison avec les données du cache et mise en cache
 				diff = false;
 				for(int i = 0; i < we.size(); i++) {
+					if(params[0].showOnlyUpdate())
 					if(!diff && !we.valueAt(i).equals(Cache.getWeekEntries(week, we.keyAt(i), mActivity)))
 						diff = true;
 					Cache.putWeekEntries(we.valueAt(i), week, we.keyAt(i), mActivity);
@@ -48,14 +48,8 @@ public class AsyncLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TO
 			}
 		}
 		
-		// si il n'y a pas de différences avec le cache et qu'on ne veut afficher que les mises à jours, on annule 
-		if(!diff && params[0].showOnlyUpdate()) {
-			this.cancel(false);
-			return null;
-		}
-		
 		// Création de l'emploi du temps de la semaine
-		Schedule schedule = new Schedule(params[0], mActivity);
+		Schedule schedule = new Schedule(params[0], mActivity, diff || !params[0].showOnlyUpdate());
 		 
 		return schedule;
 	}

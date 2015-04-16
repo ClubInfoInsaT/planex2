@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -22,20 +21,24 @@ public class Schedule {
 	/** Date du Lundi de la semaine **/
 	private final GregorianCalendar mMondayDate;
 	/** WeekEntries de chaque groupe **/
-	private ArrayList<WeekEntries> mWeekEntries = new ArrayList<>(); 
+	private final ArrayList<WeekEntries> mWeekEntries = new ArrayList<>(); 
 	/** Requête à l'origine de la création de ce schedule **/
-	private ScheduleRequest mRequest;
+	private final ScheduleRequest mRequest;
+	/** Indique si cet emploi doit être affiché **/
+	private final boolean mShow;
+	
 	
 	/** Construit l'emploi de temps de la semaine à partir du cache **/
-	public Schedule(ScheduleRequest request, Context context) {
+	public Schedule(ScheduleRequest request, Context context, boolean show) {
 		mRequest = request;
-		// données pour accès au cache
-		ArrayList<Integer> groups = request.getGroups();
-		int week = DateUtils.getCurrentWeek()+request.getRelWeek();
+		mShow = show;
 		
 		// Date
 		mMondayDate = DateUtils.getMondayOfWeek(request.getRelWeek());
 		
+		// données pour accès au cache
+		ArrayList<Integer> groups = request.getGroups();
+		int week = DateUtils.getCurrentWeek()+request.getRelWeek();
 		
 		for(int day = 0; day < 5; day++) {
 			mEntries[day] = new ArrayList<>();
@@ -46,7 +49,7 @@ public class Schedule {
 				// l'objet donné par le cache peut être nul -> absence de données dans le cache
 				mWeekEntries.add(we);
 				
-				if(we != null) {
+				if(we != null && mShow) {
 					for(Entry e : we.getEntries(day)) {
 						ScheduleEntry se = new ScheduleEntry(e, g+1, groups.size());
 						int index = Collections.binarySearch(mEntries[day], se);
@@ -59,7 +62,11 @@ public class Schedule {
 					}
 				}
 			}
-
+			
+			// Inutile de faire le reste si on n'affiche rien au final
+			if(!mShow)
+				continue;
+			
 			// Structure temporaire pour un algo qui trou l'cul
 			ArrayList<ArrayList<ScheduleEntry>> set = new ArrayList<ArrayList<ScheduleEntry>>();
 
@@ -104,6 +111,11 @@ public class Schedule {
 				}
 			}
 		}
+	}
+	
+	/** Indique si cet emploi doit être affiché **/
+	public boolean mustBeShown() {
+		return mShow;
 	}
 	
 	/** Retourne la liste des cours d'une journée **/
@@ -151,13 +163,13 @@ public class Schedule {
 			if(timeMax < 60)
 				cache = "";
 			else if((timeMax /= 60) < 60)
-				cache = "Age du cache : "+timeMax+" minute" + (timeMax==1?"":"s");
+				cache = "Âge du cache : "+timeMax+" minute" + (timeMax==1?"":"s");
 			else if((timeMax /= 60) < 24)
-				cache = "Age du cache : "+timeMax+" heure" + (timeMax==1?"":"s");
+				cache = "Âge du cache : "+timeMax+" heure" + (timeMax==1?"":"s");
 			else if((timeMax /= 24) < 7)
-				cache = "Age du cache : "+timeMax+" jour" + (timeMax==1?"":"s");
+				cache = "Âge du cache : "+timeMax+" jour" + (timeMax==1?"":"s");
 			else
-				cache = "Age du cache : "+(timeMax/7)+" semaine" + (timeMax==1?"":"s");
+				cache = "Âge du cache : "+(timeMax/7)+" semaine" + (timeMax==1?"":"s");
 			
 			if(isIncomplete && !mRequest.useOnlyCache())
 				msg = "Affichage incomplet, besoin d'accès Internet" + (cache.length() > 0 ? "" : "\n");
@@ -165,12 +177,12 @@ public class Schedule {
 		}
 			
 		if(msg.length() > 0)
-			Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+			MyToast.show(context, msg, Toast.LENGTH_SHORT);
 	}
 	
-	static class ScheduleEntry implements Comparable<ScheduleEntry> {
+	public static class ScheduleEntry implements Comparable<ScheduleEntry> {
 		/** Cours **/
-		Entry entry;
+		public Entry entry;
 		/** Numéros des groupes associés (triés par ordre croissant) **/
 		private ArrayList<Integer> groupRef;
 		/** Nombre max de groupe associé */

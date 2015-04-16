@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 
-import android.util.Log;
-
 /**
  * Contient une liste de cours (Entry) pour chaque
  * jour d'une semaine pour un groupe

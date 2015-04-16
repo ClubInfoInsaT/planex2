@@ -1,10 +1,8 @@
 package com.pijodev.insatpe2;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils.TruncateAt;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pijodev.insatpe2.Schedule.ScheduleEntry;
+
 
 /**
  * Représentation graphique d'un cours

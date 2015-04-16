@@ -59,7 +59,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 			@Override
 			public void onClick(View v) {
 				if(mUserSession.getGroups().size() >= 9)
-					Toast.makeText(activity, "Trop, c'est trop !", Toast.LENGTH_SHORT).show();
+					MyToast.show(activity, "Trop, c'est trop !", Toast.LENGTH_SHORT);
 				else
 					mGroupSelector.show(-1, -1);
 			}
@@ -177,14 +177,6 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mCurrentButton.setOnClickListener(listener);
 	}
 	
-	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	private void setPrevButtonEnabled(boolean enabled) {
-		mPrevButton.setEnabled(enabled);
-	}
-	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	private void setNextButtonEnabled(boolean enabled) {
-		mNextButton.setEnabled(enabled);
-	}
 	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
 	private void setCurrentButtonEnabled(boolean enabled) {
 		mCurrentButton.setEnabled(enabled);

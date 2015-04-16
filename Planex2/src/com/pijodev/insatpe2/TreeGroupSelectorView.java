@@ -7,13 +7,11 @@ import java.util.LinkedList;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.DataSetObserver;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -279,6 +277,7 @@ public class TreeGroupSelectorView extends GroupSelectorView
 			return 1;
 		}
 		
+		@SuppressLint("InflateParams")
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewGroup view;
@@ -382,13 +381,13 @@ public class TreeGroupSelectorView extends GroupSelectorView
 			return false;
 		}
 		
-		/** Affiche l'arbre dans le logcat pour le debug **/
+		/** Affiche l'arbre dans le logcat pour le debug ** /
 		private void print(String tab) {
 			Log.i("###", tab+name+" "+id);
 			if(branches != null)
 				for(GroupNameTree g : branches)
 					g.print(tab+"+---");
-		}
+		}*/
 		
 		/** Trie chaque branche par ordre alphabétique et calcule la largeur de la branche la plus grande **/
 		private void sortAndCount() {

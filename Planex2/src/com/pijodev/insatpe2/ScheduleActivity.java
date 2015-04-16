@@ -3,7 +3,6 @@ package com.pijodev.insatpe2;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.pijodev.insatpe2.UserSession.OnParamsChangedListener;
 /**
@@ -16,7 +15,7 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	private WeekView mScheduleView;
 	private ToolBarView mToolBarView;
 	
-	private AsyncLoader mLoader;
+	private AsyncScheduleLoader mLoader;
 	
 	private UserSession mSession;
 	
@@ -90,15 +89,17 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 			mLoader.cancel(true);
 
 		ScheduleRequest request = mSession.createRequest();
-		mLoader = new AsyncLoader(this);
+		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
 		mScheduleView.displayLoadingViews(request);
 	}
 	
 	/** Affiche l'emploi du temps **/
 	public void updateSchedule(Schedule schedule) {
-		mScheduleView.showSchedule(schedule, true);
-		schedule.showCacheWarning(this);
+		if(schedule.mustBeShown())
+			mScheduleView.showSchedule(schedule, true);
+		if(!schedule.getRequest().concealCautionMessage() || schedule.getRequest().forceCautionMessage())
+			schedule.showCacheWarning(this);
 	}
 	
 	/** Affiche l'emploi du temps de la semaine actuelle avec une requête du cache puis une requête internet **/
@@ -109,12 +110,14 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		// Avec le cache (rapide)
 		ScheduleRequest request = mSession.createRequest();
 		request.pleaseUseOnlyCache();
-		mLoader = new AsyncLoader(this);
+		request.pleaseConcealCautionMessage();
+		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
 		// Avec internet, on met à jour l'affichage que si il y a des mises à jour
 		request = mSession.createRequest();
 		request.pleaseShowOnlyUpdate();
-		mLoader = new AsyncLoader(this);
+		request.pleaseForceCautionMessage();
+		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
 	}
 }

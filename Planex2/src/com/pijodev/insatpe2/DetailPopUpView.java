@@ -1,6 +1,7 @@
 package com.pijodev.insatpe2;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ public class DetailPopUpView {
 	
 	static private LinearLayout mLayout;
 	
+	@SuppressLint("InflateParams")
 	static public void initialize(Context context) {
 		AlertDialog.Builder adb = new AlertDialog.Builder(context);
 		/// Chargement de la vue depuis le fichier xml

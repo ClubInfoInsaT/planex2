@@ -2,6 +2,7 @@ package com.pijodev.insatpe2;
 
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.pijodev.insatpe2.UserSession.OnParamsChangedListener;
@@ -61,6 +62,14 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 			mIsScrollInitialized = true;
 		}
 	}
+
+	/** Fonctione appelée lorsque l'orientation de l'écran change **/
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		
+		mScheduleView.changeOrientation(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+	}
 	
 	/** Initialise les classes statiques **/
 	private void initialize() {
@@ -82,7 +91,7 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		return mSession;
 	}
 
-	/** Fonction appelée lorsque les paramètres changent (semaine ou groupes) **/
+	/** Fonction appelée lorsque les paramètres de l'emploi du temps changent (semaine ou groupes) **/
 	@Override
 	public void onParamsChanged(UserSession session, boolean weekChanged, boolean groupsChanged) {
 		if(mLoader != null)
@@ -104,15 +113,16 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	
 	/** Affiche l'emploi du temps de la semaine actuelle avec une requête du cache puis une requête internet **/
 	public void initSchedule() {
-		if(mSession.getGroups().size() == 0)
-			return;
-		
 		// Avec le cache (rapide)
 		ScheduleRequest request = mSession.createRequest();
 		request.pleaseUseOnlyCache();
 		request.pleaseConcealCautionMessage();
 		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
+		
+		if(mSession.getGroups().size() == 0)
+			return;
+		
 		// Avec internet, on met à jour l'affichage que si il y a des mises à jour
 		request = mSession.createRequest();
 		request.pleaseShowOnlyUpdate();

@@ -18,6 +18,9 @@ public class ScheduleRetriever {
 	/** Télécharge le fichier ics, retourne null en cas d'erreur **/
 	public String download(ArrayList<Integer> groups, int week) {
 		URL url = getURL(groups, week);
+		if(url == null)
+			return null;
+		
 		String data = null;
 		try {
 			InputStream stream = url.openStream();
@@ -130,9 +133,12 @@ public class ScheduleRetriever {
 	}
 	
 	/** Retourne l'URL qui permet d'accéder aux emplois du temps des groupes donnés pour la semaine donnée.
-	 * Il doit y avoir au moins un groupe dans la liste, sinon... -Sinon quoi ? -Exactement !**/
+	 * Il doit y avoir au moins un groupe dans la liste, sinon... -Sinon null ? -Exactement ! **/
 	private URL getURL(ArrayList<Integer> groups, int week) {
 		StringBuilder sb = new StringBuilder();
+		
+		if(groups.isEmpty())
+			return null;
 		
 		sb.append(groups.get(0));
 		for(int i = 1; i < groups.size(); i++)

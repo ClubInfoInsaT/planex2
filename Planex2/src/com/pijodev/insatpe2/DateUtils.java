@@ -2,8 +2,6 @@ package com.pijodev.insatpe2;
 
 import java.util.GregorianCalendar;
 
-import android.util.Log;
-
 /**
  * Quelques fonctions statiques utiles pour manipuler les dates
  * @author Proïd
@@ -37,7 +35,7 @@ public class DateUtils {
 		GregorianCalendar calendar = getMondayOfCurrentWeek();
 		
 		calendar.add(GregorianCalendar.DAY_OF_MONTH, 7*relativeWeek + day);
-		Log.i("###", calendar.toString());
+
 		return calendar;
 	}
 	/** Retourne la date du lundi d'une semaine relative à la semaine courante **/

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#59f"
     android:gravity="center"
-    android:layout_marginRight="1dp"
+    android:layout_marginRight="@dimen/separator_width"
     android:orientation="vertical"
     android:paddingTop="3dp"
     android:paddingBottom="3dp">  <!-- "@drawable/day" -->
@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Jour\t01.01.1970"
         android:textSize="@dimen/bar_text_size"
+        android:singleLine="true"
         android:textColor="#ff000000"/>
     
 </LinearLayout>

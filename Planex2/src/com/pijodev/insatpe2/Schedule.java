@@ -118,6 +118,15 @@ public class Schedule {
 		return mShow;
 	}
 	
+	/** Indique si l'emploi du temps de la semaine est complètement vide **/
+	public boolean isEmpty() {
+		for(int i = 0; i < 5; i++)
+			if(!mEntries[i].isEmpty())
+				return false;
+
+		return true;
+	}
+	
 	/** Retourne la liste des cours d'une journée **/
 	public ArrayList<ScheduleEntry> getEntries(int day) {
 		return mEntries[day];
@@ -141,6 +150,10 @@ public class Schedule {
 	
 	/** Affiche un message sous forme toast à propos du cache (manquant, ancient, ...) si nécessaire **/
 	public void showCacheWarning(Context context) {
+		// On affiche pas de message si aucun groupe n'est affiché
+		if(mRequest.getGroups().size() == 0)
+			return;
+		
 		int missingCount = 0;
 		long timeMax = 0;
 		for(WeekEntries we : mWeekEntries) {

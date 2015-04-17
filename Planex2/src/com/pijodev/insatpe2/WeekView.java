@@ -3,12 +3,12 @@ package com.pijodev.insatpe2;
 import java.util.GregorianCalendar;
 
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.ScaleAnimation;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -27,7 +27,7 @@ public class WeekView {
 	/** Scroll view principale **/
 	private IXYScrollView mScrollView;
 	/** Barre supérieure des jours **/
-	private ViewGroup mDayBar;
+	private LinearLayout mDayBar;
 	/** Colonnes des jours **/
 	private RelativeLayout[] mColumnDay = new RelativeLayout[5];
 	/** Icone animée de chargement **/
@@ -42,7 +42,7 @@ public class WeekView {
 	/** Initialise les views **/
 	public WeekView(ScheduleActivity activity) {
 		mScrollView = (IXYScrollView) activity.findViewById(R.id.sv_week);
-		mDayBar = (ViewGroup) activity.findViewById(R.id.ll_day);
+		mDayBar = (LinearLayout) activity.findViewById(R.id.ll_day);
 		
 		mLayoutAnimation = createColumnFillingAnimation();
 
@@ -183,5 +183,51 @@ public class WeekView {
     	layoutAnim.setDelay(0.25f);
     	
     	return layoutAnim;
+	}
+
+	
+	/** Orientation actuelle **/
+	private boolean mIsInLandscapeMode = false;
+	/** Change les dimensions des vues en fonction de l'orientation de l'écran **/
+	public void changeOrientation(boolean landscapeMode) {
+		if(mIsInLandscapeMode == landscapeMode)
+			return;
+		/*
+		final int columnID[] = {R.id.rl_column_monday, R.id.rl_column_tuesday, R.id.rl_column_wednesday, R.id.rl_column_thursday, R.id.rl_column_friday};
+		Log.i("###", ""+mScrollView.getWidth()+" "+mScrollView.getHeight());
+		// Mode paysage : redimensionnement des colonnes afin qu'elles
+		// soient toutes visibles, et modification de la hauteur pour voir
+		// tout l'intervalle 8h-18h15
+		if(landscapeMode) {
+			for(int i = 0; i < 5; i++) {
+				// Barre des jours
+				View v = mDayBar.getChildAt(i);
+				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+				lp.width = 45;
+				v.setLayoutParams(lp);
+				// Colonnes des jours
+				v = mScrollView.findViewById(columnID[i]);
+				lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+				lp.width = 45;
+				v.setLayoutParams(lp);
+			}
+		}
+		// Mode portrait : vue par défaut
+		else {
+			for(int i = 0; i < 5; i++) {
+				// Barre des jours
+				View v = mDayBar.getChildAt(i);
+				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+				lp.width = Dimens.columnWidth;
+				v.setLayoutParams(lp);
+				// Colonnes des jours
+				v = mScrollView.findViewById(columnID[i]);
+				lp = (LinearLayout.LayoutParams) v.getLayoutParams();
+				lp.width = Dimens.columnWidth;
+				v.setLayoutParams(lp);
+			}
+		}*/
+			
+		mIsInLandscapeMode = landscapeMode;
 	}
 }

@@ -16,7 +16,8 @@
 		<item>M</item>
 		<item>N</item>
 		<item>S</item>
-		<item>Z</item>
+		<item>Z FR</item>
+		<item>Z ASI</item>
 	</string-array>
 	<string-array name="group_name_2">
 		<item>IC A</item>
@@ -84,10 +85,12 @@
 		<item>MIC D (2)</item>
 		<item>MIC E (1)</item>
 		<item>MIC E (2)</item>
-		<item>MIC OP (1)</item>
-		<item>MIC OP (2)</item>
-		<item>MIC OP (3)</item>
-		<item>MIC OP (4)</item>
+		<item>MIC OP PL1</item>
+		<item>MIC OP PL2</item>
+		<item>MIC OP PL4</item>
+		<item>MIC OP PL3</item>
+		<item>MIC OP FN1</item>
+		<item>MIC OP FN2</item>
 	</string-array>
 	<string-array name="group_name_4">
 		<item>GBA A</item>

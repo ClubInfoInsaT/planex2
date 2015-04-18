@@ -22,7 +22,7 @@ import android.util.SparseArray;
 public class GroupList {
 	private static final String groupsFileName = "groups.data";
 	/** Version du format du fichier. A modifier si le format évolue **/
-	private static final int currentCacheVersion = 1;
+	private static final int currentCacheVersion = 2;
 	
 	/** Ensemble des groupes identifiés par leur ID **/
 	private static SparseArray<Group> mDefaultGroups = new SparseArray<>();
@@ -106,6 +106,10 @@ public class GroupList {
 			if(version != currentCacheVersion)
 				throw new DataFormatException();
 			
+			// Vérification de la version du xml
+			int versionXml = dis.readInt();
+			boolean xmlHasBeenUpdated = (versionXml != context.getResources().getInteger(R.integer.groups_xml_version));
+			
 			// Groupes par défaut
 			int defCount = dis.readInt();
 			for(int i = 0; i < defCount; i++) {
@@ -115,10 +119,14 @@ public class GroupList {
 				String name = new String(buffer, 0, bufferLength); 
 				// Id
 				int id = dis.readInt();
-				// Création de l'objet et ajout dans les listes
-				Group g = new Group(name, id);
-				mDefaultGroups.put(id, g);
-				mListGroups.add(g);
+				
+				// si l'xml a été mis à jour, on ne tient pas compte du contenu de ce fichier
+				if(!xmlHasBeenUpdated) {
+					// Création de l'objet et ajout dans les listes
+					Group g = new Group(name, id);
+					mDefaultGroups.put(id, g);
+					mListGroups.add(g);
+				}
 			}
 			
 			// Groupes utilisateur
@@ -142,7 +150,7 @@ public class GroupList {
 			new File(context.getFilesDir(), groupsFileName).delete();
 		}
 		
-		// Si la liste de groupe par défaut est vide, on charge la liste 
+		// Si la liste de groupe par défaut est vide (jamais enregistré,ou mise à jour de l'xml), on charge la liste xml
 		if(mDefaultGroups.size() == 0)
 			loadFromXML(context);
 	}
@@ -179,6 +187,8 @@ public class GroupList {
 			DataOutputStream dos = new DataOutputStream(context.openFileOutput(groupsFileName, 0));
 			// Version du format
 			dos.writeInt(currentCacheVersion);
+			// Version de l'XML
+			dos.writeInt(context.getResources().getInteger(R.integer.groups_xml_version));
 			
 			// Groupes par défaut
 			dos.writeInt(mDefaultGroups.size());

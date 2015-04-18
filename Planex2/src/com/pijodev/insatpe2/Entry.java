@@ -27,11 +27,7 @@ public class Entry implements Comparable<Entry> {
 	/** Date du jour, utilisée dans la fenêtre pop-up. **/
 	private int mDay, mDayOfMonth, mMonth, mYear;
 	
-	public Entry(GregorianCalendar date) {
-		mDay = date.get(GregorianCalendar.DAY_OF_WEEK) - GregorianCalendar.MONDAY;
-		mDayOfMonth = date.get(GregorianCalendar.DAY_OF_MONTH);
-		mMonth = date.get(GregorianCalendar.MONTH);
-		mYear = date.get(GregorianCalendar.YEAR);
+	public Entry() {
 	}
 	
 	/** Charge les données depuis un flux entrant 
@@ -202,5 +198,12 @@ public class Entry implements Comparable<Entry> {
 	/** Retourne la date du jour au format 'Jour jj Mois aaaa' **/
 	public String getStringDate() {
 		return sday[mDay] + " " + mDayOfMonth + " " + smonth[mMonth] + " " + mYear;
+	}
+
+	public void setDate(GregorianCalendar gc) {
+		mDay = gc.get(GregorianCalendar.DAY_OF_WEEK) - GregorianCalendar.MONDAY;
+		mDayOfMonth = gc.get(GregorianCalendar.DAY_OF_MONTH);
+		mMonth = gc.get(GregorianCalendar.MONTH);
+		mYear = gc.get(GregorianCalendar.YEAR);
 	}
 }

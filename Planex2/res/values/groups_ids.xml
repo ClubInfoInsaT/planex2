@@ -1,5 +1,6 @@
 <?xml version = "1.0" encoding = "utf-8"?>
 <resources>
+    <integer name="groups_xml_version">2</integer>
 	<integer-array name="group_id_1">
 		<item>394</item>
 		<item>396</item>
@@ -16,7 +17,8 @@
 		<item>359</item>
 		<item>363</item>
 		<item>364</item>
-		<item>1537</item>
+		<item>45</item>
+		<item>362</item>
 	</integer-array>
 	<integer-array name="group_id_2">
 		<item>224</item>
@@ -84,10 +86,12 @@
 		<item>1167</item>
 		<item>498</item>
 		<item>752</item>
-		<item>1356</item>
-		<item>1359</item>
-		<item>1775</item>
-		<item>1776</item>
+		<item>1777</item>
+		<item>1778</item>
+		<item>1779</item>
+		<item>1780</item>
+		<item>1781</item>
+		<item>1782</item>
 	</integer-array>
 	<integer-array name="group_id_4">
 		<item>328</item>

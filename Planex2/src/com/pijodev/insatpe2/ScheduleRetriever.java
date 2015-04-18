@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import android.util.Log;
 import android.util.SparseArray;
 /**
  * Gestion du téléchargement et parsing du fichier ics exporté de planning express
@@ -29,6 +30,8 @@ public class ScheduleRetriever {
 			int length;
 			while((length = stream.read(buffer)) > 0)
 				data += new String(buffer, 0, length);
+
+			Log.i("###", data);
 			stream.close();
 		} catch (IOException e) {
 			
@@ -63,7 +66,7 @@ public class ScheduleRetriever {
 			switch(fieldName) {
 			case "BEGIN":
 				if(fieldContent.endsWith("VEVENT"))
-					entry = new Entry(DateUtils.today());
+					entry = new Entry();
 				break;
 			case "DTSTART": {
 				// format du fichier : aaaammjjThhmmssZ
@@ -80,6 +83,7 @@ public class ScheduleRetriever {
 				dayOfWeek = DateUtils.getDayOfWeek(gc);
 				// on enregistre le nombre de minutes depuis 8h
 				entry.setStartTime((hour-8) * 60 + minute);
+				entry.setDate(gc);
 				break;
 			}
 			case "DTEND": {
@@ -122,8 +126,13 @@ public class ScheduleRetriever {
 				entry.setColor(0xff000000 | r | g | b);
 				break;
 			case "END":
-				if(fieldContent.equals("VEVENT"))
-					we.get(group).getEntries(dayOfWeek).add(entry);
+				if(fieldContent.equals("VEVENT")) {
+					if(we.get(group) == null)
+						Log.e("###", "Dédoublement de d'id");
+					else
+						we.get(group).getEntries(dayOfWeek).add(entry);
+					
+				}
 				break;
 			}
 		}

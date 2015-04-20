@@ -4,6 +4,7 @@ package com.pijodev.insatpe2;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.pijodev.insatpe2.UserSession.OnParamsChangedListener;
 /**
@@ -96,7 +97,7 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	public void onParamsChanged(UserSession session, boolean weekChanged, boolean groupsChanged) {
 		if(mLoader != null)
 			mLoader.cancel(true);
-
+		
 		mToolBarView.updateCurrentButtonState();
 		
 		ScheduleRequest request = mSession.createRequest();
@@ -104,6 +105,10 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		mLoader.execute(request);
 		mScheduleView.displayLoadingViews(request);
 		
+		if(Math.abs(session.getRelWeek()) > 52) {
+			Toast.makeText(this, "Pourquoi aller si loin ?\nViens plutôt jouer :)", Toast.LENGTH_LONG).show();
+			EasterEggs.ee2(this);
+		}
 	}
 	
 	/** Affiche l'emploi du temps **/

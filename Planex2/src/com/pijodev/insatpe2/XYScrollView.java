@@ -4,7 +4,6 @@ package com.pijodev.insatpe2;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -272,19 +271,24 @@ public class XYScrollView extends FrameLayout {
 		
 		private static final int PULL_RIGHT = 1, PULL_LEFT = 2, NO_PULL = 0;
 		private int pullState = NO_PULL;
-		private float pullDist = 0; /* absolute distance */
+		private float pullDist = 0; /* distance > 0 */
 		private float lastX;
+		private int activePointerId = -1;
 		
 		/** Pull to change **/
 		@SuppressLint("ClickableViewAccessibility")
 		@Override
 		public boolean onTouchEvent(MotionEvent ev) {
-			//int lastPullState = pullState;
-			float x = ev.getX();
 			
-			switch(ev.getAction()) {
-			//case MotionEvent.ACTION_DOWN:
-			case MotionEvent.ACTION_MOVE:
+			switch(ev.getAction() & MotionEvent.ACTION_MASK) {
+			case MotionEvent.ACTION_DOWN:
+				lastX = ev.getX();
+				activePointerId = ev.getPointerId(0);
+				break;
+			case MotionEvent.ACTION_MOVE: {
+				if(activePointerId == -1)
+					activePointerId = ev.getPointerId(0);
+				float x = ev.getX(ev.findPointerIndex(activePointerId));
 				if(pullState != NO_PULL) {
 					pullDist += pullState == PULL_LEFT ? x - lastX : lastX - x;
 					// cancel pulling 
@@ -316,12 +320,24 @@ public class XYScrollView extends FrameLayout {
 					}
 				}
 				break;
+			}
+			case MotionEvent.ACTION_POINTER_UP: {
+	            final int pointerIndex = (ev.getAction() & MotionEvent.ACTION_POINTER_INDEX_MASK)  >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+	            final int pointerId = ev.getPointerId(pointerIndex);
+	            if(pointerId == activePointerId) {
+	            	int newPointerIndex = pointerIndex == 0 ? 1 : 0;
+	            	lastX = ev.getX(newPointerIndex);
+	            	activePointerId = ev.getPointerId(newPointerIndex);
+	            }
+				break;
+			}
 			case MotionEvent.ACTION_UP:
 				if(pullState != NO_PULL) {
 					if(pullListener != null)
 						pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, false);
 					pullState = NO_PULL;
 				}
+				activePointerId = -1;
 				break;
 			case MotionEvent.ACTION_CANCEL:
 				if(pullState != NO_PULL) {
@@ -329,16 +345,13 @@ public class XYScrollView extends FrameLayout {
 						pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, true);
 					pullState = NO_PULL;
 				}
+				activePointerId = -1;
 				break;
 			}
 			
-			lastX = x;
+			if(activePointerId != -1)
+				lastX = ev.getX(ev.findPointerIndex(activePointerId));
 			
-			// annulation du touch event du scroll
-			/*if(lastPullState == NO_PULL && pullState != NO_PULL) {
-				ev.setAction(MotionEvent.ACTION_CANCEL);
-				super.onTouchEvent(ev);
-			}*/
 			// pas de pull -> touchevent pour scroll
 			if(pullState == NO_PULL)
 				return super.onTouchEvent(ev);
@@ -346,6 +359,8 @@ public class XYScrollView extends FrameLayout {
 			return true;
 		}
 	}
+	
+	/** Pull event **/
 	private OnPullListener pullListener;
 	public void setOnPullListener(OnPullListener listener) {
 		pullListener = listener;

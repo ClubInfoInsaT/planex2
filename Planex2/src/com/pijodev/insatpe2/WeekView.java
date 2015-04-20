@@ -87,8 +87,7 @@ public class WeekView {
 		mScrollView.setOnScrollChangedListener(new OnScrollChangedListener() {
 			@Override
 			public void onScrollChanged(int x, int y, int oldX, int oldY) {
-				//if(oldX != x)
-					mDayBar.scrollTo(x, 0);
+				mDayBar.scrollTo(x, 0);
 			}
 		});
 	}
@@ -102,10 +101,22 @@ public class WeekView {
 			@Override
 			public void onPullStarted(boolean right) {
 				// annulation de l'animation précédante
-				if(right)
+				if(right) {
 					mArrowRight.clearAnimation();
-				else
+					RelativeLayout.LayoutParams lp = (LayoutParams) mArrowRight.getLayoutParams();
+					lp.leftMargin = 0;
+					mArrowRight.setLayoutParams(lp);
+					mArrowRight.setImageMatrix(new Matrix());
+					mArrowRight.setAlpha(255);
+				}
+				else {
 					mArrowLeft.clearAnimation();
+					RelativeLayout.LayoutParams lp = (LayoutParams) mArrowLeft.getLayoutParams();
+					lp.rightMargin = 0;
+					mArrowLeft.setLayoutParams(lp);
+					mArrowLeft.setImageMatrix(new Matrix());
+					mArrowLeft.setAlpha(255);
+				}
 			}
 			
 			@SuppressWarnings("deprecation") // setAlpha(int)

@@ -2,21 +2,25 @@ package com.pijodev.insatpe2;
 
 import java.util.GregorianCalendar;
 
+import android.graphics.Matrix;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationSet;
 import android.view.animation.LayoutAnimationController;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.awprog.view.IXYScrollView;
-import com.awprog.view.IXYScrollView.OnScrollChangedListener;
 import com.pijodev.insatpe2.Schedule.ScheduleEntry;
+import com.pijodev.insatpe2.XYScrollView.OnPullListener;
+import com.pijodev.insatpe2.XYScrollView.OnScrollChangedListener;
 
 /**
  * 
@@ -25,7 +29,7 @@ import com.pijodev.insatpe2.Schedule.ScheduleEntry;
  */
 public class WeekView {
 	/** Scroll view principale **/
-	private IXYScrollView mScrollView;
+	private XYScrollView mScrollView;
 	/** Barre supérieure des jours **/
 	private LinearLayout mDayBar;
 	/** Colonnes des jours **/
@@ -38,15 +42,18 @@ public class WeekView {
 	private LayoutAnimationController mLayoutAnimation;
 	/** Visibilité des icones de chargement **/
 	private boolean mLoadingViewEnabled = false;
+	/** Icones de changement de semaine **/
+	private ImageView mArrowLeft, mArrowRight;
 	
 	/** Initialise les views **/
 	public WeekView(ScheduleActivity activity) {
-		mScrollView = (IXYScrollView) activity.findViewById(R.id.sv_week);
+		mScrollView = (XYScrollView) activity.findViewById(R.id.sv_week);
 		mDayBar = (LinearLayout) activity.findViewById(R.id.ll_day);
 		
 		mLayoutAnimation = createColumnFillingAnimation();
 
 		enableDayBarAutoScroll();
+		enablePullToChangeWeek(activity);
 		
 		mColumnDay[0] = (RelativeLayout) mScrollView.findViewById(R.id.rl_column_monday);
 		mColumnDay[1] = (RelativeLayout) mScrollView.findViewById(R.id.rl_column_tuesday);
@@ -61,6 +68,9 @@ public class WeekView {
 		mTitleDay[2] = (TextView) mDayBar.findViewById(R.id.ll_wednesday).findViewById(R.id.tv_date);
 		mTitleDay[3] = (TextView) mDayBar.findViewById(R.id.ll_thursday).findViewById(R.id.tv_date);
 		mTitleDay[4] = (TextView) mDayBar.findViewById(R.id.ll_friday).findViewById(R.id.tv_date);
+
+		mArrowLeft = (ImageView) activity.findViewById(R.id.iv_prev);
+		mArrowRight = (ImageView) activity.findViewById(R.id.iv_next);
 	}
 	
 	/** Centre la vue sur le jour donné **/
@@ -79,6 +89,115 @@ public class WeekView {
 			public void onScrollChanged(int x, int y, int oldX, int oldY) {
 				//if(oldX != x)
 					mDayBar.scrollTo(x, 0);
+			}
+		});
+	}
+	
+	/** Active la fonctionnalité pul to change week (~pull to refresh)  **/
+	private void enablePullToChangeWeek(ScheduleActivity activity) {
+		final UserSession session = activity.getSession();
+		final float pullDistance = Dimens.columnWidth*0.7f;
+		
+		mScrollView.setOnPullListener(new OnPullListener() {
+			@Override
+			public void onPullStarted(boolean right) {
+				// annulation de l'animation précédante
+				if(right)
+					mArrowRight.clearAnimation();
+				else
+					mArrowLeft.clearAnimation();
+			}
+			
+			@SuppressWarnings("deprecation") // setAlpha(int)
+			@Override
+			public void onPullReleased(float dist, boolean right, boolean cancelled) {
+				AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+				if(!cancelled && dist > pullDistance) {
+					// Pull valide : on change de semaine
+					session.addRelWeek(right ? +1 : -1);
+					// animation de disparition plus longue
+					anim.setDuration(350);
+					anim.setStartOffset(250);
+				} else {
+					// Animation de disparition rapide
+					anim.setDuration(150);
+				}
+				
+				if(right) {
+					// Lorsque l'animation est terminé, on réinitialise l'état de la flèche
+					anim.setAnimationListener(new AnimationListener() {
+						@Override public void onAnimationStart(Animation animation) {}
+						@Override public void onAnimationRepeat(Animation animation) {}
+						@Override public void onAnimationEnd(Animation animation) {
+							RelativeLayout.LayoutParams lp = (LayoutParams) mArrowRight.getLayoutParams();
+							lp.leftMargin = 0;
+							mArrowRight.setLayoutParams(lp);
+							mArrowRight.setImageMatrix(new Matrix());
+							mArrowRight.setAlpha(255);
+						}
+					});
+					// On lance l'animation
+					mArrowRight.startAnimation(anim);
+				} else {
+					// Lorsque l'animation est terminé, on réinitialise l'état de la flèche
+					anim.setAnimationListener(new AnimationListener() {
+						@Override public void onAnimationStart(Animation animation) {}
+						@Override public void onAnimationRepeat(Animation animation) {}
+						@Override public void onAnimationEnd(Animation animation) {
+							RelativeLayout.LayoutParams lp = (LayoutParams) mArrowLeft.getLayoutParams();
+							lp.rightMargin = 0;
+							mArrowLeft.setLayoutParams(lp);
+							mArrowLeft.setImageMatrix(new Matrix());
+							mArrowLeft.setAlpha(255);
+						}
+					});
+					// On lance l'animation
+					mArrowLeft.startAnimation(anim);
+				}
+			}
+			
+			@SuppressWarnings("deprecation") // setAlpha(int) 
+			@Override
+			public void onPullDistanceChanged(float dist, boolean right) {
+				// Données de transformation
+				int imgHeight = mArrowRight.getDrawable().getBounds().height();
+				int imgWidth = mArrowRight.getDrawable().getBounds().width();
+
+				Matrix matrix = new Matrix();
+				float k = dist / pullDistance;
+				
+				final float exp = 1.0f / 3.0f;
+				// Translation
+				float translate = (float) (k < 3 ? Math.pow(k, exp) : Math.pow(3, exp)+(k-3)*Math.pow(3, exp-1)/3);
+				// angle de rotation
+				float foggle = 180 * (1.0f - Math.min(Math.max(k-0.2f, 0.0f)/0.8f, 1.0f));
+				// transparence
+				int alpha = (int)(Math.min(k*2f+0.1f, 1.0f)*255);
+				
+				if(right) {
+					// Translation
+					RelativeLayout.LayoutParams lp = (LayoutParams) mArrowRight.getLayoutParams();
+					lp.leftMargin = (int) (-pullDistance / 3 * translate);
+					mArrowRight.setLayoutParams(lp);
+					// Rotation
+					matrix.postRotate(-foggle, imgWidth*0.5f, imgHeight*0.5f);
+					// recadrage
+					mArrowRight.setImageMatrix(matrix);
+					// Transparence
+					mArrowRight.setAlpha(alpha);
+				} else {
+					// Translation
+					RelativeLayout.LayoutParams lp = (LayoutParams) mArrowLeft.getLayoutParams();
+					lp.rightMargin = (int) (-pullDistance / 3 * translate);
+					mArrowLeft.setLayoutParams(lp);
+					// Rotation
+					matrix.postRotate(foggle, imgWidth*0.5f, imgHeight*0.5f);
+					// recadrage
+					matrix.postTranslate(mArrowLeft.getWidth()-imgWidth, 0);
+					mArrowLeft.setImageMatrix(matrix);
+					// Transparence
+					mArrowLeft.setAlpha(alpha);
+				}
 			}
 		});
 	}
@@ -230,4 +349,5 @@ public class WeekView {
 			
 		mIsInLandscapeMode = landscapeMode;
 	}
+
 }

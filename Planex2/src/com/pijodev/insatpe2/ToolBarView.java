@@ -44,6 +44,8 @@ public class ToolBarView implements OnGroupSelectedListener {
 
 		mUserSession = activity.getSession();
 		initGroups(mUserSession.getGroups());
+		
+		updateCurrentButtonState();
 	}
 	
 	
@@ -156,7 +158,6 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mPrevButton = (ImageButton) mLayout.findViewById(R.id.ib_prev);
 		mNextButton = (ImageButton) mLayout.findViewById(R.id.ib_next);
 		mCurrentButton = (ImageButton) mLayout.findViewById(R.id.ib_current);
-		setCurrentButtonEnabled(false);
 		
 		OnClickListener listener = new OnClickListener() {
 			@Override
@@ -167,9 +168,6 @@ public class ToolBarView implements OnGroupSelectedListener {
 					mUserSession.addRelWeek(+1);
 				else
 					mUserSession.resetRelWeek();
-				
-				// Le bouton 'semaine courante' est désactivé si on est positionné à la semaine courante
-				setCurrentButtonEnabled(mUserSession.getRelWeek() != 0);
 			}
 		};
 		mPrevButton.setOnClickListener(listener);
@@ -177,9 +175,10 @@ public class ToolBarView implements OnGroupSelectedListener {
 		mCurrentButton.setOnClickListener(listener);
 	}
 	
-	/** Change l'état du bouton 'semaine précédante' (enabled/disabled) **/
-	private void setCurrentButtonEnabled(boolean enabled) {
-		mCurrentButton.setEnabled(enabled);
+	/** Change l'état du bouton 'semaine actuelle' (enabled/disabled) **/
+	public void updateCurrentButtonState() {
+		// Le bouton 'semaine courante' est désactivé si on est positionné à la semaine courante
+		mCurrentButton.setEnabled(mUserSession.getRelWeek() != 0);
 	}
 
 	

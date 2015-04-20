@@ -97,10 +97,13 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		if(mLoader != null)
 			mLoader.cancel(true);
 
+		mToolBarView.updateCurrentButtonState();
+		
 		ScheduleRequest request = mSession.createRequest();
 		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
 		mScheduleView.displayLoadingViews(request);
+		
 	}
 	
 	/** Affiche l'emploi du temps **/

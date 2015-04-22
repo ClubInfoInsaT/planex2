@@ -193,11 +193,11 @@ public class EasterEggs {
 	private static int Il1l = 0;
 	private static Random l1=new Random();
 	public static void ee4(RelativeLayout[] lI1) {
-		if(l1.nextInt(4) > 0)
+		if(l1.nextInt(5) > 0)
 			return;
 		for(int l=0;l<5;l++)
 		for(int I=lI1[l].getChildCount();--I>-1;) {
-			if(Il1l > 4) {
+			if(Il1l > 2) {
 				TranslateAnimation lI=new TranslateAnimation(0, 0, 0, lI1[1].getHeight()<<1<<1);
 				lI.setInterpolator(new AccelerateInterpolator());
 				RotateAnimation Il=new RotateAnimation(0, (10<<1)*(l1.nextFloat()*(1<<1)-1), lI1[l].getChildAt(I).getWidth()>>1, 0);
@@ -207,7 +207,7 @@ public class EasterEggs {
 				I1.setStartOffset(l1.nextInt(700));
 				lI1[l].getChildAt(I).startAnimation(I1);
 			} else {
-				f4(3+Il1l, (Il1l*3f+7f)*(l1.nextInt(2)*2-1)*(l1.nextFloat()+1)*0.5f,
+				f4(5+Il1l, (Il1l*3f+13f)*(l1.nextInt(2)*2-1)*(l1.nextFloat()+1)*0.5f,
 						l1.nextInt(500), lI1[l].getChildAt(I));
 			}
 		}
@@ -240,8 +240,7 @@ public class EasterEggs {
 	
 	/** Easter Egg n°5 **/// ppp iv
 	public static void ee5(Entry Xx, ViewGroup xX) {
-		String xx=Xx.getSummary().toLowerCase(Locale.getDefault()),XX=Xx.getRoom().toLowerCase(Locale.getDefault());
-		String x="e",X="o";
+		String xx=Xx.getSummary().toLowerCase(Locale.getDefault()),x="e",XX=Xx.getRoom().toLowerCase(Locale.getDefault()),X="o";
 		if(xx.contains("t"+X+x+"ic") && Xx.getDate().get(GregorianCalendar.WEEK_OF_YEAR) == DateUtils.getCurrentWeek()) {
 			ImageView xXx=(ImageView) xX.findViewById(R.id.iv_popup_ee);
 			xXx.setImageResource(R.drawable.mtfbwy_64c);

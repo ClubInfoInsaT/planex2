@@ -4,7 +4,6 @@ package com.pijodev.insatpe2;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.pijodev.insatpe2.UserSession.OnParamsChangedListener;
 /**
@@ -32,14 +31,18 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		mSession.setOnParamsChangedListener(this);
 		
 		loadViews();
-		
-		initSchedule();
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		
+		// Chargement initial au lancement de l'appli
+		if(mLoader == null)
+			initSchedule();
+		// Actualisation
+		else
+			onParamsChanged(mSession, false, false);
 	}
 	
 	@Override
@@ -104,11 +107,6 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		mLoader = new AsyncScheduleLoader(this);
 		mLoader.execute(request);
 		mScheduleView.displayLoadingViews(request);
-		
-		if(Math.abs(session.getRelWeek()) > 52) {
-			Toast.makeText(this, "Pourquoi aller si loin ?\nViens plutôt jouer :)", Toast.LENGTH_LONG).show();
-			EasterEggs.ee2(this);
-		}
 	}
 	
 	/** Affiche l'emploi du temps **/

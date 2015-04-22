@@ -101,6 +101,12 @@ public class UserSession {
 	/** Change le numéro de la semaine à visionner **/
 	public void addRelWeek(int deltaweek) {
 		mRelWeek += deltaweek;
+		// en cas de dépassement, on change d'année
+		int week = DateUtils.getCurrentWeek();
+		if(mRelWeek > 0 && (week < 33 ? mRelWeek+week : (mRelWeek+week)%53) >= 33)
+			mRelWeek -= 52;
+		else if(mRelWeek < 0 && (week > 33 ? mRelWeek+week : (mRelWeek+week+52)%53) < 33)
+			mRelWeek += 52;
 		if(mParamsListener != null)
 			mParamsListener.onParamsChanged(this, true, false);
 	}

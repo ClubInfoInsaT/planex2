@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pijodev.insatpe2.Schedule.ScheduleEntry;
+
 
 /**
  * Petite fenêtre pour afficher les détails d'un cours
@@ -23,6 +25,7 @@ public class DetailPopUpView {
 	static private TextView mTextHour;
 	static private TextView mTextRoomName;
 	static private TextView mTextDate;
+	static private TextView mTextGroups;
 	
 	static private LinearLayout mLayout;
 	
@@ -38,6 +41,7 @@ public class DetailPopUpView {
 		mTextHour = (TextView) mLayout.findViewById(R.id.tv_popup_hour);
 		mTextRoomName = (TextView) mLayout.findViewById(R.id.tv_popup_room);
 		mTextDate = (TextView) mLayout.findViewById(R.id.tv_popup_date);
+		mTextGroups = (TextView) mLayout.findViewById(R.id.tv_popup_groups);
 		
 		// Configuration
 		adb.setView(mLayout);
@@ -54,7 +58,9 @@ public class DetailPopUpView {
 	}
 	
 	/** Affiche une boîte de dialogue contenant les informations de l'élément donné **/
-	static public void show(Entry entry) {
+	static public void show(ScheduleEntry sentry) {
+		Entry entry = sentry.entry;
+		
 		mTextClassName.setText(entry.getSummary());
 		
 		mTextDate.setText("Date : " + entry.getStringDate());
@@ -66,6 +72,14 @@ public class DetailPopUpView {
 		
 		mTextProfessor.setVisibility(entry.hasProfessor() ? View.VISIBLE : View.GONE);
 		mTextProfessor.setText("Enseignant : " + entry.getProfessor());
+		
+		// Construction de la liste des noms des groupes associés
+		String s = GroupList.getGroupName(sentry.getGroupId(sentry.getGroupRef().get(0)));
+		for(int i = 1; i < sentry.getGroupRef().size(); i++)
+			s += ", "+GroupList.getGroupName(sentry.getGroupId(sentry.getGroupRef().get(i)));
+		mTextGroups.setText("Groupe"+(sentry.getGroupRef().size() == 1 ? "" : "s")+" : "+s);
+		
+		EasterEggs.ee5(entry, mLayout);
 		
 		mLayout.setBackgroundColor(entry.getColor());
 		

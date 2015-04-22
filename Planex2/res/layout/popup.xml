@@ -36,11 +36,11 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/tv_popup_room"
+        android:id="@+id/tv_popup_groups"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="Salle : Amphi 107 (60)"
+        android:text="Groupe : 3 MIC D"
         android:textColor="#000"
         android:textSize="14sp" />
 
@@ -52,6 +52,22 @@
         android:text="Enseignant : M. Azerty"
         android:textColor="#000"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_popup_room"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="Salle : Amphi 107 (60)"
+        android:textColor="#000"
+        android:textSize="14sp" />
+    
+    <ImageView
+        android:id="@+id/iv_popup_ee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:visibility="gone"/>
     
     <TextView
         android:layout_width="fill_parent"

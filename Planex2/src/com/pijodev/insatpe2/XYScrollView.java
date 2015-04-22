@@ -176,6 +176,17 @@ public class XYScrollView extends FrameLayout {
 		mVerticalScrollView.scrollTo(0, y);
 	}
 	
+	/** Scroll the view to the given direction.
+	 * @param direction Either View.FOCUS_RIGHT or View.FOCUS_LEFT or
+	 *  View.FOCUS_UP or View.FOCUS_DOWN **/
+	public void fullScroll(int direction) {
+		
+		if(direction == View.FOCUS_LEFT || direction == View.FOCUS_RIGHT)
+			mHorizontalScrollView.scrollTo(direction == View.FOCUS_RIGHT ? mHorizontalScrollView.getScrollMax() : 0, 0);
+		else if(direction == View.FOCUS_UP || direction == View.FOCUS_DOWN)
+			mVerticalScrollView.fullScroll(direction);// might not work
+	}
+	
 	/**** Event handling ****/
 	
 	/** We intercept all the event. We will dispatch them ourselves **/
@@ -269,6 +280,10 @@ public class XYScrollView extends FrameLayout {
 			return r;
 		}
 		
+		public int getScrollMax() {
+			return this.computeHorizontalScrollRange()-this.computeHorizontalScrollExtent();
+		}
+		
 		private static final int PULL_RIGHT = 1, PULL_LEFT = 2, NO_PULL = 0;
 		private int pullState = NO_PULL;
 		private float pullDist = 0; /* distance > 0 */
@@ -279,7 +294,7 @@ public class XYScrollView extends FrameLayout {
 		@SuppressLint("ClickableViewAccessibility")
 		@Override
 		public boolean onTouchEvent(MotionEvent ev) {
-			
+			boolean dispatchEvent = true;
 			switch(ev.getAction() & MotionEvent.ACTION_MASK) {
 			case MotionEvent.ACTION_DOWN:
 				lastX = ev.getX();
@@ -294,7 +309,7 @@ public class XYScrollView extends FrameLayout {
 					// cancel pulling 
 					if(pullDist < 0) {
 						if(pullListener != null)
-							pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, true);
+							dispatchEvent = !pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, true);
 						pullState = NO_PULL;
 					}
 					// just change distance
@@ -304,7 +319,7 @@ public class XYScrollView extends FrameLayout {
 					}
 				} else {
 					int scroll = getScrollX();
-					int scrollMax = this.computeHorizontalScrollRange()-this.computeHorizontalScrollExtent();
+					int scrollMax = getScrollMax();
 					
 					// Start pulling
 					if(scroll == 0 && x-lastX > 0) {
@@ -334,7 +349,7 @@ public class XYScrollView extends FrameLayout {
 			case MotionEvent.ACTION_UP:
 				if(pullState != NO_PULL) {
 					if(pullListener != null)
-						pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, false);
+						dispatchEvent = !pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, false);
 					pullState = NO_PULL;
 				}
 				activePointerId = -1;
@@ -342,7 +357,7 @@ public class XYScrollView extends FrameLayout {
 			case MotionEvent.ACTION_CANCEL:
 				if(pullState != NO_PULL) {
 					if(pullListener != null)
-						pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, true);
+						dispatchEvent = !pullListener.onPullReleased(pullDist, pullState == PULL_RIGHT, true);
 					pullState = NO_PULL;
 				}
 				activePointerId = -1;
@@ -353,7 +368,7 @@ public class XYScrollView extends FrameLayout {
 				lastX = ev.getX(ev.findPointerIndex(activePointerId));
 			
 			// pas de pull -> touchevent pour scroll
-			if(pullState == NO_PULL)
+			if(pullState == NO_PULL && dispatchEvent)
 				return super.onTouchEvent(ev);
 			
 			return true;
@@ -368,7 +383,7 @@ public class XYScrollView extends FrameLayout {
 	public interface OnPullListener {
 		public void onPullStarted(boolean right);
 		public void onPullDistanceChanged(float dist, boolean right);
-		public void onPullReleased(float dist, boolean right, boolean cancelled);
+		public boolean onPullReleased(float dist, boolean right, boolean cancelled);
 	}
 	
 }

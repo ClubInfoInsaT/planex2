@@ -51,7 +51,7 @@ public class Schedule {
 				
 				if(we != null && mShow) {
 					for(Entry e : we.getEntries(day)) {
-						ScheduleEntry se = new ScheduleEntry(e, g+1, groups.size());
+						ScheduleEntry se = new ScheduleEntry(e, g+1, groups);
 						int index = Collections.binarySearch(mEntries[day], se);
 						// Cours commun : ajout du numéro du groupe
 						if(index >= 0)
@@ -198,6 +198,8 @@ public class Schedule {
 		public Entry entry;
 		/** Numéros des groupes associés (triés par ordre croissant) **/
 		private ArrayList<Integer> groupRef;
+		/** Liste des id des groupes potentiellement concernés **/
+		private ArrayList<Integer> groupId;
 		/** Nombre max de groupe associé */
 		private int groupMax;
 		/** Nombre de sous-colonnes minimum requis pour ce cours **/
@@ -207,11 +209,12 @@ public class Schedule {
 		/** Largeur de la case dans une colonne. Largeur d'une colonne = 1.0f **/
 		private float width = 1.0f;// (widthMax - position) / minColumnCount
 		
-		public ScheduleEntry(Entry e, int g, int gmax) {
+		public ScheduleEntry(Entry e, int g, ArrayList<Integer> groupId) {
 			entry = e;
 			groupRef = new ArrayList<>();
 			groupRef.add(g);
-			groupMax = gmax;
+			groupMax = groupId.size();
+			this.groupId = groupId;
 		}
 		/** Ajoute un numéro de groupe dans la liste triée **/
 		public void addGroupRef(int g) {
@@ -227,6 +230,14 @@ public class Schedule {
 			for(Integer i : groupRef)
 				s += i;
 			return s.length() == 0 ? null : s;
+		}
+		/** Retourne la liste des groupes **/
+		public ArrayList<Integer> getGroupRef() {
+			return groupRef;
+		}
+		/** Retourne l'id du groupe à partir d'un numéro **/
+		public int getGroupId(int number) {
+			return groupId.get(number-1);
 		}
 		/** Retourne la largeur de la case dans une colonne. Largeur d'une colonne = 1.0f **/
 		public float getMeasuredWidth() {

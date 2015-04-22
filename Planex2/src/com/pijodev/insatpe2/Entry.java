@@ -206,4 +206,7 @@ public class Entry implements Comparable<Entry> {
 		mMonth = gc.get(GregorianCalendar.MONTH);
 		mYear = gc.get(GregorianCalendar.YEAR);
 	}
+	public GregorianCalendar getDate() {
+		return DateUtils.get(mYear, mMonth, mDayOfMonth, 0, 0);
+	}
 }

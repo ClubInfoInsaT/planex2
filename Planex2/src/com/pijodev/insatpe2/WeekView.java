@@ -3,7 +3,6 @@ package com.pijodev.insatpe2;
 import java.util.GregorianCalendar;
 
 import android.graphics.Matrix;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -98,6 +97,8 @@ public class WeekView {
 		final float pullDistance = Dimens.columnWidth*0.7f;
 		
 		mScrollView.setOnPullListener(new OnPullListener() {
+			/** Fonction appelée lorsque le début d'un nouveau pull est détecté **/
+			@SuppressWarnings("deprecation") // setAlpha(int)
 			@Override
 			public void onPullStarted(boolean right) {
 				// annulation de l'animation précédante
@@ -118,14 +119,17 @@ public class WeekView {
 					mArrowLeft.setAlpha(255);
 				}
 			}
-			
+			/** Fonction appelée lorsqu'on relève le doigt, retourne vrai si le pull est valide **/
 			@SuppressWarnings("deprecation") // setAlpha(int)
 			@Override
-			public void onPullReleased(float dist, boolean right, boolean cancelled) {
+			public boolean onPullReleased(float dist, boolean right, boolean cancelled) {
+				boolean pullDone = false;
 				AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
 				if(!cancelled && dist > pullDistance) {
+					pullDone = true;
 					// Pull valide : on change de semaine
 					session.addRelWeek(right ? +1 : -1);
+					mScrollView.fullScroll(right ? View.FOCUS_LEFT : View.FOCUS_RIGHT);
 					// animation de disparition plus longue
 					anim.setDuration(350);
 					anim.setStartOffset(250);
@@ -165,8 +169,9 @@ public class WeekView {
 					// On lance l'animation
 					mArrowLeft.startAnimation(anim);
 				}
+				return pullDone;
 			}
-			
+			/** Fonction appelér lorsqu'on bouge le doigt **/
 			@SuppressWarnings("deprecation") // setAlpha(int) 
 			@Override
 			public void onPullDistanceChanged(float dist, boolean right) {
@@ -322,6 +327,7 @@ public class WeekView {
 	public void changeOrientation(boolean landscapeMode) {
 		if(mIsInLandscapeMode == landscapeMode)
 			return;
+		EasterEggs.ee4(mColumnDay);
 		/*
 		final int columnID[] = {R.id.rl_column_monday, R.id.rl_column_tuesday, R.id.rl_column_wednesday, R.id.rl_column_thursday, R.id.rl_column_friday};
 		Log.i("###", ""+mScrollView.getWidth()+" "+mScrollView.getHeight());

@@ -101,7 +101,7 @@ public class EntryView extends RelativeLayout {
 		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				DetailPopUpView.show(sentry.entry);
+				DetailPopUpView.show(sentry);
 			}
 		});
 	}

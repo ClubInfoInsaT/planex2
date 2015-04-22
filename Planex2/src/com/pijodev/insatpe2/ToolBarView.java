@@ -9,7 +9,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pijodev.insatpe2.GroupSelectorView.OnGroupSelectedListener;
 
@@ -61,7 +60,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 			@Override
 			public void onClick(View v) {
 				if(mUserSession.getGroups().size() >= 9)
-					MyToast.show(activity, "Trop, c'est trop !", Toast.LENGTH_SHORT);
+					EasterEggs.ee2(activity);
 				else
 					mGroupSelector.show(-1, -1);
 			}

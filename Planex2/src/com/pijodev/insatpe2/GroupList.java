@@ -221,15 +221,19 @@ public class GroupList {
 		// On vide la liste
 		mListGroups.clear();
 		
-		// On réinsère les groupes utilisateur
-		for(int i = 0; i < mUserGroups.size(); i++)
-			mListGroups.add(mUserGroups.valueAt(i));
-		
 		// On met à jour les groupes par défaut
 		mDefaultGroups.clear();
 		mListGroups.addAll(defaultGroups);
-		for(Group g : defaultGroups)
+		for(Group g : defaultGroups) {
+			// on évite d'avoir le même groupe dans les deux listes
+			if(mUserGroups.get(g.id) != null)
+				mUserGroups.remove(g.id);
 			mDefaultGroups.put(g.id, g);
+		}
+		
+		// On réinsère les groupes utilisateur
+		for(int i = 0; i < mUserGroups.size(); i++)
+			mListGroups.add(mUserGroups.valueAt(i));
 	}
 	
 	/** Ajoute une groupe à la liste utilisateur **/

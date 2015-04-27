@@ -162,12 +162,12 @@ public class Entry implements Comparable<Entry> {
 				&& mEndTime == e.mEndTime
 				&& mColor == e.mColor);
 	}
-	/** Compare deux cours. Ordre de priorité : début, fin, nom, salle, prof, couleur **/
+	/** Compare deux cours. Ordre de priorité : début, -fin, nom, salle, prof, couleur **/
 	public int compareTo(Entry o) {
 		Entry e = (Entry) o;
 		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
 		if(a != 0) return a;
-		a = ((Integer)mEndTime).compareTo(e.mEndTime);
+		a = -((Integer)mEndTime).compareTo(e.mEndTime);
 		if(a != 0) return a;
 		a = mSummary.compareTo(e.mSummary);
 		if(a != 0) return a;
@@ -178,13 +178,13 @@ public class Entry implements Comparable<Entry> {
 		a = ((Integer)mColor).compareTo(e.mColor);
 		return a;
 	}
-	/** Compare deux cours en fonction de leurs horaires. Ordre de priorité : début, fin **/
+	/** Compare deux cours en fonction de leurs horaires. Ordre de priorité : début, fin ** /
 	public int compareTimeTo(Entry o) {
 		Entry e = (Entry) o;
 		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
 		if(a != 0) return a;
 		return ((Integer)mEndTime).compareTo(e.mEndTime);
-	}
+	}*/
 	
 	/** Modifie la date du jour, utilisée dans la fenêtre pop-up **/
 	/*public void setDate(int day, int dayOfMonth, int month, int year) {

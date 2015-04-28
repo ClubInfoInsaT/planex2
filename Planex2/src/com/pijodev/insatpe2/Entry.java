@@ -167,7 +167,7 @@ public class Entry implements Comparable<Entry> {
 		Entry e = (Entry) o;
 		int a = ((Integer)mStartTime).compareTo(e.mStartTime);
 		if(a != 0) return a;
-		a = -((Integer)mEndTime).compareTo(e.mEndTime);
+		a = ((Integer)mEndTime).compareTo(e.mEndTime);
 		if(a != 0) return a;
 		a = mSummary.compareTo(e.mSummary);
 		if(a != 0) return a;

@@ -89,25 +89,36 @@ public class Schedule {
 			// Calcul de la largeur minimale des entries
 			for(int i = set.size()-1; --i >= 0; ) {
 				for(ScheduleEntry se : set.get(i)) {
-					for(ScheduleEntry se2 : set.get(i+1)) {
+					for(int j = 1; i+j < set.size(); j++)
+					for(ScheduleEntry se2 : set.get(i+j)) {
 						if(se2.entry.getStartTime() >= se.entry.getEndTime())
 							break;
-						else if(!(se2.entry.getEndTime() <= se.entry.getStartTime()))
-							se.minColumnCount = Math.max(se.minColumnCount, 1 + se2.minColumnCount);
+						else if(!(se2.entry.getEndTime() <= se.entry.getStartTime())) {
+							if(se.minColumnCount < j + se2.minColumnCount) {
+								se.minColumnCount = j + se2.minColumnCount;
+								se.columnWidth = j;
+							}
+						}
 					}
-					se.width = 1.0f / se.minColumnCount;
+					se.width = se.columnWidth * 1.0f / se.minColumnCount;
 				}
 			}
 			// Calcul de la position et optimisation de la largeur des entries
 			for(int i = 1; i < set.size(); i++) {
 				for(ScheduleEntry se : set.get(i)) {
-					for(ScheduleEntry se2 : set.get(i-1)) {
+					int jmax = 0;
+					for(int j = 1; i-j >= 0; j++)
+					for(ScheduleEntry se2 : set.get(i-j)) {
 						if(se2.entry.getStartTime() >= se.entry.getEndTime())
 							break;
-						else if(!(se2.entry.getEndTime() <= se.entry.getStartTime()))
-							se.position = Math.max(se.position, se2.position + se2.width);
+						else if(!(se2.entry.getEndTime() <= se.entry.getStartTime())) {
+							if(se.position < se2.position + se2.width) {
+								se.position = se2.position + se2.width;
+								//jmax = j;
+							}
+						}
 					}
-					se.width = (1.0f-se.position) / se.minColumnCount;
+					se.width = se.columnWidth * (1.0f-se.position) / (se.minColumnCount - jmax);
 				}
 			}
 		}
@@ -203,7 +214,7 @@ public class Schedule {
 		/** Nombre max de groupe associé */
 		private int groupMax;
 		/** Nombre de sous-colonnes minimum requis pour ce cours **/
-		private int minColumnCount = 1;
+		private int minColumnCount = 1, columnWidth = 1;
 		/** Position de la case dans une colonne selon l'axe horizontal **/
 		private float position = 0.0f; // max col[i-1].(position+width)
 		/** Largeur de la case dans une colonne. Largeur d'une colonne = 1.0f **/

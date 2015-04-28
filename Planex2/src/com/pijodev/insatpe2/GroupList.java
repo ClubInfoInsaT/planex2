@@ -217,7 +217,7 @@ public class GroupList {
 	}
 	
 	/** Met à jour la liste de groupe par défaut **/
-	public static void update(ArrayList<Group> defaultGroups) {
+	public static void update(ArrayList<Group> defaultGroups, Context context) {
 		// On vide la liste
 		mListGroups.clear();
 		
@@ -234,6 +234,9 @@ public class GroupList {
 		// On réinsère les groupes utilisateur
 		for(int i = 0; i < mUserGroups.size(); i++)
 			mListGroups.add(mUserGroups.valueAt(i));
+		
+		// on enregistre tout de suite
+		save(context);
 	}
 	
 	/** Ajoute une groupe à la liste utilisateur **/

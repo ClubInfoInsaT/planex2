@@ -96,7 +96,7 @@ public class GroupListUpdater {
 			protected void onPostExecute(ArrayList<Group> result) {
 				// Téléchargement réussi
 				if(result != null) {
-					GroupList.update(result);
+					GroupList.update(result, mContext);
 					if(mListener != null)
 						mListener.onGroupListUpdated();
 				}

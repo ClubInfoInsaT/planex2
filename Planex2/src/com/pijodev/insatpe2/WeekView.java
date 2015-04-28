@@ -22,6 +22,8 @@ import com.pijodev.insatpe2.XYScrollView.OnPullListener;
 import com.pijodev.insatpe2.XYScrollView.OnScrollChangedListener;
 
 /**
+ * Gestion de l'interface liée au tableau de la semaine.
+ * Animations, pull-to-change
  * 
  * @author Proïd
  *
@@ -94,7 +96,7 @@ public class WeekView {
 	/** Active la fonctionnalité pul to change week (~pull to refresh)  **/
 	private void enablePullToChangeWeek(ScheduleActivity activity) {
 		final UserSession session = activity.getSession();
-		final float pullDistance = Dimens.columnWidth*0.7f;
+		final float pullDistance = Dimens.columnWidth*0.7f, startDistance = pullDistance * 0.1f;
 		
 		mScrollView.setOnPullListener(new OnPullListener() {
 			/** Fonction appelée lorsque le début d'un nouveau pull est détecté **/
@@ -176,19 +178,16 @@ public class WeekView {
 			@Override
 			public void onPullDistanceChanged(float dist, boolean right) {
 				// Données de transformation
-				int imgHeight = mArrowRight.getDrawable().getBounds().height();
-				int imgWidth = mArrowRight.getDrawable().getBounds().width();
-
 				Matrix matrix = new Matrix();
-				float k = dist / pullDistance;
+				float k = Math.max(dist - startDistance, 0.0f) / (pullDistance - startDistance);
 				
 				final float exp = 1.0f / 3.0f;
 				// Translation
 				float translate = (float) (k < 3 ? Math.pow(k, exp) : Math.pow(3, exp)+(k-3)*Math.pow(3, exp-1)/3);
 				// angle de rotation
-				float foggle = 180 * (1.0f - Math.min(Math.max(k-0.2f, 0.0f)/0.8f, 1.0f));
+				//float foggle = 180 * (1.0f - Math.min(Math.max(k-0.2f, 0.0f)/0.8f, 1.0f));
 				// transparence
-				int alpha = (int)(Math.min(k*2f+0.1f, 1.0f)*255);
+				int alpha = (int)((k < 1 ? k*0.5f : 1.0f) * 255);
 				
 				if(right) {
 					// Translation
@@ -196,7 +195,7 @@ public class WeekView {
 					lp.leftMargin = (int) (-pullDistance / 3 * translate);
 					mArrowRight.setLayoutParams(lp);
 					// Rotation
-					matrix.postRotate(-foggle, imgWidth*0.5f, imgHeight*0.5f);
+					//matrix.postRotate(-foggle, imgWidth*0.5f, imgHeight*0.5f);
 					// recadrage
 					mArrowRight.setImageMatrix(matrix);
 					// Transparence
@@ -207,8 +206,9 @@ public class WeekView {
 					lp.rightMargin = (int) (-pullDistance / 3 * translate);
 					mArrowLeft.setLayoutParams(lp);
 					// Rotation
-					matrix.postRotate(foggle, imgWidth*0.5f, imgHeight*0.5f);
+					//matrix.postRotate(foggle, imgWidth*0.5f, imgHeight*0.5f);
 					// recadrage
+					int imgWidth = mArrowRight.getDrawable().getBounds().width();
 					matrix.postTranslate(mArrowLeft.getWidth()-imgWidth, 0);
 					mArrowLeft.setImageMatrix(matrix);
 					// Transparence

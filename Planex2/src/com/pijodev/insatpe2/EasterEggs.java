@@ -35,7 +35,7 @@ public class EasterEggs {
 	
 	/** Easter Egg n°2 **/// #
 	private static int Oo=0;
-	static void ee2(final Context o) {
+	public static void ee2(final Context o) {
 		String OoO=" t", OOo="r", ooO="ue", oOo="is", Ooo="in", oO[]={
 			"T"+OOo+"op, c'est"+OoO+OOo+"op"+OoO.substring(0, 1)+"!","I"+Ooo.substring(1)+"utile d'"+
 			Ooo+oOo.substring(1)+oOo+OoO.substring(1)+"e"+OOo+"...","Tu y"+OoO+"ie"+Ooo.substring(1)+
@@ -255,4 +255,23 @@ public class EasterEggs {
 			((ImageView)xX.findViewById(R.id.iv_popup_ee)).setVisibility(8);
 		}
 	}
+	
+	/** Easter Egg n°6 **/// Toc ! Toc !
+	public static void ee6(ViewGroup uv) {
+		uv.findViewById(R.id.iv_ee6).setOnClickListener(new OnClickListener() {
+			private int vu = 0;
+			@SuppressWarnings("deprecation") // setAlpha(int)
+			@Override
+			public void onClick(View vv) {
+				vu++;
+				((ImageView)vv).setAlpha((1 << Math.min(vu, 8)) - 1);
+				int vuv = (vu-8)/3;
+				if(0 < vuv && vuv < 4) {
+					int[] uvu = {R.drawable.d_ee3};
+					((ImageView)vv).setImageResource(uvu[vuv]);
+				}
+			}
+		});
+	}
+	
 }

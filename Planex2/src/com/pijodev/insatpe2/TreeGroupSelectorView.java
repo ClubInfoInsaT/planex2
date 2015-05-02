@@ -171,7 +171,7 @@ public class TreeGroupSelectorView extends GroupSelectorView
 	
 	/** Si l'ID est différent de -1, positionne le chemin afin d'avoir accès à l'ID un clic
 	 * Affiche la fenêtre. **/
-	void show(int target, int defaultId) {
+	public void show(int target, int defaultId) {
 		mTarget = target;
 		
 		if(defaultId != -1) {

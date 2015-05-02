@@ -10,7 +10,7 @@ abstract public class GroupSelectorView {
 	protected OnGroupSelectedListener mGroupSelectedListener;
 	protected int mTarget; // id de la cible
 	
-	abstract void show(int target, int defaultId);
+	public abstract void show(int target, int defaultId);
 	
 	public void setOnGroupSelectedListener(OnGroupSelectedListener listener) {
 		mGroupSelectedListener = listener;

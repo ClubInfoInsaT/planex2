@@ -243,7 +243,7 @@ public class WeekView {
 				RelativeLayout.LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				lparams.topMargin = Dimens.loadingViewVerticalPosition;
 				mLoadingView[i].setLayoutParams(lparams);
-				mLoadingView[i].setIndeterminateDrawable(mLoadingView[i].getContext().getResources().getDrawable(R.drawable.loader_anim));
+				mLoadingView[i].setIndeterminateDrawable(mLoadingView[i].getContext().getResources().getDrawable(R.drawable.loader_anim2));
 			}
 			mColumnDay[i].addView(mLoadingView[i]);
 			mColumnDay[i].startLayoutAnimation();

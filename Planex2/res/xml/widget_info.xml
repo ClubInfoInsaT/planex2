@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+   		 android:minWidth="146dip"
+   		 android:minHeight="146dip"
+   		 android:resizeMode="vertical|horizontal"
+   		 android:updatePeriodMillis="21600000"
+   		 android:initialLayout="@layout/widget"
+   		 android:configure="com.pijodev.insatpe2.widget.WidgetConfigureActivity"
+   		 android:previewImage="@drawable/planex"
+   		 android:minResizeWidth="70dip"
+   		 android:minResizeHeight="70dip"
+   		 android:initialKeyguardLayout="@layout/widget"
+   		 android:widgetCategory="home_screen|keyguard"
+/>

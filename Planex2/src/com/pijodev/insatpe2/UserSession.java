@@ -25,14 +25,16 @@ public class UserSession {
 	private ArrayList<Integer> mHistory = new ArrayList<>();
 	/** Nom de la session (pour le fichier de sauvegarde) **/
 	private String mName;
+	/** Nom associé (=> titre pour les widgets) **/
+	private String mTitle;
+	
 	/** Listener sur les changements de paramètres (groupes/semaine) **/
 	private OnParamsChangedListener mParamsListener;
 	
-	/** Lance une nouvelle session à partir d'un nom de session
-	 * à partir duquel on charge les fichiers de préférences.
-	 * Nom de session différent pour les widgets par exemple **/
-	UserSession(String sessionName, Context context) {
-		mName = sessionName;
+	/** Lance une nouvelle session pour un widget. Crée automatiquement
+	 * un nom à partir duquel on charge les fichiers de préférences.**/
+	public UserSession(int widgetId, Context context) {
+		mName = "widget-"+widgetId+".data";
 		mRelWeek = 0;
 		load(context);
 	}
@@ -64,6 +66,9 @@ public class UserSession {
 			if(GroupList.isExisting(id))
 				mHistory.add(id);
 		}
+		
+		// nom associé (widget)
+		mTitle = prefs.getString("title", "");
 	}
 	
 	/** Enregistre les données de la session **/
@@ -80,8 +85,24 @@ public class UserSession {
 		e.putInt("hist-size", mHistory.size());
 		for(int i = 0; i < mHistory.size(); i++)
 			e.putInt("hist"+i, mHistory.get(i));
+		// nom associé (widget)
+		e.putString("title", mTitle);
 		
 		e.commit();
+	}
+
+	/** Supprime définitivement cette session en supprimant les données enregistrées **/
+	public void remove(Context context) {
+		context.getSharedPreferences(mName, 0).edit().clear().commit();
+	}
+	
+	/** Retourne le nom associé (titre du widget) **/
+	public String getTitle() {
+		return mTitle;
+	}
+	/** Modifie le nom associé (titre du widget) **/
+	public void setTitle(String title) {
+		mTitle = title;
 	}
 	
 	/** Retourne l'historique des derniers groupes sélectionnés **/

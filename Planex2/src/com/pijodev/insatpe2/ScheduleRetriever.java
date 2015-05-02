@@ -31,7 +31,6 @@ public class ScheduleRetriever {
 			while((length = stream.read(buffer)) > 0)
 				data += new String(buffer, 0, length);
 
-			Log.i("###", data);
 			stream.close();
 		} catch (IOException e) {
 			

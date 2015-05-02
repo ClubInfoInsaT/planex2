@@ -31,6 +31,8 @@ public class GroupList {
 	/** Liste complète des groupes **/
 	private static ArrayList<Group> mListGroups = new ArrayList<>();
 	
+	private static boolean mIsLoaded = false, mHasChanged = false;
+	
 	/** Retourne le nom du groupe correspondant à l'id.
 	 *  Retourne null si l'id est inconnu **/
 	public static String getGroupName(int id) {
@@ -73,6 +75,7 @@ public class GroupList {
 		Group grp = new Group(name, id);
 		mUserGroups.put(id, grp);
 		mListGroups.add(grp);
+		mHasChanged = true;
 	}
 	/** Supprime un groupe de la liste utilisateur.
 	 * Retourne vrai si la suppression a été effectuée avec succès **/
@@ -80,6 +83,7 @@ public class GroupList {
 		if(isUserGroup(id)) {
 			mListGroups.remove(mUserGroups.get(id));
 			mUserGroups.remove(id);
+			mHasChanged = true;
 			return true;
 		}
 		else
@@ -93,6 +97,9 @@ public class GroupList {
 	
 	/** Charge la liste des groupes mise en cache **/
 	public static void load(Context context) {
+		if(mIsLoaded)
+			return;
+		
 		mDefaultGroups.clear();
 		mUserGroups.clear();
 		mListGroups.clear();
@@ -153,6 +160,8 @@ public class GroupList {
 		// Si la liste de groupe par défaut est vide (jamais enregistré,ou mise à jour de l'xml), on charge la liste xml
 		if(mDefaultGroups.size() == 0)
 			loadFromXML(context);
+		mIsLoaded = true;
+		mHasChanged = false;
 	}
 	/** Charge la liste des groupes par défaut depuis les fichiers XML */
 	private static void loadFromXML(Context context) {
@@ -182,6 +191,9 @@ public class GroupList {
 	
 	/** Enregistre la liste des groupes **/
 	public static void save(Context context) {
+		if(!mIsLoaded || !mHasChanged)
+			return;
+		
 		byte[] buffer;
 		try {
 			DataOutputStream dos = new DataOutputStream(context.openFileOutput(groupsFileName, 0));
@@ -212,6 +224,7 @@ public class GroupList {
 				dos.writeInt(mUserGroups.valueAt(i).id);
 			}
 			dos.close();
+			mHasChanged = false;
 		} catch (IOException e) {
 		}
 	}
@@ -235,6 +248,8 @@ public class GroupList {
 		for(int i = 0; i < mUserGroups.size(); i++)
 			mListGroups.add(mUserGroups.valueAt(i));
 		
+		mHasChanged = true;
+		
 		// on enregistre tout de suite
 		save(context);
 	}
@@ -243,6 +258,7 @@ public class GroupList {
 	public static void addGroup(int id, String name) {
 		if(mUserGroups.get(id) == null) {
 			mUserGroups.put(id, new Group(name, id));
+			mHasChanged = true;
 		}
 	}
 	

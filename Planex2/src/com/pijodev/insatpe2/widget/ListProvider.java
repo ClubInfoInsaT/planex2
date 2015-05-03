@@ -8,6 +8,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
@@ -43,8 +44,6 @@ public class ListProvider implements RemoteViewsFactory {
 		this.mContext = context;
 		// Récupération de l'id du widget
 		mAppWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-		// Chargement de la liste des groupes
-		groupsId = new UserSession(mAppWidgetId, mContext).getGroups();
 	}
 
 	@Override
@@ -80,6 +79,10 @@ public class ListProvider implements RemoteViewsFactory {
 	/** Met à jour la liste en rechargeant les données depuis le cache **/
 	@Override
 	public void onDataSetChanged() {
+		// Chargement de la liste des groupes
+		groupsId = new UserSession(mAppWidgetId, mContext).getGroups();
+		
+		Log.i("###", "onDataSetChanged gid : "+groupsId);
 		ArrayList<Entry> entries = new ArrayList<>();
 		mItemList.clear();
 		

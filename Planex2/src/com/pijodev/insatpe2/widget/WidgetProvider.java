@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -50,7 +51,7 @@ public class WidgetProvider extends AppWidgetProvider {
 				serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 				// Lancement du service
 				context.startService(serviceIntent);
-				
+				Log.i("###", "onUpdate");
 				// Affichage du widget avec icone de chargement
 				appWidgetManager.updateAppWidget(appWidgetId, updateWidgetLoadingView(context, appWidgetId));
 			}
@@ -70,6 +71,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	
 	/** Construit la vue du widget avec une icone de chargement au centre **/
 	private RemoteViews updateWidgetLoadingView(Context context, int appWidgetId) {
+		Log.i("###", "updateWidgetLoadingView");
 		// which layout to show on widget
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 		
@@ -99,6 +101,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	/** Construit la vue du widget avec la liste **/
 	@SuppressWarnings("deprecation") // setRemoteAdapter(int,int,Intent)
 	private RemoteViews updateWidgetListView(Context context, int appWidgetId) {
+		Log.i("###", "updateWidgetListView");
 		// which layout to show on widget
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
@@ -149,6 +152,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		
 		// Action envoyé par le service de téléchargement lorsqu'il est terminé
 		if (intent.getAction().equals(DATA_FETCHED)) {
+			Log.i("###", "onReceived fetch");
 			int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
 			// Mise à jour de la vue avec liste

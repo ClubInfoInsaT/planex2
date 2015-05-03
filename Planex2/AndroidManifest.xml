@@ -28,13 +28,15 @@
         <!-- Activité de configuration du widget -->
 		<activity
 		    android:name=".widget.WidgetConfigureActivity"
-            android:label="Nouveau widget" >
+            android:label="Nouveau widget"
+		    android:enabled="@bool/widget_enabled" >
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 			</intent-filter>
 		</activity>
 		
-		<receiver android:name=".widget.WidgetProvider" >
+		<receiver android:name=".widget.WidgetProvider"
+		    android:enabled="@bool/widget_enabled">
 		    <intent-filter>
             	<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             	<action android:name="com.pijodej.insatpe2.DATA_FETCHED" />

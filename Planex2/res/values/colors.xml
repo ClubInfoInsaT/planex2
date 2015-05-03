@@ -3,4 +3,9 @@
     <color name="bar_background">#ff598ac8</color>
     <color name="toolbar_background">#ff424242</color>
     
+    <color name="widget_title_background_blue">#ff004488</color>
+    <color name="widget_title_background_green">#ff008800</color>
+    <color name="widget_title_background_purple">#ff880055</color>
+    <color name="widget_title_background_orange">#ffaa6600</color>
+    <color name="widget_title_background_alpha">#6111</color>
 </resources>

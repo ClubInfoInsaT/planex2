@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -28,6 +29,35 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	public static final String DATA_FETCHED = "com.pijodej.insatpe2.DATA_FETCHED";
 
+	@Override
+	public void onDisabled(Context context) {
+		Log.i("###", "onDisabled");
+		super.onDisabled(context);
+	}
+	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
+	@Override
+	public void onRestored(Context context, int[] oldWidgetIds,
+			int[] newWidgetIds) {
+		Log.i("###", "onRestored");
+		for(int i = 0;i<newWidgetIds.length;i++)
+			Log.i("###", "onRestored >"+oldWidgetIds[i]+":"+newWidgetIds[i]);
+		super.onRestored(context, oldWidgetIds, newWidgetIds);
+	}
+	@Override
+	public void onEnabled(Context context) {
+		Log.i("###", "onEnabled");
+		super.onEnabled(context);
+	}
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+	@Override
+	public void onAppWidgetOptionsChanged(Context context,
+			AppWidgetManager appWidgetManager, int appWidgetId,
+			Bundle newOptions) {
+		Log.i("###", "onAppWidgetOptionsChanged > "+appWidgetId);
+		super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId,
+				newOptions);
+	}
+	
 	/*
 	 * this method is called every 6 hours as specified on widgetinfo.xml this
 	 * method is also called on every phone reboot from this method nothing is
@@ -39,21 +69,37 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+		Log.i("###", "onUpdate");
 		// Chargement de la liste des groupes si ce n'est pas déjà fait 
 		GroupList.load(context);
 		
 		for (int appWidgetId : appWidgetIds) {
+			boolean manualUpdate = false;
+			if(appWidgetId < 0) {
+				appWidgetId = -appWidgetId;
+				manualUpdate = true;
+			}
 			// Si le widget a déjà été configuré (titre initialisé), on met à jour la vue
 			if(new UserSession(appWidgetId, context).getTitle().length() > 0) {
-				// Création du service de mise à jour
-				Intent serviceIntent = new Intent(context, FetchService.class);
-				// on transmet l'id du widget
-				serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-				// Lancement du service
-				context.startService(serviceIntent);
-				Log.i("###", "onUpdate");
-				// Affichage du widget avec icone de chargement
-				appWidgetManager.updateAppWidget(appWidgetId, updateWidgetLoadingView(context, appWidgetId));
+				if(!manualUpdate) {
+					Log.i("###", "onUpdate button > "+appWidgetId);
+					// Mise à jour de la vue avec liste
+					RemoteViews remoteViews = updateWidgetListView(context, appWidgetId);
+					appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
+					// On met à jour le contenu de la liste
+					appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_widget_list);
+				}
+				else {
+					Log.i("###", "onUpdate auto > "+appWidgetId);
+					// Création du service de mise à jour
+					Intent serviceIntent = new Intent(context, FetchService.class);
+					// on transmet l'id du widget
+					serviceIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+					// Lancement du service
+					context.startService(serviceIntent);
+					// Affichage du widget avec icone de chargement
+					appWidgetManager.updateAppWidget(appWidgetId, updateWidgetLoadingView(context, appWidgetId));
+				}
 			}
 		}
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
@@ -63,6 +109,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onDeleted(Context context, int[] appWidgetIds) {
 		super.onDeleted(context, appWidgetIds);
+		Log.i("###", "onDeleted");
 		
 		// On supprime le fichier de session associé
 		for(int id : appWidgetIds)
@@ -81,7 +128,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		Intent intentRefresh = new Intent(context, WidgetProvider.class);
 		intentRefresh.setData(Uri.withAppendedPath(Uri.parse("imgwidget://widget/id/"), String.valueOf(appWidgetId)));
 		intentRefresh.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		intentRefresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
+		intentRefresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { -appWidgetId });
 		
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentRefresh, PendingIntent.FLAG_CANCEL_CURRENT);
 		remoteViews.setOnClickPendingIntent(R.id.ib_widget_refresh, pendingIntent);
@@ -111,7 +158,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		Intent intentRefresh = new Intent(context, WidgetProvider.class);
 		intentRefresh.setData(Uri.withAppendedPath(Uri.parse("imgwidget://widget/id/"), String.valueOf(appWidgetId)));
 		intentRefresh.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-		intentRefresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { appWidgetId });
+		intentRefresh.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, new int[] { -appWidgetId });
 		
 		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intentRefresh, PendingIntent.FLAG_CANCEL_CURRENT);
 		remoteViews.setOnClickPendingIntent(R.id.ib_widget_refresh, pendingIntent);

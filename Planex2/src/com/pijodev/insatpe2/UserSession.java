@@ -47,6 +47,8 @@ public class UserSession {
 	
 	/** Récupère les données de la session depuis le fichier de sauvegarde **/
 	private void load(Context context) {
+		GroupList.load(context);
+		
 		SharedPreferences prefs = context.getSharedPreferences(mName, 0);
 		
 		// Groupes visionnés

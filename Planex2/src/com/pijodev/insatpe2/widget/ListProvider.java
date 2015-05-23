@@ -82,7 +82,7 @@ public class ListProvider implements RemoteViewsFactory {
 		// Chargement de la liste des groupes
 		groupsId = new UserSession(mAppWidgetId, mContext).getGroups();
 		
-		Log.i("###", "onDataSetChanged gid : "+groupsId);
+		Log.i("###", "onDataSetChanged gid:"+groupsId +" widgetId:"+mAppWidgetId);
 		ArrayList<Entry> entries = new ArrayList<>();
 		mItemList.clear();
 		
@@ -101,7 +101,7 @@ public class ListProvider implements RemoteViewsFactory {
 					entries.add(-index-1, e);
 					mItemList.add(-index-1, new String[]{e.getSummary(), e.getStringTime()+" "+e.getRoom(), ""+gnum, ""+e.getColor()});
 				} else {
-					mItemList.get(index)[2] += gnum;
+					mItemList.get(index)[2] += (gnum + 1);
 				}
 			}
 			gnum++;

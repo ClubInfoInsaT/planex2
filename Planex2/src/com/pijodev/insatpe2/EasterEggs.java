@@ -6,7 +6,10 @@ import java.util.Random;
 
 import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -257,21 +260,32 @@ public class EasterEggs {
 	}
 	
 	/** Easter Egg n°6 **/// Toc ! Toc !
-	public static void ee6(ViewGroup uv) {
+	@SuppressWarnings("deprecation") // setAlpha(int)
+	public static void ee6(View uv) {
 		uv.findViewById(R.id.iv_ee6).setOnClickListener(new OnClickListener() {
-			private int vu = 0;
-			@SuppressWarnings("deprecation") // setAlpha(int)
+			private int vu = -1;
+			private final int[] uvu = {R.drawable.ee_tt0, R.drawable.ee_tt1, R.drawable.ee_tt2, R.drawable.ee_tt3, R.drawable.ee_tt4, R.drawable.ee_tt5, R.drawable.ee_tt6};
+			
 			@Override
 			public void onClick(View vv) {
 				vu++;
-				((ImageView)vv).setAlpha((1 << Math.min(vu, 8)) - 1);
-				int vuv = (vu-8)/3;
-				if(0 < vuv && vuv < 4) {
-					int[] uvu = {R.drawable.d_ee3};
-					((ImageView)vv).setImageResource(uvu[vuv]);
-				}
+				if((vu & 0xfffffffc) == 0)
+					((ImageView)vv).setAlpha((1 << (vu+5)) - 1);
+				if(vu < 10)
+					vvuu((ImageView)vv, uvu[Math.max(vu-3,0)]);
 			}
 		});
+		
+		((ImageView)uv).setAlpha(0x18);
+		vvuu((ImageView)uv, R.drawable.ee_tt0);
+	}
+	private static void vvuu(ImageView uv, int vv) {
+		Bitmap vu = BitmapFactory.decodeResource(uv.getContext().getResources(), vv);
+		int uvu = uv.getWidth(), uvv = uv.getHeight(), vuu = vu.getWidth(), vuv = vu.getHeight();
+		float uuv = (vuu*uvv <= uvu*vuv ? (float)uvv/vuv : (float)uvu/vuu);
+		uuv = uuv == 0 ? 1 : uuv;
+		Bitmap vvu = Bitmap.createScaledBitmap(vu, (int)uuv*vuu, (int)uuv*vuv, false); 
+		uv.setImageBitmap(vvu);
 	}
 	
 }

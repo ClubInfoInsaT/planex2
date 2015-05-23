@@ -114,6 +114,8 @@ public class WidgetConfigureActivity extends Activity implements OnGroupSelected
 				}
 			}
 		});
+		
+		EasterEggs.ee6(findViewById(R.id.iv_ee6));
 	}
 
 	/** Mise à jour du widget **/

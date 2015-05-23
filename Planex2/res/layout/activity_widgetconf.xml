@@ -78,9 +78,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:alpha="0"
-        android:scaleType="centerInside"
-        android:src="@drawable/ee_m" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/ee_tt0" />
 
     <Button
         android:id="@+id/b_create_widget"

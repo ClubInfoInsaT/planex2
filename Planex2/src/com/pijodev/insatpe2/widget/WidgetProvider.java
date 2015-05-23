@@ -28,25 +28,21 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	public static final String DATA_FETCHED = "com.pijodej.insatpe2.DATA_FETCHED";
 
-	@Override
-	public void onDisabled(Context context) {
-		//Log.i("###", "onDisabled");
-		super.onDisabled(context);
-	}
+	/** Permet de restaurer un widget supprimé par l'utilisateur **/
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	public void onRestored(Context context, int[] oldWidgetIds,
 			int[] newWidgetIds) {
 		//Log.i("###", "onRestored");
-		//for(int i = 0;i<newWidgetIds.length;i++)
-		//	Log.i("###", "onRestored >"+oldWidgetIds[i]+":"+newWidgetIds[i]);
+		for(int i = 0;i<newWidgetIds.length;i++) {
+			//Log.i("###", "onRestored >"+oldWidgetIds[i]+":"+newWidgetIds[i]);
+			UserSession newSession = new UserSession(newWidgetIds[i], context);
+			UserSession oldSession = new UserSession(oldWidgetIds[i], context);
+			newSession.setGroups(oldSession.getGroups());
+		}
 		super.onRestored(context, oldWidgetIds, newWidgetIds);
 	}
-	@Override
-	public void onEnabled(Context context) {
-		//Log.i("###", "onEnabled");
-		super.onEnabled(context);
-	}
+
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	public void onAppWidgetOptionsChanged(Context context,

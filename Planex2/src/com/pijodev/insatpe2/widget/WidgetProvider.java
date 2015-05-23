@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -31,21 +30,21 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onDisabled(Context context) {
-		Log.i("###", "onDisabled");
+		//Log.i("###", "onDisabled");
 		super.onDisabled(context);
 	}
 	@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 	@Override
 	public void onRestored(Context context, int[] oldWidgetIds,
 			int[] newWidgetIds) {
-		Log.i("###", "onRestored");
-		for(int i = 0;i<newWidgetIds.length;i++)
-			Log.i("###", "onRestored >"+oldWidgetIds[i]+":"+newWidgetIds[i]);
+		//Log.i("###", "onRestored");
+		//for(int i = 0;i<newWidgetIds.length;i++)
+		//	Log.i("###", "onRestored >"+oldWidgetIds[i]+":"+newWidgetIds[i]);
 		super.onRestored(context, oldWidgetIds, newWidgetIds);
 	}
 	@Override
 	public void onEnabled(Context context) {
-		Log.i("###", "onEnabled");
+		//Log.i("###", "onEnabled");
 		super.onEnabled(context);
 	}
 	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -53,7 +52,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	public void onAppWidgetOptionsChanged(Context context,
 			AppWidgetManager appWidgetManager, int appWidgetId,
 			Bundle newOptions) {
-		Log.i("###", "onAppWidgetOptionsChanged > "+appWidgetId);
+		//Log.i("###", "onAppWidgetOptionsChanged > "+appWidgetId);
 		super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId,
 				newOptions);
 	}
@@ -69,7 +68,7 @@ public class WidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-		Log.i("###", "onUpdate");
+		//Log.i("###", "onUpdate");
 		// Chargement de la liste des groupes si ce n'est pas déjà fait 
 		GroupList.load(context);
 		
@@ -82,7 +81,7 @@ public class WidgetProvider extends AppWidgetProvider {
 			// Si le widget a déjà été configuré (titre initialisé), on met à jour la vue
 			if(new UserSession(appWidgetId, context).getTitle().length() > 0) {
 				if(!manualUpdate) {
-					Log.i("###", "onUpdate button > "+appWidgetId);
+					//Log.i("###", "onUpdate button > "+appWidgetId);
 					// Mise à jour de la vue avec liste
 					RemoteViews remoteViews = updateWidgetListView(context, appWidgetId);
 					appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
@@ -90,7 +89,7 @@ public class WidgetProvider extends AppWidgetProvider {
 					appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.lv_widget_list);
 				}
 				else {
-					Log.i("###", "onUpdate auto > "+appWidgetId);
+					//Log.i("###", "onUpdate auto > "+appWidgetId);
 					// Création du service de mise à jour
 					Intent serviceIntent = new Intent(context, FetchService.class);
 					// on transmet l'id du widget
@@ -109,7 +108,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	@Override
 	public void onDeleted(Context context, int[] appWidgetIds) {
 		super.onDeleted(context, appWidgetIds);
-		Log.i("###", "onDeleted");
+		//Log.i("###", "onDeleted");
 		
 		// On supprime le fichier de session associé
 		for(int id : appWidgetIds)
@@ -118,7 +117,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	
 	/** Construit la vue du widget avec une icone de chargement au centre **/
 	private RemoteViews updateWidgetLoadingView(Context context, int appWidgetId) {
-		Log.i("###", "updateWidgetLoadingView");
+		//Log.i("###", "updateWidgetLoadingView");
 		// which layout to show on widget
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 		
@@ -148,7 +147,7 @@ public class WidgetProvider extends AppWidgetProvider {
 	/** Construit la vue du widget avec la liste **/
 	@SuppressWarnings("deprecation") // setRemoteAdapter(int,int,Intent)
 	private RemoteViews updateWidgetListView(Context context, int appWidgetId) {
-		Log.i("###", "updateWidgetListView");
+		//Log.i("###", "updateWidgetListView");
 		// which layout to show on widget
 		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
 
@@ -199,7 +198,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		
 		// Action envoyé par le service de téléchargement lorsqu'il est terminé
 		if (intent.getAction().equals(DATA_FETCHED)) {
-			Log.i("###", "onReceived fetch");
+			//Log.i("###", "onReceived fetch");
 			int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
 			// Mise à jour de la vue avec liste

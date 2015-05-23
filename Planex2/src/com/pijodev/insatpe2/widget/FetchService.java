@@ -9,7 +9,6 @@ import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.pijodev.insatpe2.Cache;
@@ -34,7 +33,7 @@ public class FetchService extends Service implements Callback {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if(intent.hasExtra(AppWidgetManager.EXTRA_APPWIDGET_ID)) {
-			Log.i("###", "onStartCommand fetch");
+			//Log.i("###", "onStartCommand fetch");
 			// Récupération de l'id du widget
 			appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 			// Chargement de la liste des groupes à afficher 
@@ -74,7 +73,7 @@ public class FetchService extends Service implements Callback {
 	}
 	
 	private void onFetchFinished() {
-		Log.i("###", "onFetchFinished -> send broadcast to provider");
+		//Log.i("###", "onFetchFinished -> send broadcast to provider");
 		// On fait appel au widget provider pour qu'il mette à jour la liste du widget avec les données téléchargées
 		Intent widgetUpdateIntent = new Intent();
 		widgetUpdateIntent.setAction(WidgetProvider.DATA_FETCHED);

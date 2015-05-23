@@ -8,7 +8,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
@@ -82,7 +81,7 @@ public class ListProvider implements RemoteViewsFactory {
 		// Chargement de la liste des groupes
 		groupsId = new UserSession(mAppWidgetId, mContext).getGroups();
 		
-		Log.i("###", "onDataSetChanged gid:"+groupsId +" widgetId:"+mAppWidgetId);
+		//Log.i("###", "onDataSetChanged gid:"+groupsId +" widgetId:"+mAppWidgetId);
 		ArrayList<Entry> entries = new ArrayList<>();
 		mItemList.clear();
 		

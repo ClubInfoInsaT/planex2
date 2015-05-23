@@ -65,10 +65,11 @@
             android:text="Mettre à jour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"/>
+            android:layout_weight="0.5"
+            android:visibility="gone"/>
         <Button 
             android:id="@+id/b_group_list_add"
-            android:text="Nouveau groupe"
+            android:text="Ajouter groupe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"/>

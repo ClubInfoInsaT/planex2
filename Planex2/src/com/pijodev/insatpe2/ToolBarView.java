@@ -4,7 +4,6 @@ package com.pijodev.insatpe2;
 import java.util.ArrayList;
 
 import android.content.res.Configuration;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;

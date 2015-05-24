@@ -375,18 +375,12 @@ public class WeekView {
 		if(newOrientation == lastOrientation)
 			return;*/
 		
-		// Lancement de l'appli en mode portrait : rien à faire
+		/*/ Lancement de l'appli en mode portrait : rien à faire
 		if(newOrientation == PORTRAIT && lastOrientation == UNKNOWN)
-			return;
+			return;*/
 		
-		// Dans les autres cas, il faut mettre à jour les dimensions
-		if(newOrientation == PORTRAIT) {
-			Dimens.initialize(mActivity);
-		} else {
-			Dimens.columnWidth = (int) Math.ceil((double)(newWidth-4*Dimens.columnRightMargin) * 0.2);
-			Dimens.columnHeight = newHeight * 60 / 41;//1500 / 1025; // nombre d'heures d'une journée : 15, nombre d'heures normales : 8h - 18h15 -> 10.25 heures
-			Dimens.hourHeight = (float)newHeight / 10.25f;
-		}
+		// On met à jour les dimensions en fonction de la taille d'écran et de l'orientation
+		Dimens.update(newWidth, newHeight, newOrientation == LANDSCAPE);
 
 		// On applique les nouvelles valeurs
 		LinearLayout.LayoutParams lp;

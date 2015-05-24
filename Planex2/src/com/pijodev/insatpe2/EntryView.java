@@ -21,6 +21,7 @@ import com.pijodev.insatpe2.Schedule.ScheduleEntry;
 public class EntryView extends RelativeLayout {
 	/** Référence vers le ScehduleEntry associé à cette vue **/
 	private ScheduleEntry mSEntry;
+	private TextView[] mTextView = new TextView[4];
 	
 	/** Construit la vue représentant de l'élément entry **/
 	public EntryView(Context context, final ScheduleEntry sentry) {
@@ -54,6 +55,7 @@ public class EntryView extends RelativeLayout {
 		tv_class.setSingleLine(true);
 		tv_class.setEllipsize(TruncateAt.END);
 		ll.addView(tv_class);
+		mTextView[0] = tv_class;
 	   
 		// Salle
 		if(sentry.entry.hasRoom()) {
@@ -66,6 +68,7 @@ public class EntryView extends RelativeLayout {
 			tv_room.setSingleLine(true);
 			tv_room.setEllipsize(TruncateAt.END);
 			ll.addView(tv_room);
+			mTextView[1] = tv_room;
 		}
 		
 		// Heure
@@ -78,23 +81,25 @@ public class EntryView extends RelativeLayout {
 		tv_hour.setSingleLine(true);
 		tv_hour.setEllipsize(TruncateAt.END);
 		ll.addView(tv_hour);
+		mTextView[2] = tv_hour;
 		
 		// Logo : numéro correpondant aux groupes secondaires
 		String gidTxt = sentry.groupRefToString();
 		if(gidTxt != null) {
-			TextView groupIdentifier = new TextView(context);
-			groupIdentifier.setBackgroundColor(0xAA444444);
-			groupIdentifier.setTextColor(0xAAffffff);
-			groupIdentifier.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
-			groupIdentifier.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-			groupIdentifier.setText(gidTxt);
-			groupIdentifier.setPadding(1, 0, 1, 0);
+			TextView tv_groupId = new TextView(context);
+			tv_groupId.setBackgroundColor(0xAA444444);
+			tv_groupId.setTextColor(0xAAffffff);
+			tv_groupId.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
+			tv_groupId.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+			tv_groupId.setText(gidTxt);
+			tv_groupId.setPadding(1, 0, 1, 0);
 			// positionné dans l'angle inférieur droit de la vue
 			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 			lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-			groupIdentifier.setLayoutParams(lp);
-			addView(groupIdentifier);
+			tv_groupId.setLayoutParams(lp);
+			addView(tv_groupId);
+			mTextView[3] = tv_groupId;
 		}
 		
 		
@@ -109,6 +114,11 @@ public class EntryView extends RelativeLayout {
 	
 	public void updateDimens() {
 		setLayoutParams(getLayoutParams(mSEntry));
+		for(int i = 0; i < 3; i++)
+			if(mTextView[i] != null)
+				mTextView[i].setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize);
+		if(mTextView[3] != null)
+			mTextView[3].setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
 	}
 	
 	/** Layout params pour positionner l'entry correctement dans la colonne **/

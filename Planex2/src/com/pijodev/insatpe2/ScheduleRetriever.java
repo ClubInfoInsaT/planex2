@@ -152,6 +152,11 @@ public class ScheduleRetriever {
 		for(int i = 1; i < groups.size(); i++)
 			sb.append('+').append(groups.get(i));
 		
+		// pas de semaine 0 car c'est interprété comme la semaine actuelle par planning express
+		if(week == 0)
+			week = 52;
+		
+		
 		try {
 			return new URL("http://www.etud.insa-toulouse.fr/planning/index.php?gid="+sb.toString()+"&wid="+week+"&ics=1&planex=2");
 		} catch (MalformedURLException e) {

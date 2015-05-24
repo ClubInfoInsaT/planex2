@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 /**
  * Contient les informations liées à la navigation actuelle,
@@ -123,15 +124,21 @@ public class UserSession {
 	}
 	/** Change le numéro de la semaine à visionner **/
 	public void addRelWeek(int deltaweek) {
-		mRelWeek += deltaweek;
-		// en cas de dépassement, on change d'année
+		int relWeek = mRelWeek + deltaweek;
+		
+		// en cas de dépassement, on bloque
 		int week = DateUtils.getCurrentWeek();
-		if(mRelWeek > 0 && (week < 33 ? mRelWeek+week : (mRelWeek+week)%53) >= 33)
-			mRelWeek -= 52;
-		else if(mRelWeek < 0 && (week > 33 ? mRelWeek+week : (mRelWeek+week+52)%53) < 33)
-			mRelWeek += 52;
-		if(mParamsListener != null)
-			mParamsListener.onParamsChanged(this, true, false);
+		if(week > 33 && (relWeek+week <= 33 || relWeek+week >= 33+52))
+			relWeek = mRelWeek;
+		else if(week <= 33 && (relWeek+week > 33 || relWeek+week < 33-52))
+			relWeek = mRelWeek;
+		
+		// On applique si il y a un changement (pas de bloquage)
+		if(relWeek != mRelWeek) {
+			mRelWeek = relWeek;
+			if(mParamsListener != null)
+				mParamsListener.onParamsChanged(this, true, false);
+		}
 	}
 	/** Met à zéro (semaine courante) le numéro de la semaine à visionner **/
 	public void resetRelWeek() {

@@ -2,8 +2,11 @@ package com.pijodev.insatpe2;
 
 import java.util.GregorianCalendar;
 
+import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -29,26 +32,53 @@ import com.pijodev.insatpe2.XYScrollView.OnScrollChangedListener;
  *
  */
 public class WeekView {
+	/** Référence vers l'activité principale **/
+	private ScheduleActivity mActivity;
+	
 	/** Scroll view principale **/
 	private XYScrollView mScrollView;
-	/** Barre supérieure des jours **/
-	private LinearLayout mDayBar;
 	/** Colonnes des jours **/
 	private RelativeLayout[] mColumnDay = new RelativeLayout[5];
-	/** Icone animée de chargement **/
-	private ProgressBar[] mLoadingView = new ProgressBar[5];
+	
 	/** Intitulé des colonnes : jour de la semaine + date **/
 	private TextView[] mTitleDay = new TextView[5];
+	/** Barre supérieure des jours **/
+	private LinearLayout mDayBar;
+	
+	/** Icone animée de chargement **/
+	private ProgressBar[] mLoadingView = new ProgressBar[5];
 	/** Animation d'apparition d'un ensemble d'éléments dans une colonne **/
 	private LayoutAnimationController mLayoutAnimation;
+	
 	/** Visibilité des icones de chargement **/
 	private boolean mLoadingViewEnabled = false;
+	
 	/** Icones de changement de semaine **/
 	private ImageView mArrowLeft, mArrowRight;
 	
+	/** Emploi du temps de la semaine actuellement affiché **/
+	private Schedule mCurrentSchedule = null;
+	/** Orientation précédement enregistrée **/
+	private int mLastOrientation = UNKNOWN;
+	/** Dimensions précédements enregistrées **/
+	private int mLastWidth = -1, mLastHeight = -1;
+	private static final int LANDSCAPE = 0, PORTRAIT = 1, UNKNOWN = 2;
+	
 	/** Initialise les views **/
 	public WeekView(ScheduleActivity activity) {
+		mActivity = activity;
 		mScrollView = (XYScrollView) activity.findViewById(R.id.sv_week);
+		// On enregistre un View tree observer pour surveiller les changements de dimensions lors de la rotation de l'écran
+		ViewTreeObserver observer = mScrollView.getViewTreeObserver();
+		if(observer.isAlive()) {
+			observer.addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
+				@Override
+				public void onGlobalLayout() {
+					updateOrientation(mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? LANDSCAPE : PORTRAIT);
+				}
+			});
+		}
+		
 		mDayBar = (LinearLayout) activity.findViewById(R.id.ll_day);
 		
 		mLayoutAnimation = createColumnFillingAnimation();
@@ -221,6 +251,9 @@ public class WeekView {
 	/** Affiche le contenu d'un emploi du temps dans la vue **/
 	public void showSchedule(Schedule schedule, boolean anim) {
 		clearColumns();
+		
+		mCurrentSchedule = schedule;
+		
 		// Remplissage des colonnes
 		fillColumns(schedule, anim);
 		// mise à jour des dates de la barre supérieure
@@ -243,7 +276,7 @@ public class WeekView {
 				RelativeLayout.LayoutParams lparams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 				lparams.topMargin = Dimens.loadingViewVerticalPosition;
 				mLoadingView[i].setLayoutParams(lparams);
-				mLoadingView[i].setIndeterminateDrawable(mLoadingView[i].getContext().getResources().getDrawable(R.drawable.loader_anim2));
+				mLoadingView[i].setIndeterminateDrawable(mLoadingView[i].getContext().getResources().getDrawable(R.drawable.loader_anim));
 			}
 			mColumnDay[i].addView(mLoadingView[i]);
 			mColumnDay[i].startLayoutAnimation();
@@ -288,7 +321,10 @@ public class WeekView {
 			int m = gc.get(GregorianCalendar.MONTH);
 			int y = gc.get(GregorianCalendar.YEAR);
 			
-			mTitleDay[i].setText(day[i] + "\t"+String.format("%02d.%02d.%d", d, m+1, y));
+			if(mLastOrientation == LANDSCAPE)
+				mTitleDay[i].setText(day[i] + " "+String.format("%02d.%02d", d, m+1));
+			else
+				mTitleDay[i].setText(day[i] + "\t"+String.format("%02d.%02d.%d", d, m+1, y));
 		}
 	}
 	
@@ -319,52 +355,69 @@ public class WeekView {
     	
     	return layoutAnim;
 	}
-
 	
-	/** Orientation actuelle **/
-	private boolean mIsInLandscapeMode = false;
-	/** Change les dimensions des vues en fonction de l'orientation de l'écran **/
-	public void changeOrientation(boolean landscapeMode) {
-		if(mIsInLandscapeMode == landscapeMode)
-			return;
-		EasterEggs.ee4(mColumnDay);
-		/*
-		final int columnID[] = {R.id.rl_column_monday, R.id.rl_column_tuesday, R.id.rl_column_wednesday, R.id.rl_column_thursday, R.id.rl_column_friday};
-		Log.i("###", ""+mScrollView.getWidth()+" "+mScrollView.getHeight());
-		// Mode paysage : redimensionnement des colonnes afin qu'elles
-		// soient toutes visibles, et modification de la hauteur pour voir
-		// tout l'intervalle 8h-18h15
-		if(landscapeMode) {
-			for(int i = 0; i < 5; i++) {
-				// Barre des jours
-				View v = mDayBar.getChildAt(i);
-				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-				lp.width = 45;
-				v.setLayoutParams(lp);
-				// Colonnes des jours
-				v = mScrollView.findViewById(columnID[i]);
-				lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-				lp.width = 45;
-				v.setLayoutParams(lp);
-			}
-		}
-		// Mode portrait : vue par défaut
-		else {
-			for(int i = 0; i < 5; i++) {
-				// Barre des jours
-				View v = mDayBar.getChildAt(i);
-				LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-				lp.width = Dimens.columnWidth;
-				v.setLayoutParams(lp);
-				// Colonnes des jours
-				v = mScrollView.findViewById(columnID[i]);
-				lp = (LinearLayout.LayoutParams) v.getLayoutParams();
-				lp.width = Dimens.columnWidth;
-				v.setLayoutParams(lp);
-			}
-		}*/
-			
-		mIsInLandscapeMode = landscapeMode;
-	}
+	/** Met à jour les dimensions de l'ensemble des vues en fonction de l'orientation **/
+	private void updateOrientation(int newOrientation) {
+		int newWidth = mScrollView.getWidth();
+		int newHeight = mScrollView.getHeight();
+		
+		int lastOrientation = mLastOrientation, lastWidth = mLastWidth, lastHeight = mLastHeight;
 
+		mLastWidth = newWidth;
+		mLastHeight = newHeight;
+		mLastOrientation = newOrientation;
+
+		// Pas de changement de dimension
+		if(newWidth == lastWidth && newHeight == lastHeight)
+			return;
+		
+		/*/ Pas de chagement d'orientation
+		if(newOrientation == lastOrientation)
+			return;*/
+		
+		// Lancement de l'appli en mode portrait : rien à faire
+		if(newOrientation == PORTRAIT && lastOrientation == UNKNOWN)
+			return;
+		
+		// Dans les autres cas, il faut mettre à jour les dimensions
+		if(newOrientation == PORTRAIT) {
+			Dimens.initialize(mActivity);
+		} else {
+			Dimens.columnWidth = (int) Math.ceil((double)(newWidth-4*Dimens.columnRightMargin) * 0.2);
+			Dimens.columnHeight = newHeight * 60 / 41;//1500 / 1025; // nombre d'heures d'une journée : 15, nombre d'heures normales : 8h - 18h15 -> 10.25 heures
+			Dimens.hourHeight = (float)newHeight / 10.25f;
+		}
+
+		// On applique les nouvelles valeurs
+		LinearLayout.LayoutParams lp;
+		for(int i = 0; i < 5; i++) {
+			// Taille des colonnes
+			lp = new LinearLayout.LayoutParams(Dimens.columnWidth, Dimens.columnHeight);
+			if(i < 4)
+				lp.rightMargin = Dimens.columnRightMargin;
+			mColumnDay[i].setLayoutParams(lp);
+			
+			// Dimensions et position des cours
+			if(!mLoadingViewEnabled) {
+				for(int j = mColumnDay[i].getChildCount(); --j >= 0;)
+					((EntryView)mColumnDay[i].getChildAt(j)).updateDimens();
+			}
+			
+			// Largeur du titre des colonnes
+			lp = new LinearLayout.LayoutParams(Dimens.columnWidth, LinearLayout.LayoutParams.WRAP_CONTENT);
+			if(i < 4)
+				lp.rightMargin = 1;
+			mDayBar.getChildAt(i).setLayoutParams(lp);
+		}
+		
+		// mise à jour du format d'affichage de la date
+		if(mCurrentSchedule != null)
+			setDates(mCurrentSchedule.getRequest().getRelWeek());
+		else
+			setDates(0);
+		
+		// ...
+		if(lastOrientation != UNKNOWN && newOrientation == PORTRAIT)
+			EasterEggs.ee4(mColumnDay);
+	}
 }

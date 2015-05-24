@@ -19,12 +19,13 @@ import com.pijodev.insatpe2.Schedule.ScheduleEntry;
  *
  */
 public class EntryView extends RelativeLayout {
-	
-	TextView mGroupIdentifier;
+	/** Référence vers le ScehduleEntry associé à cette vue **/
+	private ScheduleEntry mSEntry;
 	
 	/** Construit la vue représentant de l'élément entry **/
 	public EntryView(Context context, final ScheduleEntry sentry) {
 		super(context);
+		mSEntry = sentry;
 		
 		// Positionnement
 		setLayoutParams(getLayoutParams(sentry));
@@ -81,19 +82,19 @@ public class EntryView extends RelativeLayout {
 		// Logo : numéro correpondant aux groupes secondaires
 		String gidTxt = sentry.groupRefToString();
 		if(gidTxt != null) {
-			mGroupIdentifier = new TextView(context);
-			mGroupIdentifier.setBackgroundColor(0xAA444444);
-			mGroupIdentifier.setTextColor(0xAAffffff);
-			mGroupIdentifier.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
-			mGroupIdentifier.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-			mGroupIdentifier.setText(gidTxt);
-			mGroupIdentifier.setPadding(1, 0, 1, 0);
+			TextView groupIdentifier = new TextView(context);
+			groupIdentifier.setBackgroundColor(0xAA444444);
+			groupIdentifier.setTextColor(0xAAffffff);
+			groupIdentifier.setTextSize(TypedValue.COMPLEX_UNIT_PX, Dimens.entryTextSize*3/4);
+			groupIdentifier.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+			groupIdentifier.setText(gidTxt);
+			groupIdentifier.setPadding(1, 0, 1, 0);
 			// positionné dans l'angle inférieur droit de la vue
 			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 			lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-			mGroupIdentifier.setLayoutParams(lp);
-			addView(mGroupIdentifier);
+			groupIdentifier.setLayoutParams(lp);
+			addView(groupIdentifier);
 		}
 		
 		
@@ -106,9 +107,13 @@ public class EntryView extends RelativeLayout {
 		});
 	}
 	
+	public void updateDimens() {
+		setLayoutParams(getLayoutParams(mSEntry));
+	}
+	
 	/** Layout params pour positionner l'entry correctement dans la colonne **/
 	private LayoutParams getLayoutParams(ScheduleEntry sentry) {
-		LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
 		// Position et dimension en largeur
 		params.leftMargin = (int) (sentry.getMeasuredPosition() * Dimens.columnWidth);

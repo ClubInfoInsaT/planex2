@@ -60,19 +60,24 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
+
 		// On centre la vue sur le jour actuel, seulement au lancement de l'appli
 		if(hasFocus && !mIsScrollInitialized) {
 			mScheduleView.centerOnDay(DateUtils.getDayOfWeek());
 			mIsScrollInitialized = true;
 		}
 	}
-
-	/** Fonctione appelée lorsque l'orientation de l'écran change **/
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
-		
-		mScheduleView.changeOrientation(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+		// On passe en mode plein écran quand l'écran est en mode paysage
+		setFullScreenEnabled(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE);
+	}
+	
+	/** Cache la barre supérieure pour passer en plein écran **/
+	private void setFullScreenEnabled(boolean fullscreen) {
+		mToolBarView.setVisible(!fullscreen);
 	}
 	
 	/** Initialise les classes statiques **/

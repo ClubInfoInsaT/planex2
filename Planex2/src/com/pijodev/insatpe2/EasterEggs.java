@@ -9,7 +9,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -200,7 +199,7 @@ public class EasterEggs {
 			return;
 		for(int l=0;l<5;l++)
 		for(int I=lI1[l].getChildCount();--I>-1;) {
-			if(Il1l > 2) {
+			if(Il1l == 3) {
 				TranslateAnimation lI=new TranslateAnimation(0, 0, 0, lI1[1].getHeight()<<1<<1);
 				lI.setInterpolator(new AccelerateInterpolator());
 				RotateAnimation Il=new RotateAnimation(0, (10<<1)*(l1.nextFloat()*(1<<1)-1), lI1[l].getChildAt(I).getWidth()>>1, 0);
@@ -209,7 +208,7 @@ public class EasterEggs {
 				I1.addAnimation(Il); I1.addAnimation(lI); I1.setDuration(4000);
 				I1.setStartOffset(l1.nextInt(700));
 				lI1[l].getChildAt(I).startAnimation(I1);
-			} else {
+			} else if(Il1l <= 2) {
 				f4(5+Il1l, (Il1l*3f+13f)*(l1.nextInt(2)*2-1)*(l1.nextFloat()+1)*0.5f,
 						l1.nextInt(500), lI1[l].getChildAt(I));
 			}

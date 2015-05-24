@@ -3,6 +3,8 @@ package com.pijodev.insatpe2;
 
 import java.util.ArrayList;
 
+import android.content.res.Configuration;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -37,6 +39,8 @@ public class ToolBarView implements OnGroupSelectedListener {
 	
 	public ToolBarView(ScheduleActivity activity) {
 		mLayout = (LinearLayout) activity.findViewById(R.id.ll_settings);
+		// On cache cette barre (passage en mode plein écran) si on est en mode paysage
+		setVisible(activity.getResources().getConfiguration().orientation != Configuration.ORIENTATION_LANDSCAPE);
 		
 		initWeekButtons(activity);
 		initGroupViews(activity);
@@ -47,6 +51,10 @@ public class ToolBarView implements OnGroupSelectedListener {
 		updateCurrentButtonState();
 	}
 	
+	/** Change la visibilité de la barre (VISIBLE/GONE) pour le mode plein écran **/
+	public void setVisible(boolean visible) {
+		mLayout.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
 	
 	/**** Gestion de la sélection de groupes ****/
 	

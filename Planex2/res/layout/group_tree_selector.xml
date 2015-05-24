@@ -69,7 +69,7 @@
             android:visibility="gone"/>
         <Button 
             android:id="@+id/b_group_list_add"
-            android:text="Ajouter groupe"
+            android:text="Ajouter un groupe"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"/>

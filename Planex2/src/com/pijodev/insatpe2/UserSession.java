@@ -122,8 +122,8 @@ public class UserSession {
 	public int getRelWeek() {
 		return mRelWeek;
 	}
-	/** Change le numéro de la semaine à visionner **/
-	public void addRelWeek(int deltaweek) {
+	/** Change le numéro de la semaine à visionner. Retourne vrai si le chagement a été bloqué **/
+	public boolean addRelWeek(int deltaweek) {
 		int relWeek = mRelWeek + deltaweek;
 		
 		// en cas de dépassement, on bloque
@@ -138,7 +138,9 @@ public class UserSession {
 			mRelWeek = relWeek;
 			if(mParamsListener != null)
 				mParamsListener.onParamsChanged(this, true, false);
+			return false;
 		}
+		return true;
 	}
 	/** Met à zéro (semaine courante) le numéro de la semaine à visionner **/
 	public void resetRelWeek() {

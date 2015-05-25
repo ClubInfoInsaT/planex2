@@ -52,6 +52,7 @@ public class ScheduleActivity extends Activity implements OnParamsChangedListene
 		Cache.save(this);
 		mSession.save(this);
 		GroupList.save(this);
+		EasterEggs.end();
 	}
 	
 	

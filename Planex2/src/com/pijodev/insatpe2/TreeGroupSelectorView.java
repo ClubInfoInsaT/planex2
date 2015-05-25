@@ -152,7 +152,7 @@ public class TreeGroupSelectorView extends GroupSelectorView
 	@Override
 	public void onNewUserGroupFailed(String name, Integer id) {
 		// Si l'id est valide, l'erreur vient du fait que l'id demandé existe déjà
-		if(id != null) {
+		if(id != null && GroupList.isExisting(id)) {
 			// On se place alors à l'endroit de l'id (~fonction recherche)
 			mPath.clear();
 			mRoot.getPath(id, mPath);

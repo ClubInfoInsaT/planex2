@@ -10,6 +10,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.pijodev.insatpe2.GroupSelectorView.OnGroupSelectedListener;
 
@@ -160,7 +161,7 @@ public class ToolBarView implements OnGroupSelectedListener {
 	/**** Boutons de changement de semaine ****/
 	
 	/** Initialise les boutons associés au changement de semaine **/
-	private void initWeekButtons(ScheduleActivity activity) {
+	private void initWeekButtons(final ScheduleActivity activity) {
 		mPrevButton = (ImageButton) mLayout.findViewById(R.id.ib_prev);
 		mNextButton = (ImageButton) mLayout.findViewById(R.id.ib_next);
 		mCurrentButton = (ImageButton) mLayout.findViewById(R.id.ib_current);
@@ -168,12 +169,30 @@ public class ToolBarView implements OnGroupSelectedListener {
 		OnClickListener listener = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(v == mPrevButton) 
-					mUserSession.addRelWeek(-1);
-				else if(v == mNextButton)
-					mUserSession.addRelWeek(+1);
-				else
-					mUserSession.resetRelWeek();
+				if(v == mPrevButton) {
+					if(EasterEggs.ee3_locked())
+						EasterEggs.ee3((RelativeLayout)activity.findViewById(R.id.rl_main_view), 0);
+					else {
+						boolean bound = mUserSession.addRelWeek(-1);
+						EasterEggs.ee3_poke(bound);
+					}
+				}
+				else if(v == mNextButton) {
+					if(EasterEggs.ee3_locked())
+						EasterEggs.ee3((RelativeLayout)activity.findViewById(R.id.rl_main_view), 2);
+					else {
+						boolean bound = mUserSession.addRelWeek(+1);
+						EasterEggs.ee3_poke(bound);
+					}
+				}
+				else {
+					if(EasterEggs.ee3_locked())
+						EasterEggs.ee3((RelativeLayout)activity.findViewById(R.id.rl_main_view), 1);
+					else {
+						mUserSession.resetRelWeek();
+						EasterEggs.ee3_poke(false);
+					}
+				}
 			}
 		};
 		mPrevButton.setOnClickListener(listener);

@@ -1,5 +1,6 @@
 package com.pijodev.insatpe2;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
@@ -9,6 +10,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -28,8 +30,17 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EasterEggs {
+	static void end() {
+		aaaaae.removeCallbacks(eeeeea);
+		eeaaee = 0;
+		if(eaaeae != null)
+			eaaeae.removeView(eaaeae);
+		eaaeea = null;
+	}
+	
 	/** Easter Egg n°1 **/
 	static void ee1() {
 		// pull ohohoho ! 
@@ -176,22 +187,149 @@ public class EasterEggs {
 	}
 	private static int o2(int o){return o<0?0:o;}
 
-	/** Easter Egg n°3 **/// m8p8h
-	public static void ee3(RelativeLayout eaaeae) {
-		/*int aeeaee = eaaeae.getWidth(), aaeaee = eaaeae.getHeight();
-		ImageView eeeaae = new ImageView(eaaeae.getContext());
-		ImageView eaeaae = new ImageView(eaaeae.getContext());
-		Drawable aaaeea = eaaeae.getContext().getResources().getDrawable(R.drawable.d_ee3);
-		int eaeeae = aaaeea.getBounds().width();
-		eeeaae.setImageResource(R.drawable.f_ee3);
-		eaeaae.setImageDrawable(aaaeea);
-		TranslateAnimation eaeaee=new TranslateAnimation(-eaeeae*1.5f, eaeeae*2, 0, 0);
-		AlphaAnimation eaaeee=new AlphaAnimation(1, 0);eaaeee.setStartOffset(2000);eaaeee.setDuration(200);
-		AlphaAnimation eaeaea=new AlphaAnimation(1, 0);eaeaea.setStartOffset(4000);eaeaea.setDuration(400);
-		eaeaee.setDuration(2200);eaeaee.setFillAfter(true);*/
+	/** Easter Egg n°3 **/// <- -> [-]
+	private static int eeaaee = 0;
+	private static int eaeaea[][] = new int[20][10];
+	private static TextView eaaeea;
+	private static ViewGroup eaaeae;
+	private static final String[][][] eeeaaa = {
+		{{"ea","aa","ea"},{"aaa","ea"},{"a","aa","a"},{"ea","aaa"},},
+		{{"a","aa","ea"},{"eaa","aa"},},
+		{{"ea","aa","a"},{"aa","eaa"},},
+		{{"a","a","aa"},{"eea","aaa"},{"aa","ea","ea"},{"aaa","a"},},
+		{{"ea","ea","aa"},{"aaa","eea"},{"aa","a","a"},{"a","aaa"},},
+		{{"a","a","a","a"},{"aaaa"},},
+		{{"aa","aa"}}
+	};
+	private static final Random aaaaee = new Random();
+	private static int[] aaaeee={0,0,20,4,'€'};//€$£¥¢₣Ұ
+	private static int eeeeee = 0;
+	private static final Handler aaaaae = new Handler();
+	private static final Runnable eeeeea = new Runnable() {
+		@Override public void run() {
+			if(f3(aaaeee[0], aaaeee[1],aaaeee[2]-1, aaaeee[3])) {//down
+				aaaeee[2]--;
+			}
+			else if(aaaeee[2] == 20) {// end
+				eeaaee = 0;
+				eaaeae.removeView(eaaeea);
+				eaaeea = null;
+				MyToast.show(eaaeae.getContext(), "Score : "+eeeeee, Toast.LENGTH_SHORT);
+				return;
+			} else {// next
+				h3();
+				g3();
+			}
+			
+			e3();
+			aaaaae.removeCallbacks(eeeeea);
+			aaaaae.postDelayed(eeeeea, 200);
+	}};
+	public static boolean ee3_locked() {
+		return eeaaee >= 6;
+	}
+	public static void ee3_poke(boolean eaeeae) {
+		eeaaee = eaeeae ? eeaaee + 1 : 0;
+	}
+	public static void ee3(RelativeLayout eaaeae, int aeaaea/*key*/) {
+		// start
+		if(eaaeea == null) {
+			EasterEggs.eaaeae = eaaeae;
+			i3();
+			g3();
+			eeeeee = 0;
+			for(int a=20;--a>=0;) Arrays.fill(eaeaea[a], '.');
+			aaaaae.post(eeeeea);
+			return;
+		}
+		
+		// event
+		switch(aeaaea) {
+			case 0:
+				if(f3(aaaeee[0], aaaeee[1],aaaeee[2], aaaeee[3]-1))
+					aaaeee[3]--;
+				break;
+			case 2:
+				if(f3(aaaeee[0], aaaeee[1],aaaeee[2], aaaeee[3]+1))
+					aaaeee[3]++;
+				break;
+			case 1:
+				{int a=(aaaeee[1]+1)%eeeaaa[aaaeee[0]].length;
+				if(f3(aaaeee[0], a,aaaeee[2], aaaeee[3]+1))
+					aaaeee[1]=a;}
+				break;
+		}
+		e3();
+	}
+	private static void i3() {
+		eaaeea = new TextView(eaaeae.getContext());
+		eaaeea.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+		eaaeea.setTextSize(16);
+		eaaeea.setBackgroundColor(0xff000000);
+		eaaeea.setTextColor(0xff00dd00);
+		RelativeLayout.LayoutParams aeeaae = new RelativeLayout.LayoutParams(-2,-2);
+		aeeaae.addRule(RelativeLayout.CENTER_IN_PARENT);
+		eaaeea.setLayoutParams(aeeaae);
+		eaaeae.addView(eaaeea);
+		MyToast.show(eaaeae.getContext(), "Ne joue pas avec le temps, mais joue plutôt avec l'argent...", Toast.LENGTH_SHORT);
+	}
+	private static void h3() {
+		int eae = aaaeee[2], aea = aaaeee[3], aaa = aaaeee[0], eee = aaaeee[1];
+		for(int e = eae; e < Math.min(20, eae+eeeaaa[aaa][eee].length); e++)
+			for(int a = aea; a < aea+eeeaaa[aaa][eee][e-eae].length(); a++)
+				if(eeeaaa[aaa][eee][e-eae].charAt(a-aea)=='a')
+					eaeaea[e][a] = aaaeee[4];
+		int eeee = 0;
+		for(int e = 0; e < 20; e++) {
+			boolean aaaa = false;
+			for(int a = 0; a < 10 && !aaaa; a++)
+				if(eaeaea[e][a] == '.')
+					aaaa = true;
+			
+			eaeaea[e-eeee] = eaeaea[e];
+			if(!aaaa) {
+				eeee++;
+				eeeeee += eeee;
+			}
+		}
+		for(;eeee > 0; eeee--) {
+			eaeaea[20-eeee] = new int[10];
+			Arrays.fill(eaeaea[20-eeee],  '.');
+		}
+	}
+	private static void g3() {
+		aaaeee[0] = aaaaee.nextInt(7);
+		aaaeee[1] = aaaaee.nextInt(eeeaaa[aaaeee[0]].length);
+		aaaeee[2] = 20;
+		aaaeee[3] = 4;
+		aaaeee[4] = "€$£₣Ұ".codePointAt(aaaaee.nextInt(5));
+	}
+	private static boolean f3(int aaa, int eee, int eae, int aea) {
+		for(int e = eae; e < Math.min(20, eae+eeeaaa[aaa][eee].length); e++) {
+			if(e < 0) return false;
+			for(int a = aea; a < aea+eeeaaa[aaa][eee][e-eae].length(); a++)
+				if(a < 0 || a >= 10 || eeeaaa[aaa][eee][e-eae].charAt(a-aea)=='a' && eaeaea[e][a]!='.')
+					return false;
+		}
+		return true;//valide
+	}
+	private static void e3() {
+		StringBuilder aaeeae = new StringBuilder();
+		for(int e = 20;--e >= 0;) {
+			for(int a = 0; a < 10; a++)
+				aaeeae.append(' ').appendCodePoint(eaeaea[e][a]);
+			aaeeae.append(" \n");
+		}
+		int eae = aaaeee[2], aea = aaaeee[3], aaa = aaaeee[0], eee = aaaeee[1];
+		for(int e = eae; e < Math.min(20, eae+eeeaaa[aaa][eee].length); e++)
+			for(int a = aea; a < aea+eeeaaa[aaa][eee][e-eae].length(); a++)
+				if(eeeaaa[aaa][eee][e-eae].charAt(a-aea) == 'a')
+					aaeeae.replace(2*a+1+(2*11)*(19-e), 2*a+1+(2*11)*(19-e)+1, new String(Character.toChars(aaaeee[4])));
+		
+		eaaeea.setText("\n"+aaeeae.toString()+" Score :  "+eeeeee+"\n");
 	}
 	
-	/** Easter Egg n°4 **/// 9.81
+	/** Easter Egg n°4 **/// 9.81	
 	private static int Il1l = 0;
 	private static Random l1=new Random();
 	public static void ee4(RelativeLayout[] lI1) {

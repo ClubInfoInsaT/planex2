@@ -95,14 +95,14 @@ public class NewUserGroupDialog implements OnClickListener {
 		if(id == -1) {
 			MyToast.show(mContext, "Numéro invalide", Toast.LENGTH_SHORT);
 			if(mListener != null)
-				mListener.onNewUserGroupFailed(name, null);
+				mListener.onNewUserGroupFailed(null, null);
 			return;
 		}
 		
 		if(name == null) {
 			Toast.makeText(mContext, "Nom invalide", Toast.LENGTH_SHORT).show();
 			if(mListener != null)
-				mListener.onNewUserGroupFailed(null, id);
+				mListener.onNewUserGroupFailed(null, null);
 			return;
 		}
 		
@@ -110,6 +110,8 @@ public class NewUserGroupDialog implements OnClickListener {
 			GroupList.addUserGroup(name, id);
 		} catch (Exception e) {
 			Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+			if(mListener != null)
+				mListener.onNewUserGroupFailed(name, id);
 			return;
 		}
 		

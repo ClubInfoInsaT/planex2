@@ -37,7 +37,7 @@ public class EasterEggs {
 		aaaaae.removeCallbacks(eeeeea);
 		eeaaee = 0;
 		if(eaaeae != null)
-			eaaeae.removeView(eaaeae);
+			eaaeae.removeView(eaaeea);
 		eaaeea = null;
 	}
 	

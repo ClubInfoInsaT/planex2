@@ -14,6 +14,7 @@ import android.widget.RemoteViews;
 
 import com.pijodev.insatpe2.GroupList;
 import com.pijodev.insatpe2.R;
+import com.pijodev.insatpe2.ScheduleActivity;
 import com.pijodev.insatpe2.UserSession;
 /**
  * 
@@ -130,6 +131,9 @@ public class WidgetProvider extends AppWidgetProvider {
 		
 		// Titre de widget
 		remoteViews.setTextViewText(R.id.tv_widget_title, session.getTitle());
+		Intent configIntent = new Intent(context, ScheduleActivity.class);
+	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+		remoteViews.setOnClickPendingIntent(R.id.tv_widget_title, configPendingIntent);
 		
 		// Icone de chargement
 		remoteViews.setViewVisibility(R.id.pb_widget_loading, View.VISIBLE);
@@ -160,6 +164,9 @@ public class WidgetProvider extends AppWidgetProvider {
 		
 		// Titre de widget
 		remoteViews.setTextViewText(R.id.tv_widget_title, session.getTitle());
+		Intent configIntent = new Intent(context, ScheduleActivity.class);
+	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+		remoteViews.setOnClickPendingIntent(R.id.tv_widget_title, configPendingIntent);
 
 		// Icone de chargement (-> cachée)
 		remoteViews.setViewVisibility(R.id.pb_widget_loading, View.GONE);

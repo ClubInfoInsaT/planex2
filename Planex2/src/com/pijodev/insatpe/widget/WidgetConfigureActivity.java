@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2.widget;
+package com.pijodev.insatpe.widget;
 
 import java.util.ArrayList;
 
@@ -15,13 +15,13 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.pijodev.insatpe2.EasterEggs;
-import com.pijodev.insatpe2.GroupList;
-import com.pijodev.insatpe2.GroupSelectorView.OnGroupSelectedListener;
-import com.pijodev.insatpe2.MyToast;
-import com.pijodev.insatpe2.R;
-import com.pijodev.insatpe2.TreeGroupSelectorView;
-import com.pijodev.insatpe2.UserSession;
+import com.pijodev.insatpe.GroupSelectorView.OnGroupSelectedListener;
+import com.pijodev.insatpe.EasterEggs;
+import com.pijodev.insatpe.GroupList;
+import com.pijodev.insatpe.MyToast;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.TreeGroupSelectorView;
+import com.pijodev.insatpe.UserSession;
 
 /**
  * Activité de configuration initiale du widget.

@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,9 +24,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pijodev.insatpe2.GroupList.Group;
-import com.pijodev.insatpe2.GroupListUpdater.OnGroupListUpdatedListener;
-import com.pijodev.insatpe2.NewUserGroupDialog.OnNewUserGroupCreatedListener;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.GroupList.Group;
+import com.pijodev.insatpe.GroupListUpdater.OnGroupListUpdatedListener;
+import com.pijodev.insatpe.NewUserGroupDialog.OnNewUserGroupCreatedListener;
 
 /**
  * TODO inteface propre, bouton charger liste,

@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2.widget;
+package com.pijodev.insatpe.widget;
 
 import android.annotation.TargetApi;
 import android.content.Intent;

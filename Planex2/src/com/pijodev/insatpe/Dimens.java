@@ -1,7 +1,8 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 
 import android.content.Context;
+import com.pijodev.insatpe.R;
 
 /**
  * Permet d'accéder aux dimensions définies dans les fichiers xml

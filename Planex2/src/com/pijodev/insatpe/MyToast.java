@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -48,7 +48,7 @@
 	        
 	    </LinearLayout>
         
-	    <com.pijodev.insatpe2.XYScrollView
+	    <com.pijodev.insatpe.XYScrollView
 	        android:id="@+id/sv_week"
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
@@ -102,7 +102,7 @@
 	            
 	        </LinearLayout>
 	        
-	    </com.pijodev.insatpe2.XYScrollView>
+	    </com.pijodev.insatpe.XYScrollView>
 	    
  	</RelativeLayout>
 

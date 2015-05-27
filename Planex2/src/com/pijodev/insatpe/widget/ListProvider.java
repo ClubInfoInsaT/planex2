@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2.widget;
+package com.pijodev.insatpe.widget;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,12 +12,12 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
-import com.pijodev.insatpe2.Cache;
-import com.pijodev.insatpe2.DateUtils;
-import com.pijodev.insatpe2.Entry;
-import com.pijodev.insatpe2.R;
-import com.pijodev.insatpe2.UserSession;
-import com.pijodev.insatpe2.WeekEntries;
+import com.pijodev.insatpe.Cache;
+import com.pijodev.insatpe.DateUtils;
+import com.pijodev.insatpe.Entry;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.UserSession;
+import com.pijodev.insatpe.WeekEntries;
 
 /**
  * Met en forme le contenu de la liste depuis les données du cache.

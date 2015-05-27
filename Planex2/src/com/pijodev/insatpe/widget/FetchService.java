@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2.widget;
+package com.pijodev.insatpe.widget;
 
 import java.util.ArrayList;
 
@@ -11,11 +11,11 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.SparseArray;
 
-import com.pijodev.insatpe2.Cache;
-import com.pijodev.insatpe2.DateUtils;
-import com.pijodev.insatpe2.ScheduleRetriever;
-import com.pijodev.insatpe2.UserSession;
-import com.pijodev.insatpe2.WeekEntries;
+import com.pijodev.insatpe.Cache;
+import com.pijodev.insatpe.DateUtils;
+import com.pijodev.insatpe.ScheduleRetriever;
+import com.pijodev.insatpe.UserSession;
+import com.pijodev.insatpe.WeekEntries;
 
 public class FetchService extends Service implements Callback {
 	/** Id du widget **/

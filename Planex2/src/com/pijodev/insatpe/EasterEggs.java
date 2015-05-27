@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.util.Arrays;
 import java.util.GregorianCalendar;
@@ -31,6 +31,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.pijodev.insatpe.R;
 
 public class EasterEggs {
 	static void end() {

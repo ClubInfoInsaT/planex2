@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -10,6 +10,7 @@ import java.util.zip.DataFormatException;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.SparseArray;
+import com.pijodev.insatpe.R;
 
 /**
  * Contient la liste des groupes (nom, id) enregistrés

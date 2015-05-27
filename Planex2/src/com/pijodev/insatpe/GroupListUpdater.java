@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.util.ArrayList;
 
@@ -12,7 +12,7 @@ import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.pijodev.insatpe2.GroupList.Group;
+import com.pijodev.insatpe.GroupList.Group;
 
 /**
  * Chargement de la liste de groupe par défaut depuis planning express +

@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 
 import java.util.ArrayList;
@@ -12,7 +12,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.pijodev.insatpe2.GroupSelectorView.OnGroupSelectedListener;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.GroupSelectorView.OnGroupSelectedListener;
 
 /**
  * 

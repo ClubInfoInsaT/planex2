@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2.widget;
+package com.pijodev.insatpe.widget;
 
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
@@ -12,10 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.pijodev.insatpe2.GroupList;
-import com.pijodev.insatpe2.R;
-import com.pijodev.insatpe2.ScheduleActivity;
-import com.pijodev.insatpe2.UserSession;
+import com.pijodev.insatpe.GroupList;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.ScheduleActivity;
+import com.pijodev.insatpe.UserSession;
 /**
  * 
  * -> https://laaptu.wordpress.com/2013/07/19/android-app-widget-with-listview/

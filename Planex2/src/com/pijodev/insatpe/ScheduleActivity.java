@@ -1,11 +1,12 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.pijodev.insatpe2.UserSession.OnParamsChangedListener;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.UserSession.OnParamsChangedListener;
 /**
  * 
  * @author Proïd

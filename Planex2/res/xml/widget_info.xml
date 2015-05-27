@@ -5,7 +5,7 @@
    		 android:resizeMode="vertical|horizontal"
    		 android:updatePeriodMillis="21600000"
    		 android:initialLayout="@layout/widget"
-   		 android:configure="com.pijodev.insatpe2.widget.WidgetConfigureActivity"
+   		 android:configure="com.pijodev.insatpe.widget.WidgetConfigureActivity"
    		 android:previewImage="@drawable/planex"
    		 android:minResizeWidth="110dip"
    		 android:minResizeHeight="40dip"

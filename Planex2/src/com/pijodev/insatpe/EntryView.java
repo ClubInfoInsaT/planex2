@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.pijodev.insatpe2.Schedule.ScheduleEntry;
+import com.pijodev.insatpe.Schedule.ScheduleEntry;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 
 import android.annotation.SuppressLint;
@@ -9,7 +9,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pijodev.insatpe2.Schedule.ScheduleEntry;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.Schedule.ScheduleEntry;
 
 
 /**

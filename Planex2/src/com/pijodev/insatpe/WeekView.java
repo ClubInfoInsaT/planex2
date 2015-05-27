@@ -1,4 +1,4 @@
-package com.pijodev.insatpe2;
+package com.pijodev.insatpe;
 
 import java.util.GregorianCalendar;
 
@@ -20,9 +20,10 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.pijodev.insatpe2.Schedule.ScheduleEntry;
-import com.pijodev.insatpe2.XYScrollView.OnPullListener;
-import com.pijodev.insatpe2.XYScrollView.OnScrollChangedListener;
+import com.pijodev.insatpe.R;
+import com.pijodev.insatpe.Schedule.ScheduleEntry;
+import com.pijodev.insatpe.XYScrollView.OnPullListener;
+import com.pijodev.insatpe.XYScrollView.OnScrollChangedListener;
 
 /**
  * Gestion de l'interface liée au tableau de la semaine.

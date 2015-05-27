@@ -202,7 +202,8 @@ public class EasterEggs {
 		{{"aa","aa"}}
 	};
 	private static final Random aaaaee = new Random();
-	private static int[] aaaeee={0,0,20,4,'€'};//€$£¥¢₣Ұ
+	private static int[] aaaeee={0,0,20,4,'€'};
+	private static final String aeaeae = "€$£₣Ұ";
 	private static int eeeeee = 0;
 	private static final Handler aaaaae = new Handler();
 	private static final Runnable eeeeea = new Runnable() {
@@ -223,7 +224,7 @@ public class EasterEggs {
 			
 			e3();
 			aaaaae.removeCallbacks(eeeeea);
-			aaaaae.postDelayed(eeeeea, 200);
+			aaaaae.postDelayed(eeeeea, Math.max(50, 300 - (int)(200*Math.log10(eeaaee+1)/2.3)));
 	}};
 	public static boolean ee3_locked() {
 		return eeaaee >= 6;
@@ -263,7 +264,7 @@ public class EasterEggs {
 	}
 	private static void i3() {
 		eaaeea = new TextView(eaaeae.getContext());
-		eaaeea.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+		eaaeea.setTypeface(Typeface.MONOSPACE);//, Typeface.BOLD);
 		eaaeea.setTextSize(16);
 		eaaeea.setBackgroundColor(0xff000000);
 		eaaeea.setTextColor(0xff00dd00);
@@ -302,7 +303,7 @@ public class EasterEggs {
 		aaaeee[1] = aaaaee.nextInt(eeeaaa[aaaeee[0]].length);
 		aaaeee[2] = 20;
 		aaaeee[3] = 4;
-		aaaeee[4] = "€$£₣Ұ".codePointAt(aaaaee.nextInt(5));
+		aaaeee[4] = aeaeae.codePointAt(aaaaee.nextInt(5));
 	}
 	private static boolean f3(int aaa, int eee, int eae, int aea) {
 		for(int e = eae; e < Math.min(20, eae+eeeaaa[aaa][eee].length); e++) {
@@ -326,7 +327,10 @@ public class EasterEggs {
 				if(eeeaaa[aaa][eee][e-eae].charAt(a-aea) == 'a')
 					aaeeae.replace(2*a+1+(2*11)*(19-e), 2*a+1+(2*11)*(19-e)+1, new String(Character.toChars(aaaeee[4])));
 		
-		eaaeea.setText("\n"+aaeeae.toString()+" Score :  "+eeeeee+"\n");
+		eaaeea.setText("     T."+aeaeae.substring(0, 1)+".T.R."
+				+aeaeae.substring(4, 5)+"."+aeaeae.substring(1,2)
+				+"     "+"\n"+aaeeae.toString()
+				+String.format(Locale.getDefault(), "   Score : %07d", eeeeee));
 	}
 	
 	/** Easter Egg n°4 **/// 9.81	

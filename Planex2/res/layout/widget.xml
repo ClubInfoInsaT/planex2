@@ -12,8 +12,9 @@
         android:background="@color/widget_title_background_blue"
         android:gravity="center_vertical" >
 
-        <TextView
+        <Button
             android:id="@+id/tv_widget_title"
+            android:background="#0000"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="3dp"

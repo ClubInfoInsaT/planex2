@@ -132,7 +132,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		// Titre de widget
 		remoteViews.setTextViewText(R.id.tv_widget_title, session.getTitle());
 		Intent configIntent = new Intent(context, ScheduleActivity.class);
-	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT|Intent.FLAG_ACTIVITY_NEW_TASK);
 		remoteViews.setOnClickPendingIntent(R.id.tv_widget_title, configPendingIntent);
 		
 		// Icone de chargement
@@ -165,7 +165,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		// Titre de widget
 		remoteViews.setTextViewText(R.id.tv_widget_title, session.getTitle());
 		Intent configIntent = new Intent(context, ScheduleActivity.class);
-	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
+	    PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, PendingIntent.FLAG_UPDATE_CURRENT|Intent.FLAG_ACTIVITY_NEW_TASK);
 		remoteViews.setOnClickPendingIntent(R.id.tv_widget_title, configPendingIntent);
 
 		// Icone de chargement (-> cachée)

@@ -23,7 +23,7 @@ import com.pijodev.insatpe.R;
 public class GroupList {
 	private static final String groupsFileName = "groups.data";
 	/** Version du format du fichier. A modifier si le format évolue **/
-	private static final int currentCacheVersion = 2;
+	private static final int currentCacheVersion = 3;
 	
 	/** Ensemble des groupes identifiés par leur ID **/
 	private static SparseArray<Group> mDefaultGroups = new SparseArray<>();

@@ -1,0 +1,147 @@
+com.pijodev.insatpe.R$array: int group_id_1
+com.pijodev.insatpe.R$array: int group_id_2
+com.pijodev.insatpe.R$array: int group_id_3
+com.pijodev.insatpe.R$array: int group_id_4
+com.pijodev.insatpe.R$array: int group_id_5
+com.pijodev.insatpe.R$array: int group_name_1
+com.pijodev.insatpe.R$array: int group_name_2
+com.pijodev.insatpe.R$array: int group_name_3
+com.pijodev.insatpe.R$array: int group_name_4
+com.pijodev.insatpe.R$array: int group_name_5
+com.pijodev.insatpe.R$bool: int widget_enabled
+com.pijodev.insatpe.R$color: int bar_background
+com.pijodev.insatpe.R$color: int toolbar_background
+com.pijodev.insatpe.R$color: int widget_title_background_alpha
+com.pijodev.insatpe.R$color: int widget_title_background_blue
+com.pijodev.insatpe.R$color: int widget_title_background_green
+com.pijodev.insatpe.R$color: int widget_title_background_orange
+com.pijodev.insatpe.R$color: int widget_title_background_purple
+com.pijodev.insatpe.R$dimen: int bar_text_size
+com.pijodev.insatpe.R$dimen: int column_height
+com.pijodev.insatpe.R$dimen: int column_width
+com.pijodev.insatpe.R$dimen: int entry_text_size
+com.pijodev.insatpe.R$dimen: int hours_height
+com.pijodev.insatpe.R$dimen: int loading_view_ypos
+com.pijodev.insatpe.R$dimen: int separator_width
+com.pijodev.insatpe.R$drawable: int button_default
+com.pijodev.insatpe.R$drawable: int button_pressed
+com.pijodev.insatpe.R$drawable: int button_text
+com.pijodev.insatpe.R$drawable: int ee_tt0
+com.pijodev.insatpe.R$drawable: int ee_tt1
+com.pijodev.insatpe.R$drawable: int ee_tt2
+com.pijodev.insatpe.R$drawable: int ee_tt3
+com.pijodev.insatpe.R$drawable: int ee_tt4
+com.pijodev.insatpe.R$drawable: int ee_tt5
+com.pijodev.insatpe.R$drawable: int ee_tt6
+com.pijodev.insatpe.R$drawable: int loader
+com.pijodev.insatpe.R$drawable: int loader2
+com.pijodev.insatpe.R$drawable: int loader_anim
+com.pijodev.insatpe.R$drawable: int loader_anim2
+com.pijodev.insatpe.R$drawable: int mtfbwy_64c
+com.pijodev.insatpe.R$drawable: int next
+com.pijodev.insatpe.R$drawable: int orig
+com.pijodev.insatpe.R$drawable: int orig_default
+com.pijodev.insatpe.R$drawable: int orig_disabled
+com.pijodev.insatpe.R$drawable: int orig_pressed
+com.pijodev.insatpe.R$drawable: int panel
+com.pijodev.insatpe.R$drawable: int planex
+com.pijodev.insatpe.R$drawable: int prec_default
+com.pijodev.insatpe.R$drawable: int prec_disabled
+com.pijodev.insatpe.R$drawable: int prec_pressed
+com.pijodev.insatpe.R$drawable: int prev
+com.pijodev.insatpe.R$drawable: int refresh
+com.pijodev.insatpe.R$drawable: int refresh_background
+com.pijodev.insatpe.R$drawable: int settings
+com.pijodev.insatpe.R$drawable: int suiv_default
+com.pijodev.insatpe.R$drawable: int suiv_disabled
+com.pijodev.insatpe.R$drawable: int suiv_pressed
+com.pijodev.insatpe.R$drawable: int tf64_ee5
+com.pijodev.insatpe.R$drawable: int widget_background
+com.pijodev.insatpe.R$id: int b_add_group
+com.pijodev.insatpe.R$id: int b_add_group_widget
+com.pijodev.insatpe.R$id: int b_create_widget
+com.pijodev.insatpe.R$id: int b_group_list_add
+com.pijodev.insatpe.R$id: int b_group_list_update
+com.pijodev.insatpe.R$id: int et_id_newgroup
+com.pijodev.insatpe.R$id: int et_name_newgroup
+com.pijodev.insatpe.R$id: int et_title_widget
+com.pijodev.insatpe.R$id: int ib_current
+com.pijodev.insatpe.R$id: int ib_group_delete
+com.pijodev.insatpe.R$id: int ib_next
+com.pijodev.insatpe.R$id: int ib_prev
+com.pijodev.insatpe.R$id: int ib_widget_refresh
+com.pijodev.insatpe.R$id: int item_widget_details
+com.pijodev.insatpe.R$id: int item_widget_gnum
+com.pijodev.insatpe.R$id: int item_widget_ll
+com.pijodev.insatpe.R$id: int item_widget_summary
+com.pijodev.insatpe.R$id: int iv_ee6
+com.pijodev.insatpe.R$id: int iv_next
+com.pijodev.insatpe.R$id: int iv_popup_ee
+com.pijodev.insatpe.R$id: int iv_prev
+com.pijodev.insatpe.R$id: int iv_pull_arrow
+com.pijodev.insatpe.R$id: int ll_day
+com.pijodev.insatpe.R$id: int ll_friday
+com.pijodev.insatpe.R$id: int ll_group_path
+com.pijodev.insatpe.R$id: int ll_group_title
+com.pijodev.insatpe.R$id: int ll_group_tools
+com.pijodev.insatpe.R$id: int ll_groups
+com.pijodev.insatpe.R$id: int ll_monday
+com.pijodev.insatpe.R$id: int ll_settings
+com.pijodev.insatpe.R$id: int ll_thursday
+com.pijodev.insatpe.R$id: int ll_tuesday
+com.pijodev.insatpe.R$id: int ll_wednesday
+com.pijodev.insatpe.R$id: int ll_week
+com.pijodev.insatpe.R$id: int ll_widget_group_list
+com.pijodev.insatpe.R$id: int lv_groups_list
+com.pijodev.insatpe.R$id: int lv_widget_list
+com.pijodev.insatpe.R$id: int pb_widget_loading
+com.pijodev.insatpe.R$id: int rl_column_friday
+com.pijodev.insatpe.R$id: int rl_column_monday
+com.pijodev.insatpe.R$id: int rl_column_thursday
+com.pijodev.insatpe.R$id: int rl_column_tuesday
+com.pijodev.insatpe.R$id: int rl_column_wednesday
+com.pijodev.insatpe.R$id: int rl_main
+com.pijodev.insatpe.R$id: int rl_main_view
+com.pijodev.insatpe.R$id: int sv_week
+com.pijodev.insatpe.R$id: int tv_date
+com.pijodev.insatpe.R$id: int tv_popup_class
+com.pijodev.insatpe.R$id: int tv_popup_date
+com.pijodev.insatpe.R$id: int tv_popup_groups
+com.pijodev.insatpe.R$id: int tv_popup_hour
+com.pijodev.insatpe.R$id: int tv_popup_professor
+com.pijodev.insatpe.R$id: int tv_popup_room
+com.pijodev.insatpe.R$id: int tv_widget_title
+com.pijodev.insatpe.R$integer: int groups_xml_version
+com.pijodev.insatpe.R$layout: int activity_schedule
+com.pijodev.insatpe.R$layout: int activity_widgetconf
+com.pijodev.insatpe.R$layout: int column_head
+com.pijodev.insatpe.R$layout: int group_tree_selector
+com.pijodev.insatpe.R$layout: int item_group_list
+com.pijodev.insatpe.R$layout: int item_widget
+com.pijodev.insatpe.R$layout: int new_user_group
+com.pijodev.insatpe.R$layout: int popup
+com.pijodev.insatpe.R$layout: int toolbar
+com.pijodev.insatpe.R$layout: int widget
+com.pijodev.insatpe.R$string: int app_name
+com.pijodev.insatpe.R$string: int cache_version
+com.pijodev.insatpe.R$string: int description
+com.pijodev.insatpe.R$string: int menu_back
+com.pijodev.insatpe.R$string: int menu_groupe
+com.pijodev.insatpe.R$string: int menu_next
+com.pijodev.insatpe.R$xml: int widget_info
+com.pijodev.insatpe.ScheduleActivity
+com.pijodev.insatpe.ScheduleActivity: ScheduleActivity()
+com.pijodev.insatpe.XYScrollView
+com.pijodev.insatpe.XYScrollView: XYScrollView(android.content.Context)
+com.pijodev.insatpe.XYScrollView: XYScrollView(android.content.Context,android.util.AttributeSet)
+com.pijodev.insatpe.XYScrollView: XYScrollView(android.content.Context,android.util.AttributeSet,int)
+com.pijodev.insatpe.XYScrollView: void setOnScrollChangedListener(com.pijodev.insatpe.XYScrollView$OnScrollChangedListener)
+com.pijodev.insatpe.XYScrollView: void setOnPullListener(com.pijodev.insatpe.XYScrollView$OnPullListener)
+com.pijodev.insatpe.widget.FetchService
+com.pijodev.insatpe.widget.FetchService: FetchService()
+com.pijodev.insatpe.widget.WidgetConfigureActivity
+com.pijodev.insatpe.widget.WidgetConfigureActivity: WidgetConfigureActivity()
+com.pijodev.insatpe.widget.WidgetProvider
+com.pijodev.insatpe.widget.WidgetProvider: WidgetProvider()
+com.pijodev.insatpe.widget.WidgetService
+com.pijodev.insatpe.widget.WidgetService: WidgetService()

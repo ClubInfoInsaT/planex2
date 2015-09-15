@@ -24,7 +24,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.pijodev.insatpe.R;
 import com.pijodev.insatpe.GroupList.Group;
 import com.pijodev.insatpe.GroupListUpdater.OnGroupListUpdatedListener;
 import com.pijodev.insatpe.NewUserGroupDialog.OnNewUserGroupCreatedListener;
@@ -45,6 +44,7 @@ public class TreeGroupSelectorView extends GroupSelectorView
 	private LinkedList<GroupNameTree> mPath = new LinkedList<>();
 	private GroupNameTree mRoot;
 	private Context mContext;
+	private GroupListUpdater mListUpdaterDialog;
 	
 	@SuppressLint("InflateParams")
 	public TreeGroupSelectorView(Context c) {
@@ -61,11 +61,11 @@ public class TreeGroupSelectorView extends GroupSelectorView
 		
 		// Bouton téléchargement 
 		View update = view.findViewById(R.id.b_group_list_update);
-		final GroupListUpdater listUpdaterDialog = new GroupListUpdater(mContext, this);
+		mListUpdaterDialog = new GroupListUpdater(mContext, this);
 		update.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				listUpdaterDialog.show();
+				mListUpdaterDialog.show();
 			}
 		});
 		// Bouton nouveau groupe
@@ -190,6 +190,10 @@ public class TreeGroupSelectorView extends GroupSelectorView
 		}
 		
 		mDialog.show();
+		
+		// Lancement automatique du chargement de la liste des groupes si la liste est vide
+		if(GroupList.getList().size() == 0)
+			mListUpdaterDialog.show();
 	}
 	
 	/** Supprime un groupe ajouté par l'utilisateur.
@@ -334,6 +338,8 @@ public class TreeGroupSelectorView extends GroupSelectorView
 		}
 		// Retourne le nombre d'item actif
 		public int getRealCount() {
+			if(mPath.getLast().branches == null)
+				return 0;
 			return mPath.getLast().branches.size() + (mPath.getLast().id != -1 ? 1 : 0);
 		}
 		@Override

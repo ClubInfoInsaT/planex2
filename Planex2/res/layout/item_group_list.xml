@@ -14,7 +14,8 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:singleLine="true"
         android:text="MIC"
-        android:textSize="16dp" />
+        android:textSize="16dp" 
+        android:paddingLeft="8dp"/>
 
     <TextView 
         android:layout_width="wrap_content"

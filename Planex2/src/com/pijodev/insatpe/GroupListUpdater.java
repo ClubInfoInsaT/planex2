@@ -1,5 +1,9 @@
 package com.pijodev.insatpe;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
@@ -10,6 +14,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.DialogInterface.OnShowListener;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pijodev.insatpe.GroupList.Group;
@@ -28,6 +33,7 @@ public class GroupListUpdater {
 
 	public GroupListUpdater(Context c, OnGroupListUpdatedListener listener) {
 		mContext = c;
+		mListener = listener;
 		buildDialog();
 	}
 	
@@ -70,33 +76,73 @@ public class GroupListUpdater {
 		
 		// Création de la tâche asynchrone
 		mAsyncTask = new AsyncTask<Void, Void, ArrayList<Group>>() {
-			/** Télécharge les données depuis planning express et les met sous
+			/** Télécharge les données depuis etud et les met sous
 			 * forme d'arraylist, le tout de manière asynchrone **/
 			@Override
 			protected ArrayList<Group> doInBackground(Void... params) {
-				ArrayList<Group> list = new ArrayList<>();
-				// TODO requête http
-				try {
-					Thread.sleep(1000*3);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				// Chargement de la liste depuis etud
+				String file = download("https://www.etud.insa-toulouse.fr/planex/api.php?PIPIKK=Pr0ut!");
+
+				// On abandonne si la tâche a déjà été annulée 
 				if(isCancelled())
 					return null;
-				try {
-					Thread.sleep(1000*3);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				
+				// Parse le fichier
+				String[] lines = file.split("\n");
+				ArrayList<Group> groups = new ArrayList<>();
+				// Parcours du fichier ligne par ligne
+				for(String line : lines) {
+					line = line.trim();
+					
+					// Suppression du dièse si présent
+					if(line.charAt(0) == '#')
+						line = line.substring(1);
+					
+					// On vérifie que le format de la ligne est valide
+					if(line.matches("[^:]+:\\s*\\d+(\\s+\\d+)*")) {
+						String fields[] = line.split(":");
+						
+						// Nom du groupe
+						String name = fields[0].trim().replaceAll("\\s+", " ");
+						
+						// Id(s) associé(s)
+						String num[] = fields[1].split("\\s");
+						ArrayList<Integer> ids = new ArrayList<>();
+						for(String s : num) {
+							try {
+								Integer id = Integer.valueOf(s);
+								ids.add(id);
+							} catch (NumberFormatException e) {
+								
+							}
+						}
+						
+						// Ajout du groupe dans la liste
+						if(ids.size() > 0) {
+							if(ids.size() == 1)
+								groups.add(new Group(name, ids.get(0)));
+							else {
+								// Ajout d'un numéro au nom des groupes pour les différenciés
+								for(int i = 0; i < ids.size(); i++)
+									groups.add(new Group(name+" ("+(i+1)+")", ids.get(i)));
+							}
+							Log.i("###", groups.get(groups.size()-1).name+" "+groups.get(groups.size()-1).id);
+						}
+					}
+					
 				}
-				// TODO parsing
-				return null;
+				
+				return groups;
 			}
 			
 			/** Fonction exécutée dans le thread de la GUI lorsque le chargement est terminé **/
 			protected void onPostExecute(ArrayList<Group> result) {
 				// Téléchargement réussi
 				if(result != null) {
+					MyToast.show(mContext, "Mise à jour réussie", Toast.LENGTH_SHORT);
+					// Mise à jour de la liste static
 					GroupList.update(result, mContext);
+					// Notification de mise à jour dans le tree group selector
 					if(mListener != null)
 						mListener.onGroupListUpdated();
 				}
@@ -109,6 +155,34 @@ public class GroupListUpdater {
 					mDialog.dismiss();
 			}
 			
+			/** Downloads a file with the given url. Returns the file as a string or null if an error occurs **/
+			public String download(String url_string) {
+				// Create the url
+				URL url;
+				try {
+					url = new URL(url_string);
+				} catch (MalformedURLException e1) {
+					return null;
+				}
+				
+				String data = null;
+				try {
+					// Connect and open an input stream
+					InputStream stream = url.openStream();
+					// Download the data
+					data = new String();
+					byte[] buffer = new byte[512];
+					int length;
+					while((length = stream.read(buffer)) > 0)
+						data += new String(buffer, 0, length);
+
+					stream.close();
+				} catch (IOException e) {
+					
+				}
+				
+				return data;
+			}
 		};
 		
 		// démarrage du téléchargement 

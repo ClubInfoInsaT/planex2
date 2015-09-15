@@ -1,0 +1,640 @@
+com.pijodev.insatpe.AsyncScheduleLoader -> com.pijodev.insatpe.a:
+    com.pijodev.insatpe.ScheduleActivity mActivity -> a
+    com.pijodev.insatpe.Schedule doInBackground(com.pijodev.insatpe.ScheduleRequest[]) -> a
+    void onPostExecute(com.pijodev.insatpe.Schedule) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+com.pijodev.insatpe.Cache -> com.pijodev.insatpe.b:
+    android.util.SparseArray mCache -> a
+    com.pijodev.insatpe.WeekEntries getWeekEntries(int,int,android.content.Context) -> a
+    void putWeekEntries(com.pijodev.insatpe.WeekEntries,int,int,android.content.Context) -> a
+    void load(android.content.Context) -> b
+    void save(android.content.Context) -> a
+    int getCacheId(int,int) -> a
+com.pijodev.insatpe.DateUtils -> com.pijodev.insatpe.c:
+    java.util.GregorianCalendar getMondayOfCurrentWeek() -> d
+    int getCurrentWeek() -> a
+    java.util.GregorianCalendar getDayOfWeek(int,int) -> a
+    java.util.GregorianCalendar getMondayOfWeek(int) -> a
+    int getDayOfWeek() -> b
+    java.util.GregorianCalendar today() -> c
+    java.util.GregorianCalendar get(int,int,int,int,int) -> a
+    boolean inDaylightTime(java.util.GregorianCalendar) -> a
+    int getDayOfWeek(java.util.GregorianCalendar) -> b
+com.pijodev.insatpe.DetailPopUpView -> com.pijodev.insatpe.d:
+    android.app.AlertDialog mDialog -> a
+    android.widget.TextView mTextClassName -> b
+    android.widget.TextView mTextProfessor -> c
+    android.widget.TextView mTextHour -> d
+    android.widget.TextView mTextRoomName -> e
+    android.widget.TextView mTextDate -> f
+    android.widget.TextView mTextGroups -> g
+    android.widget.LinearLayout mLayout -> h
+    void initialize(android.content.Context) -> a
+    void show(com.pijodev.insatpe.Schedule$ScheduleEntry) -> a
+    android.app.AlertDialog access$0() -> a
+com.pijodev.insatpe.DetailPopUpView$1 -> com.pijodev.insatpe.e:
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.Dimens -> com.pijodev.insatpe.f:
+    android.content.Context mContext -> g
+    int columnWidth -> a
+    int columnHeight -> b
+    int columnRightMargin -> c
+    float hourHeight -> d
+    float entryTextSize -> e
+    int loadingViewVerticalPosition -> f
+    int defaultColumnWidth -> h
+    float defaultEntryTextSize -> i
+    void initialize(android.content.Context) -> a
+    void update(int,int,boolean) -> a
+    int getPixel(int) -> a
+    int getPixelFloat(int) -> b
+com.pijodev.insatpe.EasterEggs -> com.pijodev.insatpe.g:
+    int Oo -> a
+    android.widget.LinearLayout OOooO -> b
+    android.widget.TextView OooOO -> c
+    int OOoOO -> d
+    int eeaaee -> e
+    int[][] eaeaea -> f
+    android.widget.TextView eaaeea -> g
+    android.view.ViewGroup eaaeae -> h
+    java.lang.String[][][] eeeaaa -> i
+    java.util.Random aaaaee -> j
+    int[] aaaeee -> k
+    int eeeeee -> l
+    android.os.Handler aaaaae -> m
+    java.lang.Runnable eeeeea -> n
+    int Il1l -> o
+    java.util.Random l1 -> p
+    void end() -> a
+    void ee2(android.content.Context) -> a
+    void i2(android.content.Context) -> b
+    void f2(android.content.Context,int[][]) -> b
+    android.view.ViewGroup g2(android.content.Context,int[][],boolean) -> a
+    void h2(int[][],int) -> a
+    int o2(int) -> b
+    boolean ee3_locked() -> b
+    void ee3_poke(boolean) -> a
+    void ee3(android.widget.RelativeLayout,int) -> a
+    void i3() -> m
+    void h3() -> n
+    void g3() -> o
+    boolean f3(int,int,int,int) -> b
+    void e3() -> p
+    void ee4(android.widget.RelativeLayout[]) -> a
+    void f4(int,float,int,android.view.View) -> a
+    void ee5(com.pijodev.insatpe.Entry,android.view.ViewGroup) -> a
+    void ee6(android.view.View) -> a
+    void vvuu(android.widget.ImageView,int) -> b
+    int[] access$0() -> c
+    boolean access$1(int,int,int,int) -> a
+    void access$2(int) -> a
+    android.view.ViewGroup access$3() -> d
+    android.widget.TextView access$4() -> e
+    void access$5(android.widget.TextView) -> a
+    int access$6() -> f
+    void access$7() -> g
+    void access$8() -> h
+    void access$9() -> i
+    android.os.Handler access$10() -> j
+    java.lang.Runnable access$11() -> k
+    int access$12() -> l
+    void access$13(android.content.Context,int[][]) -> a
+    void access$14(android.widget.ImageView,int) -> a
+com.pijodev.insatpe.EasterEggs$1 -> com.pijodev.insatpe.h:
+    void run() -> run
+com.pijodev.insatpe.EasterEggs$2 -> com.pijodev.insatpe.i:
+    int[][] val$oOoo -> a
+    android.content.Context val$o -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.EasterEggs$3 -> com.pijodev.insatpe.j:
+    int[][] val$OoO -> a
+    int val$OO -> b
+    int val$oo -> c
+    android.content.Context val$ooO -> d
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.EasterEggs$4 -> com.pijodev.insatpe.k:
+    android.view.View val$I1l -> a
+    android.view.animation.Animation val$Il -> b
+    void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.pijodev.insatpe.EasterEggs$5 -> com.pijodev.insatpe.l:
+    int vu -> a
+    int[] uvu -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.Entry -> com.pijodev.insatpe.m:
+    java.lang.String mSummary -> a
+    java.lang.String mRoom -> b
+    java.lang.String mProfessor -> c
+    int mStartTime -> d
+    int mEndTime -> e
+    int mColor -> f
+    int mDay -> g
+    int mDayOfMonth -> h
+    int mMonth -> i
+    int mYear -> j
+    java.lang.String[] sday -> k
+    java.lang.String[] smonth -> l
+    void save(java.io.DataOutputStream) -> a
+    java.lang.String getSummary() -> a
+    void setSummary(java.lang.String) -> a
+    boolean hasRoom() -> b
+    java.lang.String getRoom() -> c
+    void setRoom(java.lang.String) -> b
+    boolean hasProfessor() -> d
+    java.lang.String getProfessor() -> e
+    void setProfessor(java.lang.String) -> c
+    int getStartTime() -> f
+    void setStartTime(int) -> a
+    int getEndTime() -> g
+    void setEndTime(int) -> b
+    java.lang.String getStringDuration() -> h
+    java.lang.String getStringTime() -> i
+    int getColor() -> j
+    void setColor(int) -> c
+    boolean equals(java.lang.Object) -> equals
+    int compareTo(com.pijodev.insatpe.Entry) -> a
+    java.lang.String getStringDate() -> k
+    void setDate(java.util.GregorianCalendar) -> a
+    java.util.GregorianCalendar getDate() -> l
+    int compareTo(java.lang.Object) -> compareTo
+com.pijodev.insatpe.EntryView -> com.pijodev.insatpe.n:
+    com.pijodev.insatpe.Schedule$ScheduleEntry mSEntry -> a
+    android.widget.TextView[] mTextView -> b
+    void updateDimens() -> a
+    android.widget.RelativeLayout$LayoutParams getLayoutParams(com.pijodev.insatpe.Schedule$ScheduleEntry) -> a
+com.pijodev.insatpe.EntryView$1 -> com.pijodev.insatpe.o:
+    com.pijodev.insatpe.EntryView this$0 -> a
+    com.pijodev.insatpe.Schedule$ScheduleEntry val$sentry -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.GroupList -> com.pijodev.insatpe.p:
+    android.util.SparseArray mDefaultGroups -> a
+    android.util.SparseArray mUserGroups -> b
+    java.util.ArrayList mListGroups -> c
+    boolean mIsLoaded -> d
+    boolean mHasChanged -> e
+    java.lang.String getGroupName(int) -> a
+    com.pijodev.insatpe.GroupList$Group getGroup(int) -> e
+    boolean isExisting(int) -> b
+    boolean isUserGroup(int) -> c
+    void addUserGroup(java.lang.String,int) -> a
+    boolean removeUserGroup(int) -> d
+    java.util.ArrayList getList() -> a
+    void load(android.content.Context) -> a
+    void loadFromXML(android.content.Context) -> c
+    void save(android.content.Context) -> b
+    void update(java.util.ArrayList,android.content.Context) -> a
+com.pijodev.insatpe.GroupList$Group -> com.pijodev.insatpe.q:
+    java.lang.String name -> a
+    int id -> b
+com.pijodev.insatpe.GroupListUpdater -> com.pijodev.insatpe.r:
+    android.app.ProgressDialog mDialog -> a
+    android.content.Context mContext -> b
+    com.pijodev.insatpe.GroupListUpdater$OnGroupListUpdatedListener mListener -> c
+    android.os.AsyncTask mAsyncTask -> d
+    void buildDialog() -> b
+    void show() -> a
+    void startUpdating() -> c
+    android.os.AsyncTask access$0(com.pijodev.insatpe.GroupListUpdater) -> a
+    void access$1(com.pijodev.insatpe.GroupListUpdater) -> b
+    android.content.Context access$2(com.pijodev.insatpe.GroupListUpdater) -> c
+    com.pijodev.insatpe.GroupListUpdater$OnGroupListUpdatedListener access$3(com.pijodev.insatpe.GroupListUpdater) -> d
+    android.app.ProgressDialog access$4(com.pijodev.insatpe.GroupListUpdater) -> e
+com.pijodev.insatpe.GroupListUpdater$1 -> com.pijodev.insatpe.s:
+    com.pijodev.insatpe.GroupListUpdater this$0 -> a
+    void onDismiss(android.content.DialogInterface) -> onDismiss
+com.pijodev.insatpe.GroupListUpdater$2 -> com.pijodev.insatpe.t:
+    com.pijodev.insatpe.GroupListUpdater this$0 -> a
+    void onShow(android.content.DialogInterface) -> onShow
+com.pijodev.insatpe.GroupListUpdater$3 -> com.pijodev.insatpe.u:
+    com.pijodev.insatpe.GroupListUpdater this$0 -> a
+    java.util.ArrayList doInBackground(java.lang.Void[]) -> a
+    void onPostExecute(java.util.ArrayList) -> a
+    void onPostExecute(java.lang.Object) -> onPostExecute
+    java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+com.pijodev.insatpe.GroupListUpdater$OnGroupListUpdatedListener -> com.pijodev.insatpe.v:
+    void onGroupListUpdated() -> a
+com.pijodev.insatpe.GroupSelectorView -> com.pijodev.insatpe.w:
+    com.pijodev.insatpe.GroupSelectorView$OnGroupSelectedListener mGroupSelectedListener -> a
+    int mTarget -> b
+    void show(int,int) -> a
+    void setOnGroupSelectedListener(com.pijodev.insatpe.GroupSelectorView$OnGroupSelectedListener) -> a
+com.pijodev.insatpe.GroupSelectorView$OnGroupSelectedListener -> com.pijodev.insatpe.x:
+    void onGroupSelected(int,int) -> a
+com.pijodev.insatpe.MyToast -> com.pijodev.insatpe.y:
+    android.widget.Toast mToast -> a
+    void show(android.content.Context,java.lang.String,int) -> a
+com.pijodev.insatpe.NewUserGroupDialog -> com.pijodev.insatpe.z:
+    android.app.AlertDialog mDialog -> a
+    android.widget.EditText mName -> b
+    android.widget.EditText mID -> c
+    com.pijodev.insatpe.NewUserGroupDialog$OnNewUserGroupCreatedListener mListener -> d
+    android.content.Context mContext -> e
+    void show() -> a
+    android.app.AlertDialog build(android.content.Context) -> a
+    int getIDFromString(java.lang.String) -> a
+    java.lang.String getNameFromString(java.lang.String) -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.pijodev.insatpe.NewUserGroupDialog$OnNewUserGroupCreatedListener -> com.pijodev.insatpe.aa:
+    void onNewUserGroupCreated(java.lang.String,int) -> a
+    void onNewUserGroupFailed(java.lang.String,java.lang.Integer) -> a
+com.pijodev.insatpe.Schedule -> com.pijodev.insatpe.ab:
+    java.util.ArrayList[] mEntries -> a
+    java.util.GregorianCalendar mMondayDate -> b
+    java.util.ArrayList mWeekEntries -> c
+    com.pijodev.insatpe.ScheduleRequest mRequest -> d
+    boolean mShow -> e
+    boolean mustBeShown() -> a
+    java.util.ArrayList getEntries(int) -> a
+    com.pijodev.insatpe.ScheduleRequest getRequest() -> b
+    void showCacheWarning(android.content.Context) -> a
+com.pijodev.insatpe.Schedule$ScheduleEntry -> com.pijodev.insatpe.ac:
+    com.pijodev.insatpe.Entry entry -> a
+    java.util.ArrayList groupRef -> b
+    java.util.ArrayList groupId -> c
+    int groupMax -> d
+    int minColumnCount -> e
+    int columnWidth -> f
+    float position -> g
+    float width -> h
+    void addGroupRef(int) -> a
+    java.lang.String groupRefToString() -> a
+    java.util.ArrayList getGroupRef() -> b
+    int getGroupId(int) -> b
+    float getMeasuredWidth() -> c
+    float getMeasuredPosition() -> d
+    int compareTo(com.pijodev.insatpe.Schedule$ScheduleEntry) -> a
+    int compareTo(java.lang.Object) -> compareTo
+    int access$1(com.pijodev.insatpe.Schedule$ScheduleEntry) -> b
+    void access$2(com.pijodev.insatpe.Schedule$ScheduleEntry,int) -> a
+    void access$3(com.pijodev.insatpe.Schedule$ScheduleEntry,int) -> b
+    int access$4(com.pijodev.insatpe.Schedule$ScheduleEntry) -> c
+    void access$5(com.pijodev.insatpe.Schedule$ScheduleEntry,float) -> a
+    float access$6(com.pijodev.insatpe.Schedule$ScheduleEntry) -> d
+    float access$7(com.pijodev.insatpe.Schedule$ScheduleEntry) -> e
+    void access$8(com.pijodev.insatpe.Schedule$ScheduleEntry,float) -> b
+com.pijodev.insatpe.ScheduleActivity -> com.pijodev.insatpe.ScheduleActivity:
+    com.pijodev.insatpe.WeekView mScheduleView -> a
+    com.pijodev.insatpe.ToolBarView mToolBarView -> b
+    com.pijodev.insatpe.AsyncScheduleLoader mLoader -> c
+    com.pijodev.insatpe.UserSession mSession -> d
+    boolean mIsScrollInitialized -> e
+    void onCreate(android.os.Bundle) -> onCreate
+    void onResume() -> onResume
+    void onPause() -> onPause
+    void onWindowFocusChanged(boolean) -> onWindowFocusChanged
+    void onConfigurationChanged(android.content.res.Configuration) -> onConfigurationChanged
+    void setFullScreenEnabled(boolean) -> a
+    void initialize() -> c
+    void loadViews() -> d
+    com.pijodev.insatpe.UserSession getSession() -> a
+    void onParamsChanged(com.pijodev.insatpe.UserSession,boolean,boolean) -> a
+    void updateSchedule(com.pijodev.insatpe.Schedule) -> a
+    void initSchedule() -> b
+com.pijodev.insatpe.ScheduleRequest -> com.pijodev.insatpe.ad:
+    int mRelWeek -> a
+    java.util.ArrayList mGroups -> b
+    boolean mUseOnlyCache -> c
+    boolean mShowOnlyUpdate -> d
+    boolean mConcealCautionMessage -> e
+    boolean mForceCautionMessage -> f
+    boolean useOnlyCache() -> a
+    boolean showOnlyUpdate() -> b
+    boolean forceCautionMessage() -> c
+    boolean concealCautionMessage() -> d
+    void pleaseUseOnlyCache() -> e
+    void pleaseShowOnlyUpdate() -> f
+    void pleaseForceCautionMessage() -> g
+    void pleaseConcealCautionMessage() -> h
+    int getRelWeek() -> i
+    java.util.ArrayList getGroups() -> j
+com.pijodev.insatpe.ScheduleRetriever -> com.pijodev.insatpe.ae:
+    java.lang.String download(java.util.ArrayList,int) -> a
+    android.util.SparseArray parse(java.lang.String,java.util.ArrayList,int) -> a
+    java.net.URL getURL(java.util.ArrayList,int) -> b
+com.pijodev.insatpe.ToolBarView -> com.pijodev.insatpe.af:
+    android.widget.LinearLayout mLayout -> a
+    android.widget.ImageButton mPrevButton -> b
+    android.widget.ImageButton mNextButton -> c
+    android.widget.ImageButton mCurrentButton -> d
+    android.widget.LinearLayout mGroupsLayout -> e
+    com.pijodev.insatpe.GroupSelectorView mGroupSelector -> f
+    com.pijodev.insatpe.UserSession mUserSession -> g
+    void setVisible(boolean) -> a
+    void initGroupViews(com.pijodev.insatpe.ScheduleActivity) -> a
+    int getNbGroup() -> b
+    void onGroupSelected(int,int) -> a
+    void initGroups(java.util.ArrayList) -> a
+    void addGroup(int) -> a
+    void deleteGroup(int) -> b
+    void changeGroup(int,int) -> b
+    android.view.View createView(int,int) -> c
+    void initWeekButtons(com.pijodev.insatpe.ScheduleActivity) -> b
+    void updateCurrentButtonState() -> a
+    com.pijodev.insatpe.UserSession access$0(com.pijodev.insatpe.ToolBarView) -> a
+    com.pijodev.insatpe.GroupSelectorView access$1(com.pijodev.insatpe.ToolBarView) -> b
+    android.widget.ImageButton access$2(com.pijodev.insatpe.ToolBarView) -> c
+    android.widget.ImageButton access$3(com.pijodev.insatpe.ToolBarView) -> d
+com.pijodev.insatpe.ToolBarView$1 -> com.pijodev.insatpe.ag:
+    com.pijodev.insatpe.ToolBarView this$0 -> a
+    com.pijodev.insatpe.ScheduleActivity val$activity -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.ToolBarView$2 -> com.pijodev.insatpe.ah:
+    com.pijodev.insatpe.ToolBarView this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.ToolBarView$3 -> com.pijodev.insatpe.ai:
+    com.pijodev.insatpe.ToolBarView this$0 -> a
+    com.pijodev.insatpe.ScheduleActivity val$activity -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView -> com.pijodev.insatpe.aj:
+    android.app.AlertDialog mDialog -> c
+    android.widget.LinearLayout mPathView -> d
+    android.view.View mDeleteTarget -> e
+    com.pijodev.insatpe.TreeGroupSelectorView$Adapter mListAdapter -> f
+    java.util.LinkedList mPath -> g
+    com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree mRoot -> h
+    android.content.Context mContext -> i
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    boolean onItemLongClick(android.widget.AdapterView,android.view.View,int,long) -> onItemLongClick
+    void onNewUserGroupCreated(java.lang.String,int) -> a
+    void onNewUserGroupFailed(java.lang.String,java.lang.Integer) -> a
+    void onGroupListUpdated() -> a
+    void show(int,int) -> a
+    void removeUserGroup(int) -> a
+    void applyPath() -> b
+    android.view.View createTitlePart(com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree) -> a
+    android.content.Context access$0(com.pijodev.insatpe.TreeGroupSelectorView) -> a
+    java.util.LinkedList access$1(com.pijodev.insatpe.TreeGroupSelectorView) -> b
+    android.app.AlertDialog access$2(com.pijodev.insatpe.TreeGroupSelectorView) -> c
+    void access$3(com.pijodev.insatpe.TreeGroupSelectorView,int) -> a
+    void access$4(com.pijodev.insatpe.TreeGroupSelectorView) -> d
+com.pijodev.insatpe.TreeGroupSelectorView$1 -> com.pijodev.insatpe.ak:
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    com.pijodev.insatpe.GroupListUpdater val$listUpdaterDialog -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView$2 -> com.pijodev.insatpe.al:
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    com.pijodev.insatpe.NewUserGroupDialog val$newGroupDialog -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView$3 -> com.pijodev.insatpe.am:
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView$4 -> com.pijodev.insatpe.an:
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    int val$id -> b
+    void onClick(android.content.DialogInterface,int) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView$5 -> com.pijodev.insatpe.ao:
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree val$grp -> b
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.TreeGroupSelectorView$Adapter -> com.pijodev.insatpe.ap:
+    java.util.ArrayList observers -> b
+    com.pijodev.insatpe.TreeGroupSelectorView this$0 -> a
+    void registerDataSetObserver(android.database.DataSetObserver) -> registerDataSetObserver
+    void unregisterDataSetObserver(android.database.DataSetObserver) -> unregisterDataSetObserver
+    void notifyDataSetChanged() -> a
+    boolean isEmpty() -> isEmpty
+    boolean hasStableIds() -> hasStableIds
+    int getViewTypeCount() -> getViewTypeCount
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+    int getItemViewType(int) -> getItemViewType
+    long getItemId(int) -> getItemId
+    java.lang.Object getItem(int) -> getItem
+    int getCount() -> getCount
+    int getRealCount() -> b
+    boolean isEnabled(int) -> isEnabled
+    boolean areAllItemsEnabled() -> areAllItemsEnabled
+com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree -> com.pijodev.insatpe.aq:
+    int id -> a
+    java.lang.String name -> b
+    java.util.ArrayList branches -> c
+    int maxBranchSize -> d
+    com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree buildTree() -> a
+    boolean getPath(int,java.util.LinkedList) -> a
+    void sortAndCount() -> b
+    void add(java.lang.String,int,com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree) -> a
+    boolean remove(int) -> a
+    int commonWord(java.lang.String,java.lang.String) -> a
+    boolean access$0(com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree,int,java.util.LinkedList) -> a
+com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree$1 -> com.pijodev.insatpe.ar:
+    com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree this$1 -> a
+    int compare(com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree,com.pijodev.insatpe.TreeGroupSelectorView$GroupNameTree) -> a
+    int compare(java.lang.Object,java.lang.Object) -> compare
+com.pijodev.insatpe.UserSession -> com.pijodev.insatpe.as:
+    java.util.ArrayList mGroups -> a
+    int mRelWeek -> b
+    java.util.ArrayList mHistory -> c
+    java.lang.String mName -> d
+    java.lang.String mTitle -> e
+    com.pijodev.insatpe.UserSession$OnParamsChangedListener mParamsListener -> f
+    void load(android.content.Context) -> c
+    void save(android.content.Context) -> a
+    void remove(android.content.Context) -> b
+    java.lang.String getTitle() -> a
+    void setTitle(java.lang.String) -> a
+    java.util.ArrayList getGroups() -> b
+    int getRelWeek() -> c
+    boolean addRelWeek(int) -> a
+    void resetRelWeek() -> d
+    com.pijodev.insatpe.ScheduleRequest createRequest() -> e
+    void setGroups(java.util.ArrayList) -> a
+    void addGroups(int) -> b
+    void removeGroup(int) -> c
+    void changeGroup(int,int) -> a
+    void setOnParamsChangedListener(com.pijodev.insatpe.UserSession$OnParamsChangedListener) -> a
+com.pijodev.insatpe.UserSession$OnParamsChangedListener -> com.pijodev.insatpe.at:
+    void onParamsChanged(com.pijodev.insatpe.UserSession,boolean,boolean) -> a
+com.pijodev.insatpe.WeekEntries -> com.pijodev.insatpe.au:
+    java.util.ArrayList[] mEntries -> a
+    int mWeek -> b
+    int mGroupId -> c
+    java.util.GregorianCalendar mCacheDate -> d
+    void save(java.io.DataOutputStream) -> a
+    java.util.ArrayList getEntries(int) -> a
+    int getGroupId() -> a
+    int getWeek() -> b
+    long getCacheTime() -> c
+    boolean equals(java.lang.Object) -> equals
+com.pijodev.insatpe.WeekView -> com.pijodev.insatpe.av:
+    com.pijodev.insatpe.ScheduleActivity mActivity -> a
+    com.pijodev.insatpe.XYScrollView mScrollView -> b
+    android.widget.RelativeLayout[] mColumnDay -> c
+    android.widget.TextView[] mTitleDay -> d
+    android.widget.LinearLayout mDayBar -> e
+    android.widget.ProgressBar[] mLoadingView -> f
+    android.view.animation.LayoutAnimationController mLayoutAnimation -> g
+    boolean mLoadingViewEnabled -> h
+    android.widget.ImageView mArrowLeft -> i
+    android.widget.ImageView mArrowRight -> j
+    com.pijodev.insatpe.Schedule mCurrentSchedule -> k
+    int mLastOrientation -> l
+    int mLastWidth -> m
+    int mLastHeight -> n
+    void centerOnDay(int) -> a
+    void enableDayBarAutoScroll() -> a
+    void enablePullToChangeWeek(com.pijodev.insatpe.ScheduleActivity) -> a
+    void showSchedule(com.pijodev.insatpe.Schedule,boolean) -> a
+    void displayLoadingViews(com.pijodev.insatpe.ScheduleRequest) -> a
+    void clearColumns() -> b
+    void fillColumns(com.pijodev.insatpe.Schedule,boolean) -> b
+    void setDates(int) -> b
+    android.view.animation.Animation createItemArrivalAnimation() -> c
+    android.view.animation.LayoutAnimationController createColumnFillingAnimation() -> d
+    void updateOrientation(int) -> c
+    com.pijodev.insatpe.ScheduleActivity access$0(com.pijodev.insatpe.WeekView) -> a
+    void access$1(com.pijodev.insatpe.WeekView,int) -> a
+    android.widget.LinearLayout access$2(com.pijodev.insatpe.WeekView) -> b
+    android.widget.ImageView access$3(com.pijodev.insatpe.WeekView) -> c
+    android.widget.ImageView access$4(com.pijodev.insatpe.WeekView) -> d
+    com.pijodev.insatpe.XYScrollView access$5(com.pijodev.insatpe.WeekView) -> e
+com.pijodev.insatpe.WeekView$1 -> com.pijodev.insatpe.aw:
+    com.pijodev.insatpe.WeekView this$0 -> a
+    void onGlobalLayout() -> onGlobalLayout
+com.pijodev.insatpe.WeekView$2 -> com.pijodev.insatpe.ax:
+    com.pijodev.insatpe.WeekView this$0 -> a
+    void onScrollChanged(int,int,int,int) -> a
+com.pijodev.insatpe.WeekView$3 -> com.pijodev.insatpe.ay:
+    com.pijodev.insatpe.WeekView this$0 -> a
+    float val$pullDistance -> b
+    com.pijodev.insatpe.UserSession val$session -> c
+    float val$startDistance -> d
+    void onPullStarted(boolean) -> a
+    boolean onPullReleased(float,boolean,boolean) -> a
+    void onPullDistanceChanged(float,boolean) -> a
+    com.pijodev.insatpe.WeekView access$0(com.pijodev.insatpe.WeekView$3) -> a
+com.pijodev.insatpe.WeekView$3$1 -> com.pijodev.insatpe.az:
+    com.pijodev.insatpe.WeekView$3 this$1 -> a
+    void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.pijodev.insatpe.WeekView$3$2 -> com.pijodev.insatpe.ba:
+    com.pijodev.insatpe.WeekView$3 this$1 -> a
+    void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
+    void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
+    void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.pijodev.insatpe.XYScrollView -> com.pijodev.insatpe.XYScrollView:
+    com.pijodev.insatpe.XYScrollView$MyHorizontalScrollView mHorizontalScrollView -> a
+    com.pijodev.insatpe.XYScrollView$MyVerticalScrollView mVerticalScrollView -> b
+    android.widget.FrameLayout mFinalFrame -> c
+    com.pijodev.insatpe.XYScrollView$MyFrameLayoutIntermediate mIntermediateFrame -> d
+    int scrollX -> f
+    int scrollY -> g
+    com.pijodev.insatpe.XYScrollView$OnScrollChangedListener scrollListener -> e
+    boolean cancelRequest -> h
+    com.pijodev.insatpe.XYScrollView$OnPullListener pullListener -> i
+    void initStructure() -> a
+    void addView(android.view.View,int,android.view.ViewGroup$LayoutParams) -> addView
+    void addView(android.view.View) -> addView
+    void addView(android.view.View,int) -> addView
+    void addView(android.view.View,int,int) -> addView
+    void addView(android.view.View,android.view.ViewGroup$LayoutParams) -> addView
+    void setOnScrollChangedListener(com.pijodev.insatpe.XYScrollView$OnScrollChangedListener) -> setOnScrollChangedListener
+    void onScrollXChanged(int) -> b
+    void onScrollYChanged(int) -> c
+    void scrollTo(int,int) -> scrollTo
+    void fullScroll(int) -> a
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
+    void setOnPullListener(com.pijodev.insatpe.XYScrollView$OnPullListener) -> setOnPullListener
+    void access$0(com.pijodev.insatpe.XYScrollView,int) -> a
+    boolean access$1(com.pijodev.insatpe.XYScrollView) -> a
+    void access$2(com.pijodev.insatpe.XYScrollView,boolean) -> a
+    void access$3(com.pijodev.insatpe.XYScrollView,int) -> b
+    com.pijodev.insatpe.XYScrollView$OnPullListener access$4(com.pijodev.insatpe.XYScrollView) -> b
+com.pijodev.insatpe.XYScrollView$MyFrameLayoutIntermediate -> com.pijodev.insatpe.bb:
+    com.pijodev.insatpe.XYScrollView this$0 -> a
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    boolean dispatchTouchEvent(android.view.MotionEvent) -> dispatchTouchEvent
+com.pijodev.insatpe.XYScrollView$MyHorizontalScrollView -> com.pijodev.insatpe.bc:
+    int pullState -> b
+    float pullDist -> c
+    float lastX -> d
+    int activePointerId -> e
+    com.pijodev.insatpe.XYScrollView this$0 -> a
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    int getScrollMax() -> a
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    com.pijodev.insatpe.XYScrollView access$0(com.pijodev.insatpe.XYScrollView$MyHorizontalScrollView) -> a
+com.pijodev.insatpe.XYScrollView$MyHorizontalScrollView$1 -> com.pijodev.insatpe.bd:
+    com.pijodev.insatpe.XYScrollView$MyHorizontalScrollView this$1 -> a
+    void onScrollChanged() -> onScrollChanged
+com.pijodev.insatpe.XYScrollView$MyVerticalScrollView -> com.pijodev.insatpe.be:
+    com.pijodev.insatpe.XYScrollView this$0 -> a
+    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
+    com.pijodev.insatpe.XYScrollView access$0(com.pijodev.insatpe.XYScrollView$MyVerticalScrollView) -> a
+com.pijodev.insatpe.XYScrollView$MyVerticalScrollView$1 -> com.pijodev.insatpe.bf:
+    com.pijodev.insatpe.XYScrollView$MyVerticalScrollView this$1 -> a
+    void onScrollChanged() -> onScrollChanged
+com.pijodev.insatpe.XYScrollView$OnPullListener -> com.pijodev.insatpe.bg:
+    void onPullStarted(boolean) -> a
+    void onPullDistanceChanged(float,boolean) -> a
+    boolean onPullReleased(float,boolean,boolean) -> a
+com.pijodev.insatpe.XYScrollView$OnScrollChangedListener -> com.pijodev.insatpe.bh:
+    void onScrollChanged(int,int,int,int) -> a
+com.pijodev.insatpe.widget.FetchService -> com.pijodev.insatpe.widget.FetchService:
+    int appWidgetId -> b
+    android.os.Handler mHandler -> a
+    android.os.IBinder onBind(android.content.Intent) -> onBind
+    int onStartCommand(android.content.Intent,int,int) -> onStartCommand
+    void fetch(java.util.ArrayList) -> a
+    void onFetchFinished() -> a
+    boolean handleMessage(android.os.Message) -> handleMessage
+com.pijodev.insatpe.widget.FetchService$1 -> com.pijodev.insatpe.widget.a:
+    com.pijodev.insatpe.widget.FetchService this$0 -> a
+    java.util.ArrayList val$groups -> b
+    void run() -> run
+com.pijodev.insatpe.widget.ListProvider -> com.pijodev.insatpe.widget.b:
+    java.util.ArrayList mItemList -> a
+    android.content.Context mContext -> b
+    int mAppWidgetId -> c
+    java.util.ArrayList groupsId -> d
+    int getCount() -> getCount
+    android.widget.RemoteViews getViewAt(int) -> getViewAt
+    void onDataSetChanged() -> onDataSetChanged
+    long getItemId(int) -> getItemId
+    void onCreate() -> onCreate
+    void onDestroy() -> onDestroy
+    android.widget.RemoteViews getLoadingView() -> getLoadingView
+    int getViewTypeCount() -> getViewTypeCount
+    boolean hasStableIds() -> hasStableIds
+com.pijodev.insatpe.widget.WidgetConfigureActivity -> com.pijodev.insatpe.widget.WidgetConfigureActivity:
+    int mAppWidgetId -> a
+    android.widget.LinearLayout mListGroup -> b
+    android.widget.EditText mTitleEdit -> c
+    com.pijodev.insatpe.TreeGroupSelectorView mGroupSelector -> d
+    com.pijodev.insatpe.UserSession mSession -> e
+    void onCreate(android.os.Bundle) -> onCreate
+    void onPause() -> onPause
+    void initViews() -> a
+    void confirmAndExit() -> b
+    void updateTitle() -> c
+    android.view.View createGroupView(int,int) -> b
+    void onGroupSelected(int,int) -> a
+    void addGroup(int) -> a
+    void deleteGroup(int) -> b
+    void changeGroup(int,int) -> c
+    int getNbGroup() -> d
+    com.pijodev.insatpe.UserSession access$0(com.pijodev.insatpe.widget.WidgetConfigureActivity) -> a
+    com.pijodev.insatpe.TreeGroupSelectorView access$1(com.pijodev.insatpe.widget.WidgetConfigureActivity) -> b
+    android.widget.EditText access$2(com.pijodev.insatpe.widget.WidgetConfigureActivity) -> c
+    void access$3(com.pijodev.insatpe.widget.WidgetConfigureActivity) -> d
+com.pijodev.insatpe.widget.WidgetConfigureActivity$1 -> com.pijodev.insatpe.widget.c:
+    com.pijodev.insatpe.widget.WidgetConfigureActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.widget.WidgetConfigureActivity$2 -> com.pijodev.insatpe.widget.d:
+    com.pijodev.insatpe.widget.WidgetConfigureActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.widget.WidgetConfigureActivity$3 -> com.pijodev.insatpe.widget.e:
+    com.pijodev.insatpe.widget.WidgetConfigureActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.pijodev.insatpe.widget.WidgetProvider -> com.pijodev.insatpe.widget.WidgetProvider:
+    void onRestored(android.content.Context,int[],int[]) -> onRestored
+    void onAppWidgetOptionsChanged(android.content.Context,android.appwidget.AppWidgetManager,int,android.os.Bundle) -> onAppWidgetOptionsChanged
+    void onUpdate(android.content.Context,android.appwidget.AppWidgetManager,int[]) -> onUpdate
+    void onDeleted(android.content.Context,int[]) -> onDeleted
+    android.widget.RemoteViews updateWidgetLoadingView(android.content.Context,int) -> a
+    android.widget.RemoteViews updateWidgetListView(android.content.Context,int) -> b
+    void onReceive(android.content.Context,android.content.Intent) -> onReceive
+com.pijodev.insatpe.widget.WidgetService -> com.pijodev.insatpe.widget.WidgetService:
+    android.widget.RemoteViewsService$RemoteViewsFactory onGetViewFactory(android.content.Intent) -> onGetViewFactory

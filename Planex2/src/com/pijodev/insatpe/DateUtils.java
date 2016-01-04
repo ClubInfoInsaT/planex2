@@ -1,6 +1,7 @@
 package com.pijodev.insatpe;
 
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Quelques fonctions statiques utiles pour manipuler les dates
@@ -62,14 +63,19 @@ public class DateUtils {
 	
 	/** Retourne un nouvel objet GregorianCalendar à la date courante. Met le premier jour de la semaine au lundi **/
 	public static GregorianCalendar today() {
-		GregorianCalendar gc = new GregorianCalendar();
+		GregorianCalendar gc = new GregorianCalendar(Locale.FRANCE);
 		gc.setFirstDayOfWeek(GregorianCalendar.MONDAY);
 		return gc;
 	}
 	/** Retourne un nouvel objet GregorianCalendar à la date donnée. Met le premier jour de la semaine au lundi **/
 	public static GregorianCalendar get(int year, int month, int day, int hour, int minute) {
-		GregorianCalendar gc = new GregorianCalendar(year, month, day, hour, minute);
-		gc.setFirstDayOfWeek(GregorianCalendar.MONDAY);
+		GregorianCalendar gc = today();
+		gc.set(GregorianCalendar.YEAR, year);
+		gc.set(GregorianCalendar.MONTH, month);
+		gc.set(GregorianCalendar.DAY_OF_MONTH, day);
+		gc.set(GregorianCalendar.HOUR_OF_DAY, hour);
+		gc.set(GregorianCalendar.MINUTE, minute);
+
 		return gc;
 	}
 	/** Retourne un nouvel objet GregorianCalendar à la date donnée **/

@@ -84,7 +84,7 @@ public class GroupListUpdater {
 				String file = download("https://www.etud.insa-toulouse.fr/planex/api.php?PIPIKK=Pr0ut!");
 
 				// On abandonne si la tâche a déjà été annulée 
-				if(isCancelled())
+				if(isCancelled() || file == null)
 					return null;
 				
 				// Parse le fichier

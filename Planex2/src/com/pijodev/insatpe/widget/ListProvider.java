@@ -98,7 +98,7 @@ public class ListProvider implements RemoteViewsFactory {
 				int index = Collections.binarySearch(entries, e);
 				if(index < 0) {
 					entries.add(-index-1, e);
-					mItemList.add(-index-1, new String[]{e.getSummary(), e.getStringTime()+" "+e.getRoom(), ""+gnum, ""+e.getColor()});
+					mItemList.add(-index-1, new String[]{e.getSummary(), e.getStringTime()+" "+e.getRoom(), ""+(gnum+1), ""+e.getColor()});
 				} else {
 					mItemList.get(index)[2] += (gnum + 1);
 				}

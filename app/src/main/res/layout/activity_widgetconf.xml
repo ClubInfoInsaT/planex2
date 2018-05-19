@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/toolbar_background"
+        android:gravity="center_vertical"
+        android:padding="3dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/groupes"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/b_add_group_widget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_text9"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/ajouter" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.5"
+        android:background="#111" >
+
+        <LinearLayout
+            android:id="@+id/ll_widget_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/toolbar_background"
+        android:gravity="center_vertical"
+        android:padding="3dp" >
+
+        <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/titre_du_widget"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_title_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/titre_du_widget" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+            android:id="@+id/iv_ee6"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ee_tt0" android:contentDescription="@string/img_description"/>
+
+    <Button
+        android:id="@+id/b_create_widget"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_widget" />
+
+</LinearLayout>

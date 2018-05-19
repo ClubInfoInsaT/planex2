@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="@dimen/column_width"
+    android:layout_height="wrap_content"
+    android:background="#59f"
+    android:gravity="center"
+    android:layout_marginRight="@dimen/separator_width"
+    android:orientation="vertical"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp" android:layout_marginEnd="@dimen/separator_width">  <!-- "@drawable/day" -->
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal"
+        android:ellipsize="end"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_date"
+        android:textSize="@dimen/bar_text_size"
+        android:singleLine="true"
+        android:textColor="#ff000000"/>
+    
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/toolbar_background"
+    android:gravity="center_vertical"
+    android:minWidth="200dp"
+    android:orientation="horizontal"
+    android:padding="3dp"
+    android:visibility="visible" >
+
+	<ImageButton
+			android:id="@+id/ib_prev"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="#0000"
+			android:layout_marginRight="5dp"
+			android:contentDescription="@string/description"
+			android:src="@drawable/prev" android:layout_marginEnd="5dp"/>
+    
+    <HorizontalScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:scrollbars="none" android:layout_marginEnd="5dp">
+        
+	    <LinearLayout
+	        android:id="@+id/ll_groups"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent" >
+
+			<Button
+					android:id="@+id/b_add_group"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:background="@drawable/button_text9"
+					android:textStyle="bold"
+					android:text="@string/plus_signe" style="@android:style/Widget.Button.Toggle"/>
+	        
+	    </LinearLayout>
+	    
+    </HorizontalScrollView>
+    
+    <ImageButton
+        android:id="@+id/ib_current"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:background="#0000"
+       	android:layout_marginRight="5dp"
+       	android:contentDescription="@string/description"
+        android:src="@drawable/orig" android:layout_marginEnd="5dp"/>
+
+    <ImageButton
+        android:id="@+id/ib_next"
+        android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:background="#0000"
+       	android:contentDescription="@string/description"
+        android:src="@drawable/next"/>
+
+</LinearLayout>

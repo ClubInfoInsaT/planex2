@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description">Application d\'emploi du temps INSAT</string>
+    <string name="app_name">Planex</string>
+    <string name="cache_version">2</string><!-- premier changement du format du cache (ajout de date de mise en cache) ; à augmenter pour chaque nouvelle version -->
+	<string name="menu_next">Semaine suivante</string>
+	<string name="menu_back">Semaine précédante</string>
+	<string name="menu_groupe">Choix du groupe</string>
+    <string name="widget_title">Widget Planex</string>
+    <string name="img_description">trololo</string>
+    <string name="plus_signe">+</string>
+    <string name="placeholder">Hey</string>
+    <string name="tap_to_close">Touchez pour fermer</string>
+    <string name="salle_amphi_107_60">Salle : Amphi 107 (60)</string>
+    <string name="enseignant_m_azerty">Enseignant : M. Azerty</string>
+    <string name="groupe_3_mic_d">Groupe : 3 MIC D</string>
+    <string name="dur_e_1h15_11h00_12h15">Durée : 1H15 (11H00 - 12H15)</string>
+    <string name="date_mardi_17_septembre_2013">Date : Mardi 17 Septembre 2013</string>
+    <string name="_2i666b_thermo_wesh">2I666B Thermo wesh !</string>
+    <string name="nom_du_groupe">Nom du groupe</string>
+    <string name="id">ID</string>
+    <string name="placeholder_UFtitle">IUTRFER MATH 1</string>
+    <string name="placeholder_time">14H00-15H15 Amphi 106 () 60</string>
+    <string name="placeholder_chiffre">124</string>
+    <string name="placeholder_class">MIC</string>
+    <string name="clicktoerase">clic long pour supprimer</string>
+    <string name="create_group">Créer un groupe</string>
+    <string name="maj">Mettre à jour</string>
+    <string name="retirer_de_ma_liste">Retirer de ma liste</string>
+    <string name="placeholder_date">Jour\t01.01.1970</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="titre_du_widget">Titre du widget</string>
+    <string name="create_widget">Créer widget</string>
+    <string name="groupes">Groupes :</string>
+</resources>

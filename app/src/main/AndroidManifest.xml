@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.insat.info.club.planexv2"
+          android:versionCode="6"
+          android:versionName="2.1.1" >
+
+    <uses-sdk
+            android:minSdkVersion="15"
+            android:targetSdkVersion="26" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <application
+            android:allowBackup="true"
+            android:icon="@drawable/planex"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar">
+        <activity
+                android:name="com.insat.info.club.planexv2.ScheduleActivity"
+                android:label="@string/app_name"
+                android:configChanges="orientation|screenSize|keyboardHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activité de configuration du widget -->
+        <activity
+                android:name="com.insat.info.club.planexv2.widget.WidgetConfigureActivity"
+                android:label="Nouveau widget"
+                android:enabled="@bool/widget_enabled" >
+
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name="com.insat.info.club.planexv2.widget.WidgetProvider"
+                  android:enabled="@bool/widget_enabled">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.insat.info.club.planexv2.DATA_FETCHED" />
+            </intent-filter>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_info" />
+        </receiver>
+
+        <service
+                android:enabled="@bool/widget_enabled"
+                android:name="com.insat.info.club.planexv2.widget.WidgetService"
+                android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service
+                android:name="com.insat.info.club.planexv2.widget.FetchService"/>
+    </application>
+
+</manifest>

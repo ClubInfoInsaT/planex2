@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+   		 android:minWidth="110dp"
+   		 android:minHeight="110dp"
+   		 android:resizeMode="vertical|horizontal"
+   		 android:updatePeriodMillis="21600000"
+   		 android:initialLayout="@layout/widget"
+   		 android:configure="com.insat.info.club.planexv2.widget.WidgetConfigureActivity"
+   		 android:previewImage="@drawable/planex"
+   		 android:minResizeWidth="110dip"
+   		 android:minResizeHeight="40dip"
+   		 android:initialKeyguardLayout="@layout/widget"
+   		 android:widgetCategory="home_screen">
+</appwidget-provider>

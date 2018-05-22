@@ -1,0 +1,14 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<resources>
+    <integer name="groups_xml_version">2</integer>
+	<integer-array name="group_id_1">
+	</integer-array>
+	<integer-array name="group_id_2">
+	</integer-array>
+	<integer-array name="group_id_3">
+	</integer-array>
+	<integer-array name="group_id_4">
+	</integer-array>
+	<integer-array name="group_id_5">
+	</integer-array>
+</resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/toolbar_background"
+        android:gravity="center_vertical"
+        android:padding="3dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Groupes : "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/b_add_group_widget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_text"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="Ajouter" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.5"
+        android:background="#111" >
+
+        <LinearLayout
+            android:id="@+id/ll_widget_group_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/toolbar_background"
+        android:gravity="center_vertical"
+        android:padding="3dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Titre du widget :"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/et_title_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Titre du widget" >
+
+        <requestFocus />
+    </EditText>
+
+    <ImageView
+        android:id="@+id/iv_ee6"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ee_tt0" />
+
+    <Button
+        android:id="@+id/b_create_widget"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Créer widget" />
+
+</LinearLayout>

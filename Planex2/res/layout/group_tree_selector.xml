@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    
+    <LinearLayout
+        android:id="@+id/ll_group_title"
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        
+	    <HorizontalScrollView
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:scrollbars="none"
+	        android:overScrollMode="never">
+
+		    <LinearLayout
+		        android:id="@+id/ll_group_path"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal" >
+		        
+		        <!-- path -->
+		    	    
+		    </LinearLayout>
+	    </HorizontalScrollView>
+	    
+	    <ImageButton
+	        android:id="@+id/ib_group_delete"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@android:drawable/ic_menu_delete"
+	        android:contentDescription="Retirer de ma liste"/>
+	    
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_groups_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+	    android:layout_marginBottom="5dp">
+        
+        <!-- élément de la liste : text [+ id] + bouton 'supprimer'  -->
+        
+    </ListView>
+    
+    
+    <LinearLayout
+        android:id="@+id/ll_group_tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+        
+        <Button 
+            android:id="@+id/b_group_list_update"
+            android:text="Mettre à jour"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:visibility="visible"/>
+        <Button 
+            android:id="@+id/b_group_list_add"
+            android:text="Créer un groupe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"/>
+    	    
+    </LinearLayout>
+</LinearLayout>

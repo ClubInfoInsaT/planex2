@@ -57,8 +57,7 @@ public class WidgetConfigureActivity extends Activity implements OnGroupSelected
 		Bundle extras = getIntent().getExtras();
 		if(extras != null)
 			mAppWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-		
-		// On abandonne la cofiguration si on a pas d'ID de widget valide
+		// On abandonne la configuration si on a pas d'ID de widget valide
 		if(mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID)
 			finish();
 		else {

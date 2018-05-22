@@ -2,10 +2,11 @@
 <resources>
     <string name="description">Application d\'emploi du temps INSAT</string>
     <string name="app_name">Planex</string>
-    <string name="cache_version">2</string><!-- premier changement du format du cache (ajout de date de mise en cache) ; à augmenter pour chaque nouvelle version -->
-	<string name="menu_next">Semaine suivante</string>
-	<string name="menu_back">Semaine précédante</string>
-	<string name="menu_groupe">Choix du groupe</string>
+    <string name="cache_version">2
+    </string><!-- premier changement du format du cache (ajout de date de mise en cache) ; à augmenter pour chaque nouvelle version -->
+    <string name="menu_next">Semaine suivante</string>
+    <string name="menu_back">Semaine précédante</string>
+    <string name="menu_groupe">Choix du groupe</string>
     <string name="widget_title">Widget Planex</string>
     <string name="img_description">trololo</string>
     <string name="plus_signe">+</string>
@@ -32,4 +33,6 @@
     <string name="titre_du_widget">Titre du widget</string>
     <string name="create_widget">Créer widget</string>
     <string name="groupes">Groupes :</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

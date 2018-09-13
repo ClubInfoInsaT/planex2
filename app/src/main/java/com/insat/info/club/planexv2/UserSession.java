@@ -38,7 +38,7 @@ public class UserSession {
 		mRelWeek = 0;
 		load(context);
 	}
-	/** Lance la session utitlisateur par défaut **/
+	/** Lance la session utilisateur par défaut **/
 	UserSession(Context context) {
 		mName = defaultSessionName;
 		mRelWeek = 0;

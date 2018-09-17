@@ -1,29 +1,19 @@
 package com.insat.info.club.planexv2;
 
-import java.util.GregorianCalendar;
-
 import android.content.res.Configuration;
 import android.graphics.Matrix;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
+import android.view.animation.*;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationSet;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.ScaleAnimation;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
+import android.widget.*;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.TextView;
-
-import com.insat.info.club.planexv2.R;
 import com.insat.info.club.planexv2.Schedule.ScheduleEntry;
 import com.insat.info.club.planexv2.XYScrollView.OnPullListener;
 import com.insat.info.club.planexv2.XYScrollView.OnScrollChangedListener;
+
+import java.util.GregorianCalendar;
 
 /**
  * Gestion de l'interface liée au tableau de la semaine.

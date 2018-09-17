@@ -10,7 +10,7 @@ import android.util.SparseArray;
  * @author Proïd
  *
  */
-public class AsyncScheduleLoader extends AsyncTask<ScheduleRequest, Void, Schedule> /*TODO change that*/ {
+public class AsyncScheduleLoader extends AsyncTask<ScheduleRequest, Void, Schedule>
 	private ScheduleActivity mActivity;
 	
 	public AsyncScheduleLoader(ScheduleActivity activity) {

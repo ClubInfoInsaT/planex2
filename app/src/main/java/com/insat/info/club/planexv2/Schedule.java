@@ -1,11 +1,12 @@
 package com.insat.info.club.planexv2;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.GregorianCalendar;
-
 import android.content.Context;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.GregorianCalendar;
 
 /**
  * 
@@ -26,8 +27,6 @@ public class Schedule {
 	private final ScheduleRequest mRequest;
 	/** Indique si cet emploi doit être affiché **/
 	private final boolean mShow;
-	
-	
 	/** Construit l'emploi de temps de la semaine à partir du cache **/
 	public Schedule(ScheduleRequest request, Context context, boolean show) {
 		mRequest = request;
@@ -42,7 +41,7 @@ public class Schedule {
 		
 		for(int day = 0; day < 5; day++) {
 			mEntries[day] = new ArrayList<>();
-			
+
 			// Simplification des cours en commun et tri
 			for(int g = groups.size()-1; g >= 0; g--) {
 				WeekEntries we = Cache.getWeekEntries(week, groups.get(g), context);
@@ -51,7 +50,7 @@ public class Schedule {
 				
 				if(we != null && mShow) {
 					for(Entry e : we.getEntries(day)) {
-						ScheduleEntry se = new ScheduleEntry(e, g+1, groups);
+						ScheduleEntry se = new ScheduleEntry(e,g+1, groups,groups.get(g),g);
 						int index = Collections.binarySearch(mEntries[day], se);
 						// Cours commun : ajout du numéro du groupe
 						if(index >= 0)
@@ -70,7 +69,7 @@ public class Schedule {
 			// Structure temporaire pour un algo qui trou l'cul
 			ArrayList<ArrayList<ScheduleEntry>> set = new ArrayList<ArrayList<ScheduleEntry>>();
 
-			// Calcul du nombre max de colonne requis
+			// Calcul du nombre max de colonne requis par jour
 			for(ScheduleEntry se : mEntries[day]) {
 				boolean done = false;
 				ArrayList<ScheduleEntry> target = null;
@@ -107,6 +106,7 @@ public class Schedule {
 			for(int i = 1; i < set.size(); i++) {
 				for(ScheduleEntry se : set.get(i)) {
 					int jmax = 0;
+					float interm;
 					for(int j = 1; i-j >= 0; j++)
 					for(ScheduleEntry se2 : set.get(i-j)) {
 						if(se2.entry.getStartTime() >= se.entry.getEndTime())
@@ -114,11 +114,22 @@ public class Schedule {
 						else if(!(se2.entry.getEndTime() <= se.entry.getStartTime())) {
 							if(se.position < se2.position + se2.width) {
 								se.position = se2.position + se2.width;
-								//jmax = j;
 							}
 						}
 					}
 					se.width = se.columnWidth * (1.0f-se.position) / (se.minColumnCount - jmax);
+				}
+			}
+			String str="";
+			for (ArrayList ar:set) {
+				str+=set.indexOf(ar);
+			}
+			for(int i = 0; i<set.size();i++ ) {
+				for(ScheduleEntry se : set.get(i)) {
+					float position_step=1.0f/se.groupMax;
+					se.width=position_step;
+					int my_position=se.ordre;
+					se.position=((float)my_position)*position_step;
 				}
 			}
 		}
@@ -134,7 +145,6 @@ public class Schedule {
 		for(int i = 0; i < 5; i++)
 			if(!mEntries[i].isEmpty())
 				return false;
-
 		return true;
 	}
 	
@@ -219,14 +229,20 @@ public class Schedule {
 		private float position = 0.0f; // max col[i-1].(position+width)
 		/** Largeur de la case dans une colonne. Largeur d'une colonne = 1.0f **/
 		private float width = 1.0f;// (widthMax - position) / minColumnCount
-		
-		public ScheduleEntry(Entry e, int g, ArrayList<Integer> groupId) {
+		/** Ordre d'apparition dans la colonne */
+		private int groupe;
+		private int ordre;
+
+		public ScheduleEntry(Entry e, int g, ArrayList<Integer> groupId,int grp,int ordre) {
 			entry = e;
 			groupRef = new ArrayList<>();
 			groupRef.add(g);
 			groupMax = groupId.size();
 			this.groupId = groupId;
+			this.groupe=grp;
+			this.ordre=ordre;
 		}
+
 		/** Ajoute un numéro de groupe dans la liste triée **/
 		public void addGroupRef(int g) {
 			groupRef.add(-1-Collections.binarySearch(groupRef, (Integer)g), g);
@@ -269,5 +285,15 @@ public class Schedule {
 				return diff;*/
 			return this.entry.compareTo(another.entry);
 		}
+
+		@Override
+		public String toString() {
+			return "ScheduleEntry{" + "entry=" + entry + ", groupRef=" + groupRef + ", groupId=" + groupId + ", groupMax=" + groupMax + ", minColumnCount=" + minColumnCount + ", columnWidth=" + columnWidth + ", position=" + position + ", width=" + width + ", groupe=" + groupe + ", ordre=" + ordre + '}';
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Schedule{" + "mEntries=" + Arrays.toString(mEntries) + ", mMondayDate=" + mMondayDate + ", mWeekEntries=" + mWeekEntries + ", mRequest=" + mRequest + ", mShow=" + mShow + '}';
 	}
 }

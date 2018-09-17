@@ -149,7 +149,6 @@ public class ScheduleRetriever {
 			week = 52;
 		try {
 			URL plan=new URL("https://www.etud.insa-toulouse.fr/planning_api/index.php?gid="+sb.toString()+"&wid="+week+"&ics=1&planex=2");
-			Log.d("PlannexURL",plan.toString());
 			return plan;
 		} catch (MalformedURLException e) {
 			return null;

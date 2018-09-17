@@ -26,7 +26,7 @@ public class Entry implements Comparable<Entry> {
 	private int mColor = 0xFFB6B6B6; // par défaut : gris
 	/** Date du jour, utilisée dans la fenêtre pop-up. **/
 	private int mDay, mDayOfMonth, mMonth, mYear;
-	
+
 	public Entry() {
 	}
 	
@@ -208,5 +208,10 @@ public class Entry implements Comparable<Entry> {
 	}
 	public GregorianCalendar getDate() {
 		return DateUtils.get(mYear, mMonth, mDayOfMonth, 0, 0);
+	}
+
+	@Override
+	public String toString() {
+		return "Entry{" + "mSummary='" + mSummary + '\'' + ", mRoom='" + mRoom + '\'' + ", mProfessor='" + mProfessor + '\'' + ", mStartTime=" + mStartTime + ", mEndTime=" + mEndTime + ", mColor=" + mColor + ", mDay=" + mDay + ", mDayOfMonth=" + mDayOfMonth + ", mMonth=" + mMonth + ", mYear=" + mYear + '}';
 	}
 }

@@ -6,6 +6,7 @@ package com.insat.info.club.planexv2;
  * @author Proïd
  *
  */
+
 abstract public class GroupSelectorView {
 	protected OnGroupSelectedListener mGroupSelectedListener;
 	protected int mTarget; // id de la cible
@@ -15,7 +16,7 @@ abstract public class GroupSelectorView {
 	public void setOnGroupSelectedListener(OnGroupSelectedListener listener) {
 		mGroupSelectedListener = listener;
 	}
-	
+
 	public interface OnGroupSelectedListener {
 		/**
 		 * Listener appelé lors de la sélection d'un groupe

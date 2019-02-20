@@ -47,7 +47,7 @@ public class Cache {
 		try {
 			FileInputStream fis = context.openFileInput(cacheFileName);
 			DataInputStream dis = new DataInputStream(fis);
-			
+
 			// Vérification du format du cache
 			int version = dis.readInt();
 			if(version != currentCacheVersion)

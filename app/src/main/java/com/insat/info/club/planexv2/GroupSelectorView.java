@@ -26,3 +26,4 @@ abstract public class GroupSelectorView {
 		void onGroupSelected(int groupId, int target);
 	}
 }
+

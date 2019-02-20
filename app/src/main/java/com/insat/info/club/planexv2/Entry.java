@@ -1,5 +1,7 @@
 package com.insat.info.club.planexv2;
 
+import android.util.Log;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,19 +37,37 @@ public class Entry implements Comparable<Entry> {
 	protected Entry(DataInputStream dis) throws IOException {
 		byte buffer[] = new byte[512];
 		int length;
-
+//Size_Sumary
+		//Summary
+		//Size_Room
+		//Room
+		//Size_professorName
+		//ProfessorName
+		//StartTime
+		//EndTime
+		//color
+		//day
+		//dayOfMonth
+		//month
+		//year
 		// ClassName
 		length = dis.readInt();
+		length = (length > buffer.length) ? 0:length;
 		dis.read(buffer, 0, length);
 		mSummary = new String(buffer, 0, length);
+
 		// RoomName
 		length = dis.readInt();
+		length = (length > buffer.length) ? 0:length;
 		dis.read(buffer, 0, length);
 		mRoom = new String(buffer, 0, length);
+
 		// ProfessorName
 		length = dis.readInt();
+		length = (length > buffer.length) ? 0:length;
 		dis.read(buffer, 0, length);
 		mProfessor = new String(buffer, 0, length);
+
 		// Horaires
 		mStartTime = dis.readInt();
 		mEndTime = dis.readInt();
@@ -63,7 +83,6 @@ public class Entry implements Comparable<Entry> {
 	 * @throws IOException **/
 	protected void save(DataOutputStream dos) throws IOException {
 		byte[] buffer;
-		
 		// ClassName
 		buffer = mSummary.getBytes();
 		dos.writeInt(buffer.length);
